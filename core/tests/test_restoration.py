@@ -93,6 +93,7 @@ def test_email_restores_page_selection_and_template_context(profile, settings, m
         result = tasks.send_page_email_to_profile(profile.pk)
     assert result.startswith("Successfully sent")
     assert len(mailoutbox) == 1
+    assert mailoutbox[0].from_email == "Rasul from Staleaway <rasul@staleaway.com>"
     html = mailoutbox[0].alternatives[0].content
     assert f"https://staleaway.com/review-page/{expected.pk}/" in html
     assert "About us" in html

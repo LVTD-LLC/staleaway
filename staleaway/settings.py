@@ -284,13 +284,13 @@ if GITHUB_CLIENT_ID != "":
 MAILGUN_API_KEY = env("MAILGUN_API_KEY", default="")
 ANYMAIL = {
     "MAILGUN_API_KEY": MAILGUN_API_KEY,
-    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default="mg.lvtd.dev"),
+    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default="staleaway.com"),
 }
 DEFAULT_FROM_EMAIL = env(
-    "DEFAULT_FROM_EMAIL", default="Rasul from Staleaway <rasul@lvtd.dev>"
+    "DEFAULT_FROM_EMAIL", default="Rasul from Staleaway <rasul@staleaway.com>"
 )
 # User-facing email sender can differ from Django error notifications.
-SERVER_EMAIL = env("SERVER_EMAIL", default="Staleaway Errors <rasul@lvtd.dev>")
+SERVER_EMAIL = env("SERVER_EMAIL", default="Staleaway Errors <rasul@staleaway.com>")
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

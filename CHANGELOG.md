@@ -1,3 +1,8 @@
+# 2026-10-04 — Staleaway email sender
+
+- Default transactional and review-reminder emails to `Rasul from Staleaway <rasul@staleaway.com>`, using the dedicated Mailgun domain. Environment overrides remain supported.
+- Existing accounts use the same global sender; no account or preference migration is required.
+
 # Free access — 2026-10-04
 
 - Make every feature free, with no pricing page, checkout, subscription controls or payment-status messaging.
