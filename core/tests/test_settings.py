@@ -21,12 +21,12 @@ def get_default_from_email(env):
     return result.stdout.strip()
 
 
-def test_default_from_email_uses_lvtd_sender_when_env_is_unset():
+def test_default_from_email_uses_staleaway_sender_when_env_is_unset():
     env = os.environ.copy()
     env["DJANGO_SETTINGS_MODULE"] = "staleaway.settings_test"
     env.pop("DEFAULT_FROM_EMAIL", None)
 
-    assert get_default_from_email(env) == "Rasul from Staleaway <rasul@lvtd.dev>"
+    assert get_default_from_email(env) == "Rasul from Staleaway <rasul@staleaway.com>"
 
 
 def test_default_from_email_can_be_overridden_by_env():

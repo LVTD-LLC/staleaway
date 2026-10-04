@@ -1,3 +1,8 @@
+# 2026-10-04 — Staleaway email sender
+
+- Default transactional and review-reminder emails to `Rasul from Staleaway <rasul@staleaway.com>`, using the dedicated Mailgun domain. Environment overrides remain supported.
+- Existing accounts use the same global sender; no account or preference migration is required.
+
 # 2026-10-04 — PR #8 restoration and Firefox-inspired design
 
 - Restore the PR #8 sitemap/email review product and monthly/yearly billing; remove later agent/agency workflows.
