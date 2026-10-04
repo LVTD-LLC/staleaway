@@ -4,6 +4,8 @@ The Mailgun sending domain is `staleaway.com`. Web and worker use
 `MAILGUN_SENDER_DOMAIN=staleaway.com` and
 `DEFAULT_FROM_EMAIL=Rasul from Staleaway <rasul@staleaway.com>`.
 Use a domain-scoped Mailgun sending key, never a shared account-admin key.
+The production credential and sender configuration are stored in Infisical:
+`Openclaw` / `prod` / `/services/mailgun-staleaway`.
 
 Account confirmation/password-reset emails and scheduled page-review emails use
 this global sender for existing and newly created accounts. User email preferences,
