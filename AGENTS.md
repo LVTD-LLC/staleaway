@@ -61,15 +61,15 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 - Tenant data belongs to `Profile`. User-facing queries for sitemaps, pages, email preferences, feedback, billing, and API mutations must be scoped to `request.user.profile` or `request.auth`.
 - Use soft archive behavior for sitemaps/pages where the current product does. Do not hard-delete user data unless explicitly required.
 - Queue recurring work with Django Q (`async_task`) and existing task modules. Prefer dotted task names where the surrounding code does.
-- Keep review queue behavior deterministic. Preserve cadence windows, `last_review_email_sent_at`, `review_queue_attempts`, `needs_review`, `reviewed`, and `is_active` semantics.
-- Billing state transitions belong in `core.billing`, `core.stripe_webhooks`, and `Profile.track_state_change`. Treat plan aliases, site limits, Stripe metadata, and webhook idempotency as compatibility-sensitive.
+- Preserve PR #8 review-selection behavior and stored review state.
+- Billing uses monthly/yearly plans in `core.views`, `core.stripe_webhooks`, and `Profile.track_state_change`.
 - API endpoints use Django Ninja schemas in `core/api/schemas.py` and auth in `core/api/auth.py`.
 - Log with `get_staleaway_logger(__name__)` and structured key/value context. Avoid sensitive payloads.
 
 ## Frontend Rules
 
 - Templates live under `frontend/templates/` and usually extend `base_app.html` or `base_landing.html`.
-- Styles live in `frontend/src/styles/index.css`. Reuse `pf-*` classes before adding new component CSS.
+- Styles live in `frontend/src/styles/index.css`. Reuse `sa-*` classes before adding new component CSS.
 - Tailwind scans Django templates, frontend JS, and `core/**/*.py` through `tailwind.config.js`.
 - Prefer Stimulus controllers for interactivity. New controllers go in `frontend/src/controllers/` and are auto-loaded from `frontend/src/application/index.js`.
 - Do not add inline `<script>` behavior to templates when a Stimulus controller fits.
@@ -78,14 +78,10 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 
 ## Product Guardrails
 
-- The core loop is sitemap import -> due page queue -> email digest -> review redirect -> reviewed state.
-- The long-term direction is AI-agent-first. Treat email as a current human workflow, not the only interface.
-- Future API and MCP surfaces should expose the same product primitives as the UI: sites/sitemaps, pages, due queues, page selection, review state, notes, and limits.
-- Do not make agents scrape UI pages or parse email digests. Add shared domain behavior and expose it through explicit API/MCP contracts.
-- Do not turn Staleaway into a CMS, broad SEO crawler, generic AI content generator, project management tool, or noisy analytics dashboard.
-- Agencies matter. Preserve client labels, grouped digests, multi-site scanning, and clear plan usage.
-- Email remains useful for humans. Dashboard, API, and MCP features should all support the same recurring review loop.
-- Keep setup practical for small self-hosted/Render deployments.
+- PR #8 is the approved functional baseline. Read `docs/pr8-restoration.md`.
+- Keep the sitemap → email reminder → review-link workflow simple.
+- Do not reintroduce agent APIs, agency billing, client grouping or queue redesign without a new request.
+- Preserve dormant model fields and migration history; no destructive rollback.
 
 ## Security And Privacy
 

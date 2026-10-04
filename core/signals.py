@@ -4,10 +4,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_q.tasks import async_task
 
-from core.choices import SitemapImportStatus
+from staleaway.utils import get_staleaway_logger
 from core.models import EmailPreference, Profile, ProfileStates, Sitemap
 from core.tasks import add_email_to_buttondown
-from staleaway.utils import get_staleaway_logger
 
 logger = get_staleaway_logger(__name__)
 
@@ -53,14 +52,6 @@ def email_confirmation_callback(sender, request, user, **kwargs):
 @receiver(post_save, sender=Sitemap)
 def process_sitemap_on_creation(sender, instance, created, **kwargs):
     if created:
-        if instance.import_status == SitemapImportStatus.PENDING:
-            Sitemap.objects.filter(
-                id=instance.id,
-                import_status=SitemapImportStatus.PENDING,
-            ).update(
-                import_status=SitemapImportStatus.QUEUED,
-                last_import_message="Queued for initial import",
-            )
         async_task(
             "core.tasks.process_sitemap_pages",
             sitemap_id=instance.id,

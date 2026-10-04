@@ -1,3 +1,5 @@
+> Current product baseline: PR #8, restored 2026-10-04. See [restoration notes](docs/pr8-restoration.md); later agent/agency/queue descriptions below are historical, not active features.
+
 # Project Structure
 
 ## Root

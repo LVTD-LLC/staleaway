@@ -1,4 +1,5 @@
 import json
+import xml.etree.ElementTree as ET
 import zoneinfo
 from datetime import time
 from urllib.parse import unquote, urlparse
@@ -7,12 +8,12 @@ import posthog
 import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
-from django.db.models import Count, Q
+from django.db.models import Count
 from django.utils import timezone
 from django_q.tasks import async_task
 
-from core.models import Profile
 from staleaway.utils import get_staleaway_logger
+from core.models import Profile
 
 logger = get_staleaway_logger(__name__)
 
@@ -25,7 +26,7 @@ def add_email_to_buttondown(email, tag):
         "email_address": str(email),
         "metadata": {"source": tag},
         "tags": [tag],
-        "referrer_url": settings.SITE_URL,
+        "referrer_url": "https://staleaway.com",
         "type": "regular",
     }
 
@@ -145,14 +146,12 @@ def track_state_change(
     return f"Tracked state change from {from_state} to {to_state} for profile {profile_id}"
 
 
-def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:
+def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # noqa: C901
+    """
+    TODO: Refactor this function to reduce complexity.
+    Consider extracting helper functions for validation, sitemap fetching, and page creation.
+    """
     from core.models import Page, Sitemap
-    from core.review_primitives import (
-        mark_sitemap_import_failed,
-        mark_sitemap_import_running,
-        mark_sitemap_import_succeeded,
-    )
-    from core.utils import extract_urls_from_sitemap
 
     try:
         sitemap = Sitemap.objects.get(id=sitemap_id)
@@ -161,29 +160,108 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:
 
     pages_created = 0
     pages_skipped = 0
+    sitemaps_processed = 0
+    visited_urls = set()
+
+    def fetch_and_parse_sitemap(sitemap_url: str, depth: int = 0) -> tuple[int, int, int]:  # noqa: C901
+        nonlocal pages_created, pages_skipped, sitemaps_processed, visited_urls
+
+        if depth > 10:
+            logger.warning(
+                "Max recursion depth reached",
+                sitemap_id=sitemap_id,
+                sitemap_url=sitemap_url,
+                depth=depth,
+            )
+            return pages_created, pages_skipped, sitemaps_processed
+
+        if sitemaps_processed >= max_sitemaps:
+            logger.warning(
+                "Max sitemaps limit reached",
+                sitemap_id=sitemap_id,
+                max_sitemaps=max_sitemaps,
+            )
+            return pages_created, pages_skipped, sitemaps_processed
+
+        if sitemap_url in visited_urls:
+            logger.warning(
+                "Circular reference detected",
+                sitemap_id=sitemap_id,
+                sitemap_url=sitemap_url,
+            )
+            return pages_created, pages_skipped, sitemaps_processed
+
+        visited_urls.add(sitemap_url)
+
+        try:
+            response = requests.get(sitemap_url, timeout=30)
+            response.raise_for_status()
+        except requests.RequestException as e:
+            logger.error(
+                "Failed to fetch sitemap",
+                sitemap_id=sitemap_id,
+                sitemap_url=sitemap_url,
+                error=str(e),
+                exc_info=True,
+            )
+            raise
+
+        try:
+            root = ET.fromstring(response.content)
+            namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
+            nested_sitemaps = root.findall(".//ns:sitemap/ns:loc", namespace)
+            if not nested_sitemaps:
+                nested_sitemaps = root.findall(".//sitemap/loc")
+
+            if nested_sitemaps:
+                logger.info(
+                    "Found nested sitemaps",
+                    sitemap_id=sitemap_id,
+                    parent_sitemap_url=sitemap_url,
+                    nested_count=len(nested_sitemaps),
+                    depth=depth,
+                )
+                for nested_sitemap_element in nested_sitemaps:
+                    nested_url = nested_sitemap_element.text
+                    if nested_url:
+                        sitemaps_processed += 1
+                        fetch_and_parse_sitemap(nested_url, depth + 1)
+                return pages_created, pages_skipped, sitemaps_processed
+
+            urls = root.findall(".//ns:url/ns:loc", namespace)
+            if not urls:
+                urls = root.findall(".//url/loc")
+
+            for url_element in urls:
+                url = url_element.text
+                if not url:
+                    continue
+
+                existing_page = Page.objects.filter(sitemap=sitemap, url=url).first()
+
+                if existing_page:
+                    pages_skipped += 1
+                    continue
+
+                Page.objects.create(profile=sitemap.profile, sitemap=sitemap, url=url)
+                pages_created += 1
+
+            return pages_created, pages_skipped, sitemaps_processed
+
+        except ET.ParseError as e:
+            logger.error(
+                "Failed to parse sitemap XML",
+                sitemap_id=sitemap_id,
+                sitemap_url=sitemap_url,
+                error=str(e),
+                exc_info=True,
+            )
+            raise
 
     try:
-        mark_sitemap_import_running(sitemap, "Initial import running")
-
-        response = requests.get(sitemap.sitemap_url, timeout=30)
-        response.raise_for_status()
-
-        parse_stats = {"sitemaps_processed": 1, "fetch_errors": 0}
-        found_urls = extract_urls_from_sitemap(
-            response.content,
-            sitemap_id=sitemap_id,
-            max_sitemaps=max_sitemaps,
-            visited_urls={sitemap.sitemap_url},
-            stats=parse_stats,
-        )
-
-        existing_page_urls = set(Page.objects.filter(sitemap=sitemap).values_list("url", flat=True))
-        new_urls = found_urls - existing_page_urls
-        pages_skipped = len(found_urls & existing_page_urls)
-
-        for url in sorted(new_urls):
-            Page.objects.create(profile=sitemap.profile, sitemap=sitemap, url=url)
-            pages_created += 1
+        sitemaps_processed = 1
+        fetch_and_parse_sitemap(sitemap.sitemap_url)
 
         logger.info(
             "Sitemap processing complete",
@@ -191,22 +269,12 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:
             sitemap_url=sitemap.sitemap_url,
             pages_created=pages_created,
             pages_skipped=pages_skipped,
-            sitemaps_processed=parse_stats["sitemaps_processed"],
-            nested_fetch_errors=parse_stats["fetch_errors"],
+            sitemaps_processed=sitemaps_processed,
         )
 
-        message = (
-            f"Processed sitemap {sitemap_id}: created {pages_created} pages, "
-            f"skipped {pages_skipped} existing pages, "
-            f"processed {parse_stats['sitemaps_processed']} sitemap(s)"
-        )
-        if parse_stats["fetch_errors"]:
-            message += f", {parse_stats['fetch_errors']} nested sitemap fetch/parse error(s)"
-        mark_sitemap_import_succeeded(sitemap, message)
-        return message
+        return f"Processed sitemap {sitemap_id}: created {pages_created} pages, skipped {pages_skipped} existing pages, processed {sitemaps_processed} sitemap(s)"  # noqa: E501
 
     except Exception as e:
-        mark_sitemap_import_failed(sitemap, f"Failed to process sitemap: {str(e)}")
         logger.error(
             "Sitemap processing failed",
             sitemap_id=sitemap_id,
@@ -337,45 +405,35 @@ def fetch_page_metadata(url: str) -> dict:
         return {}
 
 
-def send_page_email_to_profile(profile_id: int) -> str:  # noqa: C901
+def send_page_email_to_profile(profile_id: int) -> str:
     from django.core.mail import EmailMultiAlternatives
     from django.template.loader import render_to_string
     from django.urls import reverse
     from django.utils.html import strip_tags
 
-    from core.email_digest import build_client_groups, get_digest_period_label
-    from core.models import EmailPreference, EmailSent, Profile, Sitemap
-    from core.review_queue import get_due_pages_queryset, reserve_pages_for_review
+    from core.models import EmailPreference, EmailSent, Page, Profile, Sitemap
 
     try:
         profile = Profile.objects.get(id=profile_id)
     except Profile.DoesNotExist:
         return f"Profile with id {profile_id} not found."
 
-    active_sitemaps = list(Sitemap.objects.filter(profile=profile, is_active=True))
+    sitemaps = Sitemap.objects.filter(profile=profile)
 
-    if not active_sitemaps:
+    if not sitemaps.exists():
         return f"No sitemaps found for profile {profile_id}."
-
-    cadences = {sitemap.review_cadence for sitemap in active_sitemaps}
-    digest_period_label = get_digest_period_label(cadences)
 
     sitemaps_with_pages = []
     total_pages_collected = 0
-    total_due_pages = 0
-    sites_with_due_pages = 0
 
-    for sitemap in active_sitemaps:
-        due_pages_count = get_due_pages_queryset(sitemap).count()
-        total_due_pages += due_pages_count
-        if due_pages_count > 0:
-            sites_with_due_pages += 1
+    for sitemap in sitemaps:
+        unreviewed_pages = Page.objects.filter(
+            sitemap=sitemap, reviewed=False, needs_review=True
+        ).order_by("?")[: sitemap.pages_per_review]
 
-        pages_for_review = reserve_pages_for_review(sitemap)
-
-        if pages_for_review:
+        if unreviewed_pages.exists():
             pages_list = []
-            for page in pages_for_review:
+            for page in unreviewed_pages:
                 metadata = fetch_page_metadata(page.url)
 
                 page.title = metadata.get("title")
@@ -398,48 +456,27 @@ def send_page_email_to_profile(profile_id: int) -> str:  # noqa: C901
                 pages_list.append(page)
 
             sitemaps_with_pages.append(
-                {
-                    "sitemap": sitemap,
-                    "pages": pages_list,
-                    "pages_count": len(pages_list),
-                    "due_pages_count": due_pages_count,
-                }
+                {"sitemap": sitemap, "pages": pages_list, "pages_count": len(pages_list)}
             )
             total_pages_collected += len(pages_list)
 
     if not sitemaps_with_pages:
         return f"No unreviewed pages found for profile {profile_id}."
 
-    client_groups = build_client_groups(sitemaps_with_pages)
-
     context = {
         "profile": profile,
         "user": profile.user,
-        "client_groups": client_groups,
         "sitemaps_with_pages": sitemaps_with_pages,
         "total_sitemaps": len(sitemaps_with_pages),
-        "total_active_sites": len(active_sitemaps),
-        "total_clients": len(client_groups),
-        "sites_with_due_pages": sites_with_due_pages,
-        "total_due_pages": total_due_pages,
         "total_pages": total_pages_collected,
-        "digest_period_label": digest_period_label,
-        "is_weekly_summary": digest_period_label == "Weekly summary",
     }
 
     html_content = render_to_string("emails/page_review.html", context)
     text_content = strip_tags(html_content)
 
-    if digest_period_label == "Weekly summary":
-        subject = f"Weekly Summary: {total_due_pages} Due Page{'s' if total_due_pages != 1 else ''}"
-    elif digest_period_label == "Monthly summary":
-        subject = (
-            f"Monthly Summary: {total_due_pages} Due Page{'s' if total_due_pages != 1 else ''}"
-        )
-    else:
-        subject = (
-            f"Time to Review {total_pages_collected} Page{'s' if total_pages_collected > 1 else ''}"
-        )
+    subject = (
+        f"Time to Review {total_pages_collected} Page{'s' if total_pages_collected > 1 else ''}"
+    )
 
     email_preferences = EmailPreference.objects.filter(profile=profile, enabled=True).values_list(
         "email_address", flat=True
@@ -465,11 +502,7 @@ def send_page_email_to_profile(profile_id: int) -> str:  # noqa: C901
             "Page review email sent",
             email=profile.user.email,
             profile_id=profile_id,
-            digest_period_label=digest_period_label,
             total_sitemaps=len(sitemaps_with_pages),
-            total_active_sites=len(active_sitemaps),
-            total_clients=len(client_groups),
-            total_due_pages=total_due_pages,
             total_pages=total_pages_collected,
             recipient_count=len(recipient_list),
             recipients=recipient_list,
@@ -490,9 +523,9 @@ def schedule_review_emails() -> str:
     from core.models import EmailSent, Profile
     from core.utils import should_send_email_to_profile
 
-    profiles_with_sitemaps = Profile.objects.annotate(
-        sitemap_count=Count("sitemap", filter=Q(sitemap__is_active=True))
-    ).filter(sitemap_count__gt=0)
+    profiles_with_sitemaps = Profile.objects.annotate(sitemap_count=Count("sitemap")).filter(
+        sitemap_count__gt=0
+    )
 
     emails_scheduled = 0
     profiles_checked = 0
@@ -538,57 +571,8 @@ def schedule_review_emails() -> str:
     return f"Checked {profiles_checked} profiles, scheduled {emails_scheduled} emails"
 
 
-def _deactivate_removed_pages_after_reparse(sitemap, removed_urls, parse_stats) -> int:
-    if not removed_urls:
-        return 0
-
-    if parse_stats["fetch_errors"]:
-        skipped_removed_count = len(removed_urls)
-        logger.warning(
-            "Skipped marking pages inactive after incomplete sitemap fetch",
-            sitemap_id=sitemap.id,
-            sitemap_url=sitemap.sitemap_url,
-            removed_count=skipped_removed_count,
-            nested_fetch_errors=parse_stats["fetch_errors"],
-        )
-        return skipped_removed_count
-
-    sitemap.pages.filter(url__in=removed_urls).update(is_active=False, updated_at=timezone.now())
-    logger.info(
-        "Pages no longer in sitemap marked as inactive",
-        sitemap_id=sitemap.id,
-        sitemap_url=sitemap.sitemap_url,
-        removed_count=len(removed_urls),
-    )
-    return 0
-
-
-def _reactivate_found_pages_after_reparse(sitemap, existing_page_urls, found_urls) -> None:
-    still_active_urls = existing_page_urls & found_urls
-    if not still_active_urls:
-        return
-
-    pages_to_reactivate = sitemap.pages.filter(url__in=still_active_urls, is_active=False)
-    reactivated_count = pages_to_reactivate.count()
-    if reactivated_count <= 0:
-        return
-
-    pages_to_reactivate.update(is_active=True, updated_at=timezone.now())
-    logger.info(
-        "Pages reactivated (were previously marked inactive)",
-        sitemap_id=sitemap.id,
-        sitemap_url=sitemap.sitemap_url,
-        reactivated_count=reactivated_count,
-    )
-
-
 def reparse_sitemap(sitemap_id: int) -> str:
     from core.models import Page, Sitemap
-    from core.review_primitives import (
-        mark_sitemap_import_failed,
-        mark_sitemap_import_running,
-        mark_sitemap_import_succeeded,
-    )
     from core.utils import extract_urls_from_sitemap
 
     try:
@@ -597,6 +581,7 @@ def reparse_sitemap(sitemap_id: int) -> str:
         return f"Sitemap with id {sitemap_id} not found."
 
     sitemap_url = sitemap.sitemap_url
+
     logger.info(
         "Starting sitemap reparse",
         sitemap_id=sitemap_id,
@@ -604,8 +589,6 @@ def reparse_sitemap(sitemap_id: int) -> str:
     )
 
     try:
-        mark_sitemap_import_running(sitemap, "Refresh running")
-
         response = requests.get(sitemap_url, timeout=30)
         response.raise_for_status()
     except requests.RequestException as e:
@@ -616,21 +599,13 @@ def reparse_sitemap(sitemap_id: int) -> str:
             error=str(e),
         )
         sitemap.is_active = False
-        sitemap.save(update_fields=["is_active", "updated_at"])
-        message = f"Sitemap {sitemap_id} marked as inactive (not accessible)"
-        mark_sitemap_import_failed(sitemap, message)
-        return message
+        sitemap.save(update_fields=["is_active"])
+        return f"Sitemap {sitemap_id} marked as inactive (not accessible)"
 
     existing_page_urls = set(Page.objects.filter(sitemap=sitemap).values_list("url", flat=True))
 
     try:
-        parse_stats = {"sitemaps_processed": 1, "fetch_errors": 0}
-        found_urls = extract_urls_from_sitemap(
-            response.content,
-            sitemap_id=sitemap_id,
-            visited_urls={sitemap_url},
-            stats=parse_stats,
-        )
+        found_urls = extract_urls_from_sitemap(response.content, sitemap_id=sitemap_id)
 
         new_urls = found_urls - existing_page_urls
         new_pages_found = 0
@@ -645,10 +620,30 @@ def reparse_sitemap(sitemap_id: int) -> str:
                 )
 
         removed_urls = existing_page_urls - found_urls
-        skipped_removed_count = _deactivate_removed_pages_after_reparse(
-            sitemap, removed_urls, parse_stats
-        )
-        _reactivate_found_pages_after_reparse(sitemap, existing_page_urls, found_urls)
+        if removed_urls:
+            pages_to_mark = Page.objects.filter(sitemap=sitemap, url__in=removed_urls)
+            pages_to_mark.update(is_active=False)
+            logger.info(
+                "Pages no longer in sitemap marked as inactive",
+                sitemap_id=sitemap_id,
+                sitemap_url=sitemap_url,
+                removed_count=len(removed_urls),
+            )
+
+        still_active_urls = existing_page_urls & found_urls
+        if still_active_urls:
+            pages_to_reactivate = Page.objects.filter(
+                sitemap=sitemap, url__in=still_active_urls, is_active=False
+            )
+            reactivated_count = pages_to_reactivate.count()
+            if reactivated_count > 0:
+                pages_to_reactivate.update(is_active=True)
+                logger.info(
+                    "Pages reactivated (were previously marked inactive)",
+                    sitemap_id=sitemap_id,
+                    sitemap_url=sitemap_url,
+                    reactivated_count=reactivated_count,
+                )
 
         logger.info(
             "Sitemap reparsed successfully",
@@ -656,24 +651,15 @@ def reparse_sitemap(sitemap_id: int) -> str:
             sitemap_url=sitemap_url,
             new_pages=new_pages_found,
             removed_pages=len(removed_urls),
-            skipped_removed_pages=skipped_removed_count,
-            sitemaps_processed=parse_stats["sitemaps_processed"],
-            nested_fetch_errors=parse_stats["fetch_errors"],
         )
 
-        marked_removed_count = len(removed_urls) - skipped_removed_count
-        message = (
+        return (
             f"Reparsed sitemap {sitemap_id}: "
             f"found {new_pages_found} new pages, "
-            f"marked {marked_removed_count} pages as inactive"
+            f"marked {len(removed_urls)} pages as inactive"
         )
-        if skipped_removed_count:
-            message += f", skipped {skipped_removed_count} inactive update(s) after sitemap errors"
-        mark_sitemap_import_succeeded(sitemap, message)
-        return message
 
     except Exception as e:
-        mark_sitemap_import_failed(sitemap, f"Failed to reparse sitemap {sitemap_id}: {str(e)}")
         logger.error(
             "Failed to reparse sitemap",
             sitemap_id=sitemap_id,

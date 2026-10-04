@@ -10,46 +10,44 @@ from django.test import RequestFactory
 from staleaway.middleware import CanonicalHostMiddleware
 
 
-def test_upgrade_keeps_storage_queue_and_billing_limits():
+def test_upgrade_keeps_storage_and_queue():
     env = os.environ.copy()
-    for key in ["AWS_S3_BUCKET_NAME", "Q_CLUSTER_NAME", "STALEAWAY_FREE_SITE_LIMIT"]:
+    for key in ["AWS_S3_BUCKET_NAME", "Q_CLUSTER_NAME"]:
         env.pop(key, None)
     env.update(
         DJANGO_SETTINGS_MODULE="staleaway.settings_test",
         ENVIRONMENT="prod",
-        CLEANAPP_FREE_SITE_LIMIT="9",
     )
     result = subprocess.run(
         [
             sys.executable,
             "-c",
             "import json; from staleaway import settings as s; "
-            "print(json.dumps([s.folder_name, s.Q_CLUSTER['name'], s.STALEAWAY_FREE_SITE_LIMIT]))",
+            "print(json.dumps([s.folder_name, s.Q_CLUSTER['name']]))",
         ],
         env=env,
         capture_output=True,
         text=True,
         check=True,
     )
-    assert json.loads(result.stdout) == ["cleanapp-prod", "cleanapp-q", 9]
+    assert json.loads(result.stdout) == ["cleanapp-prod", "cleanapp-q"]
     env.update(
         AWS_S3_BUCKET_NAME="existing-media",
         Q_CLUSTER_NAME="existing-queue",
-        STALEAWAY_FREE_SITE_LIMIT="12",
     )
     result = subprocess.run(
         [
             sys.executable,
             "-c",
             "import json; from staleaway import settings as s; "
-            "print(json.dumps([s.folder_name, s.Q_CLUSTER['name'], s.STALEAWAY_FREE_SITE_LIMIT]))",
+            "print(json.dumps([s.folder_name, s.Q_CLUSTER['name']]))",
         ],
         env=env,
         capture_output=True,
         text=True,
         check=True,
     )
-    assert json.loads(result.stdout) == ["existing-media", "existing-queue", 12]
+    assert json.loads(result.stdout) == ["existing-media", "existing-queue"]
 
 
 @pytest.mark.parametrize("method", ["get", "head"])

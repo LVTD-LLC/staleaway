@@ -2,9 +2,7 @@ import xml.etree.ElementTree as ET
 from datetime import timedelta
 
 import requests
-from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.utils.html import conditional_escape
 
 from staleaway.utils import get_staleaway_logger
 
@@ -28,7 +26,7 @@ class DivErrorList(ErrorList):
                   </svg>
                 </div>
                 <div class="ml-3 text-sm text-red-700">
-                      {"".join(f"<p>{conditional_escape(e)}</p>" for e in self)}
+                      {"".join([f"<p>{e}</p>" for e in self])}
                 </div>
               </div>
             </div>
@@ -49,7 +47,7 @@ def should_send_email_to_profile(profile, last_email_time, current_time_in_user_
     if not last_email_time:
         return True
 
-    sitemaps = Sitemap.objects.filter(profile=profile, is_active=True)
+    sitemaps = Sitemap.objects.filter(profile=profile)
     if not sitemaps.exists():
         return False
 
@@ -67,22 +65,10 @@ def should_send_email_to_profile(profile, last_email_time, current_time_in_user_
     return False
 
 
-def _loc_text(element):
-    return (element.text or "").strip()
-
-
 def extract_urls_from_sitemap(  # noqa: C901
-    sitemap_content: bytes,
-    sitemap_id: int = None,
-    depth: int = 0,
-    max_depth: int = 10,
-    max_sitemaps: int = 100,
-    visited_urls: set[str] | None = None,
-    stats: dict | None = None,
+    sitemap_content: bytes, sitemap_id: int = None, depth: int = 0, max_depth: int = 10
 ) -> set:
     found_urls = set()
-    visited_urls = visited_urls if visited_urls is not None else set()
-    stats = stats if stats is not None else {"sitemaps_processed": 1, "fetch_errors": 0}
 
     if depth > max_depth:
         logger.warning(
@@ -108,51 +94,25 @@ def extract_urls_from_sitemap(  # noqa: C901
                 depth=depth,
             )
             for nested_sitemap_element in nested_sitemaps:
-                nested_url = _loc_text(nested_sitemap_element)
-                if not nested_url:
-                    continue
-
-                if nested_url in visited_urls:
-                    logger.warning(
-                        "Circular sitemap reference skipped",
-                        sitemap_id=sitemap_id,
-                        nested_url=nested_url,
-                        depth=depth,
-                    )
-                    continue
-
-                if stats["sitemaps_processed"] >= max_sitemaps:
-                    logger.warning(
-                        "Max sitemaps limit reached during sitemap parsing",
-                        sitemap_id=sitemap_id,
-                        max_sitemaps=max_sitemaps,
-                    )
-                    break
-
-                visited_urls.add(nested_url)
-                stats["sitemaps_processed"] += 1
-
-                try:
-                    nested_response = requests.get(nested_url, timeout=30)
-                    nested_response.raise_for_status()
-                    nested_urls = extract_urls_from_sitemap(
-                        nested_response.content,
-                        sitemap_id=sitemap_id,
-                        depth=depth + 1,
-                        max_depth=max_depth,
-                        max_sitemaps=max_sitemaps,
-                        visited_urls=visited_urls,
-                        stats=stats,
-                    )
-                    found_urls.update(nested_urls)
-                except (requests.RequestException, ValidationError) as e:
-                    stats["fetch_errors"] += 1
-                    logger.warning(
-                        "Failed to fetch or parse nested sitemap",
-                        sitemap_id=sitemap_id,
-                        nested_url=nested_url,
-                        error=str(e),
-                    )
+                nested_url = nested_sitemap_element.text
+                if nested_url:
+                    try:
+                        nested_response = requests.get(nested_url, timeout=30)
+                        nested_response.raise_for_status()
+                        nested_urls = extract_urls_from_sitemap(
+                            nested_response.content,
+                            sitemap_id=sitemap_id,
+                            depth=depth + 1,
+                            max_depth=max_depth,
+                        )
+                        found_urls.update(nested_urls)
+                    except requests.RequestException as e:
+                        logger.warning(
+                            "Failed to fetch nested sitemap",
+                            sitemap_id=sitemap_id,
+                            nested_url=nested_url,
+                            error=str(e),
+                        )
             return found_urls
 
         urls = root.findall(".//ns:url/ns:loc", namespace)
@@ -160,7 +120,7 @@ def extract_urls_from_sitemap(  # noqa: C901
             urls = root.findall(".//url/loc")
 
         for url_element in urls:
-            url = _loc_text(url_element)
+            url = url_element.text
             if url:
                 found_urls.add(url)
 
@@ -171,6 +131,5 @@ def extract_urls_from_sitemap(  # noqa: C901
             error=str(e),
             exc_info=True,
         )
-        raise ValidationError("Sitemap XML could not be parsed.") from e
 
     return found_urls

@@ -3,7 +3,7 @@
 
 {% block meta %}
 <title>Staleaway Blog</title>
-<meta name="description" content="Scheduled page review reminders for every sitemap." />
+<meta name="description" content="Daily reminder for the pages that need polish." />
 <meta name="keywords" content="" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://{{ request.get_host }}{% url 'blog_posts' %}" />
@@ -11,40 +11,40 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Staleaway Blog" />
 <meta property="og:url" content="https://{{ request.get_host }}{% url 'blog_posts' %}" />
-<meta property="og:description" content="Scheduled page review reminders for every sitemap." />
-<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta property="og:description" content="Daily reminder for the pages that need polish." />
+<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@rasulkireev" />
 <meta name="twitter:site" content="@rasulkireev" />
 <meta name="twitter:title" content="Staleaway Blog" />
-<meta name="twitter:description" content="Scheduled page review reminders for every sitemap." />
-<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:description" content="Daily reminder for the pages that need polish." />
+<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
 {% endblock meta %}
 
 {% block content %}
-<div class="pf-shell py-12 md:py-16">
+<div class="container px-4 py-8 mx-auto md:relative">
   <div class="mx-auto max-w-3xl">
-    <h1 class="pf-page-title text-center">Staleaway Blog</h1>
+    <h1 class="mb-8 text-3xl font-bold text-center">Staleaway Blog</h1>
     {% if blog_posts %}
-      <div class="mt-8 space-y-4">
+      <div class="space-y-4">
         {% for post in blog_posts %}
-          <a href="{{ post.get_absolute_url }}" class="block rounded-2xl border border-transparent transition duration-150 ease-out hover:border-[color:var(--pf-line)] hover:bg-[color:var(--pf-panel-muted)] focus:outline-none focus:ring-2 focus:ring-[color:var(--pf-brand)] focus:ring-offset-2">
+          <a href="{{ post.get_absolute_url }}" class="block rounded-lg transition duration-150 ease-in-out hover:bg-gray-100">
             <article class="flex items-start p-4">
               {% if post.icon %}
-                <img src="{{ post.icon.url }}" alt="{{ post.title }}" class="mr-4 h-24 w-24 flex-shrink-0 rounded-xl object-cover">
+                <img src="{{ post.icon.url }}" alt="{{ post.title }}" class="object-cover flex-shrink-0 mr-4 w-24 h-24 rounded-lg">
               {% endif %}
               <div>
-                <h2 class="mb-2 text-2xl font-semibold text-[color:var(--pf-ink)]">{{ post.title }}</h2>
-                <p class="text-[color:var(--pf-muted)]">{{ post.description }}</p>
+                <h2 class="mb-2 text-2xl font-semibold text-gray-900">{{ post.title }}</h2>
+                <p class="text-gray-600">{{ post.description }}</p>
               </div>
             </article>
           </a>
         {% endfor %}
       </div>
     {% else %}
-      <p class="mt-8 text-center text-[color:var(--pf-muted)]">No blog posts available at the moment.</p>
+      <p class="text-center text-gray-600">No blog posts available at the moment.</p>
     {% endif %}
   </div>
 </div>
@@ -56,8 +56,8 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Staleaway Blog",
-    "description": "Scheduled page review reminders for every sitemap.",
-    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
+    "description": "Daily reminder for the pages that need polish.",
+    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
     "url": "https://{{ request.get_host }}{% url 'blog_posts' %}",
     "author": {
       "@type": "Person",

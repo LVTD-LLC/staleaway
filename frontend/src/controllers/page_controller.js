@@ -80,7 +80,8 @@ export default class extends Controller {
             } else {
                 showMessage(data.message || "Failed to update pages", "error");
             }
-        } catch {
+        } catch (error) {
+            console.error("Error updating pages:", error);
             showMessage("An error occurred while updating pages", "error");
         }
     }
