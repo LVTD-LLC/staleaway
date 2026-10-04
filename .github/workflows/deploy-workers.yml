@@ -6,7 +6,7 @@ on:
         - main
 
 env:
-  PROJECT_NAME: cleanapp
+  PROJECT_NAME: staleaway
 
 jobs:
   build-and-deploy:
@@ -35,7 +35,7 @@ jobs:
           context: .
           push: true
           file: deployment/Dockerfile.workers
-          tags: ${{ env.IMAGE_NAME }}
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Deploy to CapRover
         uses: caprover/deploy-from-github@main
@@ -43,4 +43,4 @@ jobs:
           server: ${{ secrets.CAPROVER_SERVER }}
           app: ${{ env.PROJECT_NAME }}-workers
           token: ${{ secrets.WORKERS_APP_TOKEN }}
-          image: ${{ env.IMAGE_NAME }}
+          image: ${{ env.IMAGE_NAME }}:${{ github.sha }}

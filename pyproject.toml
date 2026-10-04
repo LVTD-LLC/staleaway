@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pagefresh"
+name = "staleaway"
 version = "0.1.0"
 description = "Scheduled page review reminders for every sitemap."
 authors = ["Rasul Kireev <me@rasulkireev.com>"]

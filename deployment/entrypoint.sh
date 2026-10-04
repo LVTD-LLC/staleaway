@@ -9,9 +9,9 @@ else
 fi
 
 # All commands before the conditional ones
-export PROJECT_NAME=cleanapp
+export PROJECT_NAME=staleaway
 
-export DJANGO_SETTINGS_MODULE="cleanapp.settings"
+export DJANGO_SETTINGS_MODULE="staleaway.settings"
 
 while getopts ":sw" option; do
     case "${option}" in

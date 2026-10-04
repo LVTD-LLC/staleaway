@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: PageFresh
+name: Staleaway
 description: Calm, compact visual system for recurring sitemap review workflows.
 colors:
   primary: "oklch(0.38 0.12 166)"
@@ -131,11 +131,11 @@ components:
     padding: "8px 12px"
 ---
 
-# PageFresh Design
+# Staleaway Design
 
 ## Overview
 
-PageFresh should feel like a quiet maintenance console for people responsible for keeping websites current. The design language is calm, crisp, and practical: high-contrast ink, restrained green accents, thin borders, compact data surfaces, and no generic SaaS spectacle.
+Staleaway should feel like a quiet maintenance console for people responsible for keeping websites current. The design language is calm, crisp, and practical: high-contrast ink, restrained green accents, thin borders, compact data surfaces, and no generic SaaS spectacle.
 
 Marketing screens should show the review loop immediately: sitemap import, due pages, client grouping, email digest, and one-click review. Authenticated app screens should be task-first and scannable, with visual emphasis reserved for the next useful action.
 
@@ -180,7 +180,7 @@ Use stable dimensions for toolbars, tables, icon buttons, counters, and repeated
 
 ## Elevation & Depth
 
-PageFresh is mostly flat. Convey hierarchy with borders, spacing, muted surfaces, and typography rather than heavy shadows. Panels should use a 1px border with `--pf-line`; tinted panels should use `--pf-panel-muted`.
+Staleaway is mostly flat. Convey hierarchy with borders, spacing, muted surfaces, and typography rather than heavy shadows. Panels should use a 1px border with `--pf-line`; tinted panels should use `--pf-panel-muted`.
 
 Use shadows only for overlays, dropdowns, or modals where depth clarifies focus. Do not stack cards inside cards.
 
@@ -221,7 +221,7 @@ Do:
 
 - Show the maintenance loop clearly.
 - Keep dashboard and settings screens dense enough for repeated use.
-- Use the PageFresh green for actions, state, and orientation.
+- Use the Staleaway green for actions, state, and orientation.
 - Preserve keyboard focus, readable labels, and reduced-motion behavior.
 - Match new templates to the existing `pf-*` component vocabulary.
 

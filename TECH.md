@@ -12,7 +12,7 @@
 
 ## Backend
 
-- Django 5 application package: `cleanapp`.
+- Django 5 application package: `staleaway`.
 - Main app: `core`.
 - Authentication: Django Allauth with username/email login and optional GitHub social login.
 - API: Django Ninja mounted at `/api/`, with session auth for app users and API-key auth for selected admin/superuser surfaces.
@@ -66,8 +66,8 @@ When building API or MCP features:
 ## Testing And Quality
 
 - Test framework: pytest plus `pytest-django`.
-- Test settings module: `cleanapp.settings`.
-- Run tests through Docker with `make test`, not host `pytest`.
+- Test settings module: `staleaway.settings`.
+- Build test dependencies with `docker compose -f docker-compose-test.yml build`, build frontend assets with `npm ci --include=dev && npm run build`, then run Docker-isolated tests with `make test`. Tests use `staleaway.settings_test` and have no network access.
 - Focused tests can be passed after `make test`, for example `make test core/tests/test_billing.py`.
 - Formatting/linting:
   - Ruff check/format for Python.

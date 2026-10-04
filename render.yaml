@@ -1,13 +1,13 @@
 services:
   - type: web
-    name: cleanapp-web
+    name: staleaway-web
     runtime: python
     buildCommand: |
       pip install -r requirements.txt &&
       npm ci &&
       npm run build &&
       python manage.py collectstatic --noinput
-    startCommand: python manage.py migrate && gunicorn cleanapp.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 120
+    startCommand: python manage.py migrate && gunicorn staleaway.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 120
     plan: free
     healthCheckPath: /
 
@@ -15,42 +15,42 @@ services:
       - fromGroup: app-env
       - key: POSTGRES_DB
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: database
       - key: POSTGRES_USER
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: user
       - key: POSTGRES_PASSWORD
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: password
       - key: POSTGRES_HOST
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: host
       - key: POSTGRES_PORT
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: port
       - key: REDIS_HOST
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: host
       - key: REDIS_PORT
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: port
       - key: REDIS_PASSWORD
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: password
 
   - type: web
-    name: cleanapp-workers
+    name: staleaway-workers
     runtime: python
     buildCommand: |
       pip install -r requirements.txt
@@ -62,50 +62,50 @@ services:
       - fromGroup: app-env
       - key: POSTGRES_DB
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: database
       - key: POSTGRES_USER
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: user
       - key: POSTGRES_PASSWORD
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: password
       - key: POSTGRES_HOST
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: host
       - key: POSTGRES_PORT
         fromDatabase:
-          name: cleanapp-db
+          name: staleaway-db
           property: port
       - key: REDIS_HOST
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: host
       - key: REDIS_PORT
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: port
       - key: REDIS_PASSWORD
         fromService:
           type: keyvalue
-          name: cleanapp-redis
+          name: staleaway-redis
           property: password
 
   - type: keyvalue
-    name: cleanapp-redis
+    name: staleaway-redis
     plan: free
     ipAllowList: []
     maxmemoryPolicy: allkeys-lfu
 
 databases:
-  - name: cleanapp-db
-    databaseName: cleanapp
-    user: cleanapp_user
+  - name: staleaway-db
+    databaseName: staleaway
+    user: staleaway_user
     plan: free
 
 

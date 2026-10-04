@@ -11,10 +11,10 @@ from django.db.models import Count, Q
 from django.utils import timezone
 from django_q.tasks import async_task
 
-from cleanapp.utils import get_cleanapp_logger
 from core.models import Profile
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 def add_email_to_buttondown(email, tag):
@@ -25,7 +25,7 @@ def add_email_to_buttondown(email, tag):
         "email_address": str(email),
         "metadata": {"source": tag},
         "tags": [tag],
-        "referrer_url": "https://pagefresh.lvtd.dev",
+        "referrer_url": settings.SITE_URL,
         "type": "regular",
     }
 
@@ -220,7 +220,7 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:
 def fetch_page_metadata(url: str) -> dict:
     try:
         response = requests.get(
-            url, timeout=10, headers={"User-Agent": "Mozilla/5.0 (compatible; PageFreshBot/1.0)"}
+            url, timeout=10, headers={"User-Agent": "Mozilla/5.0 (compatible; StaleawayBot/1.0)"}
         )
         response.raise_for_status()
 

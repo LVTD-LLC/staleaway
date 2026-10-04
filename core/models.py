@@ -4,7 +4,6 @@ from django.db import models
 from django.urls import reverse
 from django_q.tasks import async_task
 
-from cleanapp.utils import get_cleanapp_logger
 from core.base_models import BaseModel
 from core.choices import (
     BlogPostStatus,
@@ -14,8 +13,9 @@ from core.choices import (
     SitemapImportStatus,
 )
 from core.model_utils import generate_random_key
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 class Profile(BaseModel):

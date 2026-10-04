@@ -4,7 +4,6 @@ from collections import OrderedDict
 
 from core.choices import ReviewCadence
 
-
 DEFAULT_CLIENT_LABEL = "Unlabeled clients"
 
 

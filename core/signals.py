@@ -4,12 +4,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_q.tasks import async_task
 
-from cleanapp.utils import get_cleanapp_logger
 from core.choices import SitemapImportStatus
 from core.models import EmailPreference, Profile, ProfileStates, Sitemap
 from core.tasks import add_email_to_buttondown
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 @receiver(post_save, sender=User)

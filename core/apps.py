@@ -2,9 +2,9 @@ import posthog
 from django.apps import AppConfig
 from django.conf import settings
 
-from cleanapp.utils import get_cleanapp_logger
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 class CoreConfig(AppConfig):

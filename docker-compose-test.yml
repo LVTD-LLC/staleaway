@@ -1,0 +1,13 @@
+services:
+  backend:
+    image: ${STALEAWAY_TEST_IMAGE:-staleaway-test}
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile.python
+    working_dir: /app
+    entrypoint: []
+    volumes:
+      - .:/app
+    network_mode: none
+    environment:
+      DJANGO_SETTINGS_MODULE: staleaway.settings_test

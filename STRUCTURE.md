@@ -14,17 +14,17 @@
 - `docker-compose-local.yml`, `docker-compose-prod.yml`, `render.yaml`: local and deployment infrastructure.
 - `.env.example`: environment variable contract for local and deployed use.
 
-## Django Project Package: `cleanapp/`
+## Django Project Package: `staleaway/`
 
 - `settings.py`: application settings, installed apps, auth, storage, queues, logging, observability, billing plan config, and integration keys.
-- `settings_test.py`: optional test settings module. It is not wired into pytest by default; `pytest.ini` currently uses `cleanapp.settings`.
+- `settings_test.py`: optional test settings module. It is not wired into pytest by default; `pytest.ini` currently uses `staleaway.settings`.
 - `urls.py`: root URL routing for admin, accounts, anymail, static pages, core routes, and sitemap.xml.
 - `sitemaps.py`: Django sitemap definitions.
 - `storages.py`: storage helpers.
 - `logging_utils.py`, `sentry_utils.py`, `utils.py`: project-level utilities.
 - `wsgi.py`, `asgi.py`: deployment entry points.
 
-The package name is legacy. Do not rename `cleanapp` without a coordinated migration across settings, imports, Docker, Render, docs, and environment references.
+The project package is `staleaway`. The `core` app label and migration history are unchanged, preserving database tables and content types.
 
 ## Main App: `core/`
 
@@ -53,7 +53,7 @@ Future agent/API work should keep shared behavior in `core` rather than baking b
 - `frontend/templates/base_landing.html`: public/marketing shell.
 - `frontend/templates/pages/`: landing, dashboard, sitemap detail, settings, pricing, uses, and admin pages.
 - `frontend/templates/account/`: Allauth templates and email templates.
-- `frontend/templates/emails/`: PageFresh review digest templates.
+- `frontend/templates/emails/`: Staleaway review digest templates.
 - `frontend/templates/components/`: reusable template components.
 - `frontend/templates/blog/`: blog list/detail templates.
 - `frontend/src/styles/index.css`: Tailwind imports, `--pf-*` design variables, and `pf-*` component classes.
@@ -73,8 +73,8 @@ Future agent/API work should keep shared behavior in `core` rather than baking b
 
 ## Naming And Routing Conventions
 
-- Public product copy says PageFresh.
-- Technical imports and settings use `cleanapp`.
+- Public product copy says Staleaway.
+- Technical imports and settings use `staleaway`.
 - Route names are short Django names such as `home`, `settings`, `pricing`, `sitemap_detail`, and `review_page_redirect`.
 - Preserve existing URL shapes unless the task explicitly asks for routing cleanup. Some routes have no trailing slash.
 - Use `reverse()` and `{% url %}` instead of hardcoded internal paths.

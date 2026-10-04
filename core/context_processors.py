@@ -2,10 +2,9 @@ from allauth.socialaccount.models import SocialApp
 from django.conf import settings
 
 from core.choices import ProfileStates
+from staleaway.utils import get_staleaway_logger
 
-from cleanapp.utils import get_cleanapp_logger
-
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 def current_state(request):
@@ -25,7 +24,10 @@ def pro_subscription_status(request):
 
 
 def posthog_api_key(request):
-    return {"posthog_api_key": settings.POSTHOG_API_KEY}
+    return {
+        "posthog_api_key": settings.POSTHOG_API_KEY,
+        "plausible_site_domain": settings.PLAUSIBLE_SITE_DOMAIN,
+    }
 
 
 def available_social_providers(request):

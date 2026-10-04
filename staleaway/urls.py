@@ -1,4 +1,4 @@
-"""cleanapp URL Configuration
+"""staleaway URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -19,7 +19,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from cleanapp.sitemaps import sitemaps
+from staleaway.sitemaps import sitemaps
 
 urlpatterns = [
     path("admin/", admin.site.urls),
