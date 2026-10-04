@@ -1,3 +1,10 @@
+# Free access — 2026-10-04
+
+- Make every feature free, with no pricing page, checkout, subscription controls or payment-status messaging.
+- Remove Stripe SDK, webhook handling, billing settings, API/controller and local CLI service.
+- Replace the admin billing metric with users who have sitemaps; retain all existing data and schema history.
+- Verify sitemap import, scheduling settings, recipients and page reviews across all historical account states.
+
 # 2026-10-04 — PR #8 restoration and Firefox-inspired design
 
 - Restore the PR #8 sitemap/email review product and monthly/yearly billing; remove later agent/agency workflows.

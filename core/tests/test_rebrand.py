@@ -63,10 +63,10 @@ def test_legacy_links_preserve_path_and_query(settings, method):
     assert response["Location"] == "https://staleaway.com/review-page/123/?token=example"
 
 
-def test_legacy_webhook_post_is_not_redirected(settings):
+def test_legacy_api_post_is_not_redirected(settings):
     settings.LEGACY_HOSTS = ["pagefresh.lvtd.dev"]
     request = RequestFactory().post(
-        "/stripe/webhook/",
+        "/api/submit-feedback",
         data=b'{"type":"test"}',
         content_type="application/json",
         HTTP_HOST="pagefresh.lvtd.dev",

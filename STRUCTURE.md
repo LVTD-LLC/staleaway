@@ -3,9 +3,8 @@
 - `staleaway/`: Django settings, routing, canonical-host middleware, storage/logging helpers.
 - `core/models.py`: profiles, sitemaps, pages, email preferences, feedback and blog models.
 - `core/migrations/`: complete historical schema; retained unchanged during restoration.
-- `core/views.py`, `forms.py`: PR #8 dashboard, settings, page review and monthly/yearly checkout.
+- `core/views.py`, `forms.py`: PR #8 dashboard, settings, page review.
 - `core/tasks.py`, `utils.py`: sitemap parsing, review email selection and scheduling.
-- `core/stripe_webhooks.py`: subscription lifecycle handling.
 - `core/api/`: session-authenticated UI helpers and the original admin blog endpoint.
 - `core/tests/`: baseline behavior plus restoration, branding and compatibility regression tests.
 - `frontend/templates/`: landing, app, account and email templates.
