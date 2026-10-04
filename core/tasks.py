@@ -45,7 +45,6 @@ def try_create_posthog_alias(profile_id: int, cookies: dict, source_function: st
 
     base_log_data = {
         "profile_id": profile_id,
-        "cookies": cookies,
         "source_function": source_function,
     }
 
