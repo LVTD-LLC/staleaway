@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -23,6 +22,7 @@ class Profile(BaseModel):
     key = models.CharField(max_length=30, unique=True, default=generate_random_key)
     experimental_flag = models.BooleanField(default=False)
 
+    # Historical metadata only: retained to preserve existing records, never used for access.
     stripe_subscription_id = models.CharField(
         max_length=255,
         blank=True,
@@ -78,12 +78,6 @@ class Profile(BaseModel):
         latest_transition = self.state_transitions.latest("created_at")
         return latest_transition.to_state
 
-    @property
-    def has_active_subscription(self):
-        return self.state in [
-            ProfileStates.SUBSCRIBED,
-            ProfileStates.CANCELLED,
-        ] or (self.user.is_superuser and settings.ENVIRONMENT == "prod")
 
 
 class ProfileStateTransition(BaseModel):

@@ -8,7 +8,7 @@ from core.models import Page, Sitemap
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("name", ["landing_page", "pricing", "account_login", "account_signup"])
+@pytest.mark.parametrize("name", ["landing_page", "account_login", "account_signup"])
 def test_public_pages_use_staleaway(client, name):
     response = client.get(reverse(name))
     assert response.status_code == 200
@@ -106,12 +106,3 @@ def test_email_restores_page_selection_and_template_context(profile, settings, m
 @pytest.mark.django_db
 def test_removed_agent_api_is_not_exposed(auth_client):
     assert auth_client.get("/api/sites").status_code == 404
-
-
-def test_checkout_plan_contract(settings):
-    from core.views import get_price_id_for_plan
-
-    settings.STRIPE_PRICE_IDS = {"monthly": "price_month", "yearly": "price_year"}
-    assert get_price_id_for_plan("monthly") == "price_month"
-    assert get_price_id_for_plan("yearly") == "price_year"
-    assert get_price_id_for_plan("agency") is None

@@ -16,7 +16,6 @@ from core.api.schemas import (
     SubmitFeedbackOut,
     ToggleEmailIn,
     ToggleEmailOut,
-    UserSettingsOut,
 )
 from core.models import BlogPost, EmailPreference, Feedback, Page, Sitemap
 
@@ -56,26 +55,6 @@ def submit_blog_post(request: HttpRequest, data: BlogPostIn):
         return BlogPostOut(status="success", message="Blog post submitted successfully.")
     except Exception as e:
         return BlogPostOut(status="failure", message=f"Failed to submit blog post: {str(e)}")
-
-
-@api.get("/user/settings", response=UserSettingsOut, auth=[session_auth])
-def user_settings(request: HttpRequest):
-    profile = request.auth
-    try:
-        profile_data = {
-            "has_pro_subscription": profile.has_active_subscription,
-        }
-        data = {"profile": profile_data}
-
-        return data
-    except Exception as e:
-        logger.error(
-            "Error fetching user settings",
-            error=str(e),
-            profile_id=profile.id,
-            exc_info=True,
-        )
-        return {"profile": {"has_pro_subscription": False}}
 
 
 @api.delete("/sitemaps/{sitemap_id}", response=DeleteSitemapOut, auth=[session_auth])

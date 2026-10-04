@@ -488,22 +488,6 @@ POSTHOG_API_KEY = env("POSTHOG_API_KEY", default="")
 BUTTONDOWN_API_KEY = env("BUTTONDOWN_API_KEY", default="")
 
 
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
-STRIPE_LIVE_MODE = ENVIRONMENT == "prod"
-STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")
-STRIPE_WEBHOOK_UUID = env("WEBHOOK_UUID", default="")
-
-# Legacy price ids (kept for backwards compatibility with existing env vars).
-STRIPE_PRICE_ID_MONTHLY = env("STRIPE_PRICE_ID_MONTHLY", default="")
-STRIPE_PRICE_ID_YEARLY = env("STRIPE_PRICE_ID_YEARLY", default="")
-
-# Staleaway billing plans (agency ICP defaults).
-STRIPE_PRICE_IDS = {
-    "monthly": STRIPE_PRICE_ID_MONTHLY,
-    "yearly": STRIPE_PRICE_ID_YEARLY,
-}
-
-
 MJML_BACKEND_MODE = "httpserver"
 MJML_URL = env("MJML_URL", default="")
 MJML_HTTPSERVERS = [

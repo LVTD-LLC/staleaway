@@ -29,14 +29,6 @@ class BlogPostOut(Schema):
     message: str
 
 
-class ProfileSettingsOut(Schema):
-    has_pro_subscription: bool
-
-
-class UserSettingsOut(Schema):
-    profile: ProfileSettingsOut
-
-
 class DeleteSitemapOut(Schema):
     success: bool
     message: str

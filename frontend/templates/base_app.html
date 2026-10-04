@@ -54,7 +54,7 @@
   {% javascript_pack 'index' attrs='defer' %}
 </head>
 
-<body class="sa-site sa-app" {% if request.user.is_authenticated %}data-controller="user-settings"{% endif %}>
+<body class="sa-site sa-app">
 <a href="#main-content" class="sa-skip">Skip to content</a>
 {% block default_messages %}{% include 'components/messages.html' with messages=messages %}{% endblock %}
 {% if user.is_authenticated %}{% include 'components/feedback.html' %}{% endif %}
@@ -68,13 +68,13 @@
     <div class="sa-mobile-nav" data-controller="mobile-menu" data-action="click@window->mobile-menu#closeOnOutside keydown@window->mobile-menu#closeOnEscape">
       <button class="sa-menu-toggle" data-mobile-menu-target="button" data-action="mobile-menu#toggle" aria-label="Toggle navigation" aria-controls="mobile-navigation" aria-expanded="false">☰</button>
       <nav id="mobile-navigation" class="sa-menu hidden" data-mobile-menu-target="menu" aria-label="Mobile navigation">
-        <a href="{% url 'pricing' %}">Pricing</a>
+
         {% if user.is_authenticated %}<a href="{% url 'home' %}">Sitemaps</a><a href="{% url 'settings' %}">Settings</a>{% if user.is_superuser %}<a href="{% url 'admin_panel' %}">Admin panel</a>{% endif %}<form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button type="submit">Sign out</button></form>{% else %}<a href="{% url 'account_login' %}">Sign in</a><a href="{% url 'account_signup' %}">Get started</a>{% endif %}
       </nav>
     </div>
   </div>
 </header>
 <main id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
-<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="{% url 'pricing' %}">Pricing</a><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
+<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
 {% block schema %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Staleaway","url":"https://staleaway.com","description":"Scheduled page review reminders for your website."}</script>{% endblock %}
 </body></html>
