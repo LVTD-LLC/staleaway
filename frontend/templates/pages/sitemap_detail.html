@@ -6,113 +6,144 @@
 {% endblock meta %}
 
 {% block content %}
-  <div class="pf-shell py-8 md:py-10">
-    <div class="flex flex-col gap-5 border-b border-[color:var(--pf-line)] pb-6">
-      <a href="{% url 'home' %}" class="pf-link text-sm">Back to sites</a>
-      <div>
-        <h1 class="pf-page-title">Sitemap pages</h1>
-        <p class="mt-3 break-all text-sm leading-6 text-[color:var(--pf-muted)]">
-          <a href="{{ sitemap.sitemap_url }}" target="_blank" rel="noopener noreferrer" class="hover:text-[color:var(--pf-brand-dark)]">
-            {{ sitemap.sitemap_url }}
+  <div class="container px-4 py-8 mx-auto max-w-6xl bg-white lg:min-w-0 md:pt-10 lg:flex-1">
+    <div class="p-4 border-t border-b border-gray-200 sm:p-6 lg:p-8 xl:border-t-0">
+      <div class="flex justify-between items-center">
+        <div class="flex-1">
+          <a href="{% url 'home' %}" class="inline-flex items-center mb-4 text-sm text-gray-600 hover:text-gray-900">
+            <svg class="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Sitemaps
           </a>
-        </p>
+          <h1 class="text-xl font-medium">Sitemap Pages</h1>
+          <p class="mt-1 text-sm text-gray-500 break-all">
+            <a href="{{ sitemap.sitemap_url }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600">
+              {{ sitemap.sitemap_url }}
+            </a>
+          </p>
+        </div>
       </div>
     </div>
 
     {% if pages %}
-    <div class="mt-8" data-controller="page">
-      <div data-page-target="bulkActions" class="mb-4 hidden rounded-2xl border border-[color:var(--pf-line)] bg-[color:var(--pf-brand-soft)] p-4">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <span class="text-sm font-semibold text-[color:var(--pf-ink)]">Bulk actions for selected pages</span>
-          <div class="flex flex-col gap-2 sm:flex-row">
-            <button data-action="click->page#markAsNoReview" class="pf-button-secondary">
-              Mark no review needed
+    <div class="px-6 py-4" data-controller="page">
+      <div class="flex flex-col">
+        <div data-page-target="bulkActions" class="hidden p-3 mb-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div class="flex gap-3 items-center">
+            <span class="text-sm font-medium text-gray-700">Bulk Actions:</span>
+            <button
+              data-action="click->page#markAsNoReview"
+              class="px-3 py-1.5 text-sm font-medium text-white bg-orange-600 rounded-md transition-colors hover:bg-orange-700"
+            >
+              Mark as No Need to Review
             </button>
-            <button data-action="click->page#markAsNeedsReview" class="pf-button-primary">
-              Mark needs review
+            <button
+              data-action="click->page#markAsNeedsReview"
+              class="px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md transition-colors hover:bg-blue-700"
+            >
+              Mark as Needs Review
             </button>
           </div>
         </div>
-      </div>
 
-      <div class="overflow-hidden rounded-2xl border border-[color:var(--pf-line)] bg-white">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-[color:var(--pf-line)]">
-            <thead class="bg-[color:var(--pf-panel-muted)]">
-              <tr>
-                <th scope="col" class="pf-table-head w-12 text-center">
-                  <label class="inline-flex min-h-11 min-w-11 items-center justify-center">
-                    <span class="sr-only">Select all pages</span>
-                    <input
-                      type="checkbox"
-                      data-page-target="selectAll"
-                      data-action="change->page#toggleSelectAll"
-                      class="h-5 w-5 rounded border-[color:var(--pf-line)] text-[color:var(--pf-brand-dark)] focus:ring-[color:var(--pf-brand)]"
-                    />
-                  </label>
-                </th>
-                <th scope="col" class="pf-table-head">URL</th>
-                <th scope="col" class="pf-table-head text-center">Needs review</th>
-                <th scope="col" class="pf-table-head text-center">Reviewed</th>
-                <th scope="col" class="pf-table-head text-center">Reviewed date</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-[color:var(--pf-line)] bg-white">
-              {% for page in pages %}
-              <tr class="transition hover:bg-[color:var(--pf-panel-muted)] {% if not page.needs_review %}opacity-70{% endif %}">
-                <td class="pf-table-cell text-center">
-                  <label class="inline-flex min-h-11 min-w-11 items-center justify-center">
-                    <span class="sr-only">Select {{ page.url }}</span>
-                    <input
-                      type="checkbox"
-                      data-page-target="checkbox"
-                      data-page-id="{{ page.id }}"
-                      data-action="change->page#toggleCheckbox"
-                      class="h-5 w-5 rounded border-[color:var(--pf-line)] text-[color:var(--pf-brand-dark)] focus:ring-[color:var(--pf-brand)]"
-                    />
-                  </label>
-                </td>
-                <td class="pf-table-cell min-w-[22rem] break-all">
-                  <a href="{{ page.url }}" target="_blank" rel="noopener noreferrer" class="font-medium hover:text-[color:var(--pf-brand-dark)]">
-                    {{ page.url }}
-                  </a>
-                </td>
-                <td class="pf-table-cell text-center">
-                  {% if page.needs_review %}
-                    <span class="pf-badge">Yes</span>
-                  {% else %}
-                    <span class="inline-flex rounded-full bg-[color:var(--pf-panel-muted)] px-2.5 py-1 text-xs font-semibold text-[color:var(--pf-muted)]">No</span>
-                  {% endif %}
-                </td>
-                <td class="pf-table-cell text-center">
-                  {% if page.reviewed %}
-                    <span class="inline-flex rounded-full bg-[color:var(--pf-brand-soft)] px-2.5 py-1 text-xs font-semibold text-[color:var(--pf-brand-dark)]">Yes</span>
-                  {% else %}
-                    <span class="inline-flex rounded-full bg-[color:var(--pf-panel-muted)] px-2.5 py-1 text-xs font-semibold text-[color:var(--pf-muted)]">No</span>
-                  {% endif %}
-                </td>
-                <td class="pf-table-cell text-center text-[color:var(--pf-muted)]">
-                  {% if page.reviewed_at %}
-                    {{ page.reviewed_at|date:"M d, Y" }}
-                  {% else %}
-                    <span class="text-[color:var(--pf-subtle)]">Not reviewed</span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="inline-block py-2 min-w-full align-middle">
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 w-12 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
+                      <input
+                        type="checkbox"
+                        data-page-target="selectAll"
+                        data-action="change->page#toggleSelectAll"
+                        class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      />
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      URL
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
+                      Needs Review
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
+                      Reviewed
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
+                      Reviewed Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  {% for page in pages %}
+                  <tr class="hover:bg-gray-50 {% if not page.needs_review %}opacity-50{% endif %}">
+                    <td class="px-6 py-4 text-center whitespace-nowrap">
+                      <input
+                        type="checkbox"
+                        data-page-target="checkbox"
+                        data-page-id="{{ page.id }}"
+                        data-action="change->page#toggleCheckbox"
+                        class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      />
+                    </td>
+                    <td class="px-6 py-4 text-sm {% if page.needs_review %}text-gray-900{% else %}text-gray-400{% endif %} break-all">
+                      <a href="{{ page.url }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600">
+                        {{ page.url }}
+                      </a>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                      {% if page.needs_review %}
+                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full">
+                          Yes
+                        </span>
+                      {% else %}
+                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-gray-800 bg-gray-100 rounded-full">
+                          No
+                        </span>
+                      {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                      {% if page.reviewed %}
+                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                          Yes
+                        </span>
+                      {% else %}
+                        <span class="inline-flex px-2 text-xs font-semibold leading-5 text-gray-800 bg-gray-100 rounded-full">
+                          No
+                        </span>
+                      {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
+                      {% if page.reviewed_at %}
+                        {{ page.reviewed_at|date:"M d, Y" }} at {{ page.reviewed_at|time:"h:i A" }}
+                      {% else %}
+                        <span class="text-gray-400">-</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 text-sm text-gray-600">
+          Total pages: {{ pages|length }}
         </div>
       </div>
-      <p class="mt-4 text-sm text-[color:var(--pf-muted)]">Total pages: {{ pages|length }}</p>
     </div>
     {% else %}
-    <div class="pf-panel-muted mt-8 p-8 text-center">
-      <h2 class="text-xl font-semibold text-[color:var(--pf-ink)]">No pages found</h2>
-      <p class="mx-auto mt-3 max-w-md text-sm leading-6 text-[color:var(--pf-muted)]">
-        This sitemap does not have any imported pages yet.
-      </p>
+    <div class="px-6 py-4">
+      <div class="p-6 text-center bg-gray-50 rounded-lg">
+        <svg class="mx-auto w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No pages found</h3>
+        <p class="mt-1 text-sm text-gray-500">This sitemap doesn't have any pages yet.</p>
+      </div>
     </div>
     {% endif %}
+
   </div>
 {% endblock content %}

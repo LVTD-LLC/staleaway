@@ -1,3 +1,9 @@
+# 2026-10-04 — PR #8 restoration and Firefox-inspired design
+
+- Restore the PR #8 sitemap/email review product and monthly/yearly billing; remove later agent/agency workflows.
+- Use Staleaway branding with a purple, condensed-type, rounded-card visual system inspired by the supplied Firefox reference.
+- Preserve existing users, additive database fields/migrations, media, queue and Staleaway hosting/email compatibility.
+
 <!-- Types of changes -->
 **Added** for new features.
 **Changed** for changes in existing functionality.

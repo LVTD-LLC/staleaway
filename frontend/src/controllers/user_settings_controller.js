@@ -7,16 +7,18 @@ export default class extends Controller {
 
   async fetchAndStoreSettings() {
     try {
-      const response = await fetch("/api/user/settings");
+      const response = await fetch(`/api/user/settings`);
       if (!response.ok) {
+        // This is a background task, so just log errors, don't alert the user.
+        console.error("Failed to fetch user settings in the background.");
         return;
       }
       const data = await response.json();
 
-      localStorage.setItem("userSettings", JSON.stringify(data));
+      localStorage.setItem(`userSettings`, JSON.stringify(data));
 
-    } catch {
-      return;
+    } catch (error) {
+      console.error("Error fetching user settings:", error);
     }
   }
 }

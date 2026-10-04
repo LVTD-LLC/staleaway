@@ -1,31 +1,23 @@
 {% if messages %}
-<div class="fixed right-4 top-4 z-50 space-y-3 messages-container">
+<div class="fixed top-4 right-4 z-50 space-y-4" data-controller="reveal">
   {% for message in messages %}
-  <div
-    data-controller="message"
-    data-message-id="{{ forloop.counter }}"
-    data-message-delay-value="{{ forloop.counter0 }}00"
-    role="{% if message.tags == 'error' %}alert{% else %}status{% endif %}"
-    aria-live="{% if message.tags == 'error' %}assertive{% else %}polite{% endif %}"
-    class="pf-panel max-w-sm p-4 opacity-0 transition-all duration-300 ease-out translate-x-full {% if message.tags == 'error' %}border-[oklch(0.86_0.08_25)]{% else %}border-[oklch(0.84_0.09_145)]{% endif %}"
-    data-action="mouseenter->message#pause mouseleave->message#resume focusin->message#pause focusout->message#resume"
-  >
+  <div data-reveal-target="item" data-message-id="{{ forloop.counter }}" class="rounded-lg border {% if message.tags == 'error' %}bg-red-50 border-red-200{% else %}bg-green-50 border-green-200{% endif %} p-4 shadow-sm transition-all duration-300 ease-in-out opacity-0 transform translate-x-full max-w-sm">
     <div class="flex items-start">
-      <div class="mr-3 flex-shrink-0">
-        <svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-          <circle class="text-[var(--pf-line)]" stroke-width="2" stroke="currentColor" fill="transparent" r="10" cx="12" cy="12"/>
-          <circle class="{% if message.tags == 'error' %}text-[var(--pf-danger)]{% else %}text-[var(--pf-brand-dark)]{% endif %}" stroke-width="2" stroke="currentColor" fill="transparent" r="10" cx="12" cy="12" data-message-target="timerCircle"/>
+      <div class="flex-shrink-0 mr-3">
+        <svg class="w-5 h-5" viewBox="0 0 24 24">
+          <circle class="text-gray-200" stroke-width="2" stroke="currentColor" fill="transparent" r="10" cx="12" cy="12"/>
+          <circle class="{% if message.tags == 'error' %}text-red-600{% else %}text-green-600{% endif %}" stroke-width="2" stroke="currentColor" fill="transparent" r="10" cx="12" cy="12" data-timer-circle/>
         </svg>
       </div>
       <div class="flex-grow">
-        <p class="text-sm font-semibold {% if message.tags == 'error' %}text-[var(--pf-danger)]{% else %}text-[color:var(--pf-ink)]{% endif %}">
+        <p class="text-sm {% if message.tags == 'error' %}text-red-800{% else %}text-green-800{% endif %}">
           {{ message }}
         </p>
       </div>
-      <div class="ml-3 flex-shrink-0">
-        <button data-action="click->message#dismiss" type="button" class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-[color:var(--pf-muted)] hover:text-[color:var(--pf-ink)] focus:outline-none focus:ring-2 focus:ring-[color:var(--pf-brand)] focus:ring-offset-2">
+      <div class="flex-shrink-0 ml-3">
+        <button data-action="click->reveal#hide" data-message-id="{{ forloop.counter }}" type="button" class="inline-flex justify-center items-center h-5 w-5 rounded-md {% if message.tags == 'error' %}text-red-600 hover:text-red-800{% else %}text-green-600 hover:text-green-800{% endif %} focus:outline-none focus:ring-2 focus:ring-offset-2 {% if message.tags == 'error' %}focus:ring-red-500{% else %}focus:ring-green-500{% endif %}">
           <span class="sr-only">Dismiss</span>
-          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -34,4 +26,54 @@
   </div>
   {% endfor %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('[data-reveal-target="item"]');
+    items.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.remove('opacity-0', 'translate-x-full');
+        startTimer(item);
+      }, index * 100);
+    });
+  });
+
+  function startTimer(item) {
+    const timerCircle = item.querySelector('[data-timer-circle]');
+    const radius = 10;
+    const circumference = 2 * Math.PI * radius;
+
+    timerCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+    timerCircle.style.strokeDashoffset = circumference;
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      if (progress >= 100) {
+        clearInterval(interval);
+        hideMessage(item);
+      } else {
+        progress++;
+        const offset = circumference - (progress / 100) * circumference;
+        timerCircle.style.strokeDashoffset = offset;
+      }
+    }, 50);  // 50ms * 100 = 5000ms = 5 seconds
+  }
+
+  function hideMessage(item) {
+    item.classList.add('opacity-0', 'translate-x-full');
+    setTimeout(() => {
+      item.remove();
+    }, 300);
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-action="click->reveal#hide"]')) {
+      const messageId = event.target.closest('[data-action="click->reveal#hide"]').getAttribute('data-message-id');
+      const item = document.querySelector(`[data-reveal-target="item"][data-message-id="${messageId}"]`);
+      if (item) {
+        hideMessage(item);
+      }
+    }
+  });
+</script>
 {% endif %}

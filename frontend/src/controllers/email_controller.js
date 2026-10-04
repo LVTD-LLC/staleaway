@@ -40,11 +40,12 @@ export default class extends Controller {
       } else {
         showMessage(data.message || "Failed to add email", "error");
       }
-    } catch {
+    } catch (error) {
+      console.error("Error adding email:", error);
       showMessage("An error occurred. Please try again.", "error");
     } finally {
       this.addButtonTarget.disabled = false;
-      this.addButtonTarget.textContent = "Add email";
+      this.addButtonTarget.textContent = "Add Email";
     }
   }
 
@@ -70,7 +71,8 @@ export default class extends Controller {
         showMessage(data.message || "Failed to update email", "error");
         event.currentTarget.checked = !enabled;
       }
-    } catch {
+    } catch (error) {
+      console.error("Error toggling email:", error);
       showMessage("An error occurred. Please try again.", "error");
       event.currentTarget.checked = !enabled;
     }
@@ -100,7 +102,8 @@ export default class extends Controller {
       } else {
         showMessage(data.message || "Failed to delete email", "error");
       }
-    } catch {
+    } catch (error) {
+      console.error("Error deleting email:", error);
       showMessage("An error occurred. Please try again.", "error");
     }
   }
@@ -109,52 +112,37 @@ export default class extends Controller {
     const emailItem = document.createElement("div");
     emailItem.setAttribute("data-email-item", "");
     emailItem.className =
-      "flex flex-col gap-3 rounded-2xl border border-[color:var(--pf-line)] bg-white p-4 sm:flex-row sm:items-center sm:justify-between";
+      "flex justify-between items-center p-3 bg-white rounded-md border border-gray-200";
 
-    const emailContent = document.createElement("label");
-    emailContent.className = "flex min-h-11 flex-1 items-start gap-3";
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = enabled;
-    checkbox.dataset.emailId = String(emailId);
-    checkbox.dataset.action = "change->email#toggleEmail";
-    checkbox.className = [
-      "mt-1",
-      "h-5",
-      "w-5",
-      "rounded",
-      "border-[color:var(--pf-line)]",
-      "text-[color:var(--pf-brand-dark)]",
-      "focus:ring-[color:var(--pf-brand)]",
-    ].join(" ");
-
-    const textContent = document.createElement("span");
-    textContent.className = "min-w-0";
-
-    const emailText = document.createElement("span");
-    emailText.className = "block break-all text-sm font-semibold text-[color:var(--pf-ink)]";
-    emailText.textContent = emailAddress;
-
-    const statusText = document.createElement("span");
-    statusText.className = "block text-xs text-[color:var(--pf-muted)]";
-    statusText.textContent = enabled ? "Notifications enabled" : "Notifications disabled";
-
-    textContent.append(emailText, statusText);
-    emailContent.append(checkbox, textContent);
-
-    const removeButton = document.createElement("button");
-    removeButton.type = "button";
-    removeButton.dataset.emailId = String(emailId);
-    removeButton.dataset.action = "click->email#deleteEmail";
-    removeButton.className = [
-      "pf-danger-action",
-      "self-start",
-      "sm:self-center",
-    ].join(" ");
-    removeButton.textContent = "Remove";
-
-    emailItem.append(emailContent, removeButton);
+    emailItem.innerHTML = `
+      <div class="flex flex-1 items-center space-x-3">
+        <input
+          type="checkbox"
+          ${enabled ? "checked" : ""}
+          data-email-id="${emailId}"
+          data-action="change->email#toggleEmail"
+          class="text-blue-600 rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+        <div class="flex-1">
+          <p class="text-sm font-medium text-gray-900">${emailAddress}</p>
+          <p class="text-xs text-gray-500">
+            ${
+              enabled
+                ? '<span class="text-green-600">Notifications enabled</span>'
+                : '<span class="text-gray-500">Notifications disabled</span>'
+            }
+          </p>
+        </div>
+      </div>
+      <button
+        type="button"
+        data-email-id="${emailId}"
+        data-action="click->email#deleteEmail"
+        class="text-sm font-medium text-red-600 hover:text-red-800"
+      >
+        Remove
+      </button>
+    `;
 
     this.listTarget.appendChild(emailItem);
   }
