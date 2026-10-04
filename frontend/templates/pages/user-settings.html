@@ -4,7 +4,7 @@
 {% load markdown_extras %}
 
 {% block meta %}
-  <title>PageFresh - Settings</title>
+  <title>Staleaway - Settings</title>
 {% endblock meta %}
 
 {% block content %}
@@ -67,7 +67,7 @@
         <section class="pf-panel p-5 sm:p-6" data-controller="email">
           <h2 class="text-xl font-semibold text-[color:var(--pf-ink)]">Notification recipients</h2>
           <p class="mt-2 text-sm leading-6 text-[color:var(--pf-muted)]">
-            Add the email addresses that should receive PageFresh review digests.
+            Add the email addresses that should receive Staleaway review digests.
           </p>
 
           <div class="mt-5">
@@ -118,7 +118,7 @@
 
         <section class="pf-panel p-5 sm:p-6">
           <h2 class="text-xl font-semibold text-[color:var(--pf-ink)]">Digest timing</h2>
-          <p class="mt-2 text-sm leading-6 text-[color:var(--pf-muted)]">Choose when PageFresh should send review emails.</p>
+          <p class="mt-2 text-sm leading-6 text-[color:var(--pf-muted)]">Choose when Staleaway should send review emails.</p>
           <div class="mt-5 grid gap-4 sm:grid-cols-2">
             <div>
               {{ form.preferred_email_time.errors | safe }}

@@ -13,6 +13,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-10-04]
+### Changed
+- Rebranded PageFresh / Cleanapp to Staleaway at https://staleaway.com across UI, email, API documentation, Python package, and deployment configuration.
+- Made media bucket, queue name, and analytics site explicit environment settings so existing data and queued work survive the rename. Legacy billing-limit environment names remain supported.
+- Added a data-preserving cutover and rollback runbook.
+
 ## [Unreleased]
 ### Added
 - `Skip onboarding` option

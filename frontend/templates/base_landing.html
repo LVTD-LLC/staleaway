@@ -13,25 +13,25 @@
   <link rel="apple-touch-icon" href="{% static 'vendors/images/logo.png' %}" />
 
   {% block meta %}
-  <title>PageFresh</title>
+  <title>Staleaway</title>
   <meta name="description" content="Scheduled page review reminders for every sitemap." />
   <meta name="keywords" content="website maintenance, sitemap review, content review reminders" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://{{ request.get_host }}/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="PageFresh" />
+  <meta property="og:title" content="Staleaway" />
   <meta property="og:url" content="https://{{ request.get_host }}/" />
   <meta property="og:description" content="Scheduled page review reminders for every sitemap." />
-  <meta property="og:image" content="https://osig.app/g?site=meta&style=logo&font=markerfelt&title=PageFresh&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+  <meta property="og:image" content="https://osig.app/g?site=meta&style=logo&font=markerfelt&title=Staleaway&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:creator" content="@rasulkireev" />
   <meta name="twitter:site" content="@rasulkireev" />
-  <meta name="twitter:title" content="PageFresh" />
+  <meta name="twitter:title" content="Staleaway" />
   <meta name="twitter:description" content="Scheduled page review reminders for every sitemap." />
-  <meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=PageFresh&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+  <meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
   {% endblock meta %}
 
   {% if posthog_api_key %}
@@ -46,7 +46,7 @@
   {% endif %}
 
   <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-  <script defer data-domain="pagefresh.lvtd.dev" src="https://plausible-v2.cr.lvtd.dev/js/script.file-downloads.hash.outbound-links.js"></script>
+  <script defer data-domain="staleaway.com" src="https://plausible-v2.cr.lvtd.dev/js/script.file-downloads.hash.outbound-links.js"></script>
 
   {% stylesheet_pack 'index' %}
   {% javascript_pack 'index' attrs='defer' %}
@@ -65,11 +65,11 @@
     <header class="sticky top-0 z-30 border-b border-[color:var(--pf-line)] bg-[color:var(--pf-surface)]/95 backdrop-blur">
       <div class="pf-shell">
         <div class="flex h-16 items-center justify-between gap-4">
-          <a href="{% url 'landing_page' %}" class="pf-wordmark" aria-label="PageFresh home">
+          <a href="{% url 'landing_page' %}" class="pf-wordmark" aria-label="Staleaway home">
             <span class="pf-mark" aria-hidden="true">
               <img src="{% static 'vendors/images/logo.svg' %}" alt="" class="h-full w-full" />
             </span>
-            <span class="text-lg">PageFresh</span>
+            <span class="text-lg">Staleaway</span>
           </a>
 
           <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
@@ -134,7 +134,7 @@
           <span class="pf-mark h-8 w-8 rounded-lg" aria-hidden="true">
             <img src="{% static 'vendors/images/logo.svg' %}" alt="" class="h-full w-full" />
           </span>
-          <span>PageFresh</span>
+          <span>Staleaway</span>
         </a>
         <p>&copy; 2026 <a class="pf-link" href="https://lvtd.dev?ref={{ request.get_host }}">LVTD, LLC</a>. All rights reserved.</p>
       </div>
@@ -146,9 +146,9 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "PageFresh",
+      "name": "Staleaway",
       "description": "Scheduled page review reminders for every sitemap.",
-      "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=PageFresh&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
+      "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway&subtitle=Scheduled page review reminders&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
       "url": "https://{{ request.get_host }}/",
       "author": {
         "@type": "Person",

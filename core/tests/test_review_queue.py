@@ -205,7 +205,7 @@ def test_send_page_email_uses_queue_window(monkeypatch, profile):
 
 @pytest.mark.django_db
 def test_send_page_email_builds_grouped_context_and_review_links(monkeypatch, profile, settings):
-    settings.SITE_URL = "https://app.pagefresh.test"
+    settings.SITE_URL = "https://app.staleaway.test"
     first_sitemap = Sitemap.objects.create(
         profile=profile,
         sitemap_url="https://acme.example.com/sitemap.xml",
@@ -255,8 +255,8 @@ def test_send_page_email_builds_grouped_context_and_review_links(monkeypatch, pr
     assert acme_group["sites"][0]["pages"][0].id == first_page.id
     assert beta_group["sites"][0]["pages"][0].id == second_page.id
     assert acme_group["sites"][0]["pages"][0].review_url == (
-        f"https://app.pagefresh.test/review-page/{first_page.id}/"
+        f"https://app.staleaway.test/review-page/{first_page.id}/"
     )
     assert beta_group["sites"][0]["pages"][0].review_url == (
-        f"https://app.pagefresh.test/review-page/{second_page.id}/"
+        f"https://app.staleaway.test/review-page/{second_page.id}/"
     )

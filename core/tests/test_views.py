@@ -12,8 +12,8 @@ from core.views import HomeView
 
 @pytest.fixture
 def configured_billing_plans(settings):
-    settings.CLEANAPP_FREE_SITE_LIMIT = 1
-    settings.CLEANAPP_BILLING_PLANS = {
+    settings.STALEAWAY_FREE_SITE_LIMIT = 1
+    settings.STALEAWAY_BILLING_PLANS = {
         "starter": {
             "display_name": "Starter",
             "price_id": "price_starter",
@@ -221,8 +221,8 @@ class TestPricingView:
     def test_pricing_uses_configured_plan_limits(
         self, auth_client, configured_billing_plans, settings
     ):
-        settings.CLEANAPP_BILLING_PLANS["starter"]["site_limit"] = 7
-        settings.CLEANAPP_BILLING_PLANS["agency"]["site_limit"] = 42
+        settings.STALEAWAY_BILLING_PLANS["starter"]["site_limit"] = 7
+        settings.STALEAWAY_BILLING_PLANS["agency"]["site_limit"] = 42
 
         response = auth_client.get(reverse("pricing"))
 

@@ -1,6 +1,6 @@
 import os
 
-# Minimal env defaults required by cleanapp.settings import.
+# Minimal env defaults required by staleaway.settings import.
 os.environ.setdefault("ENVIRONMENT", "test")
 os.environ.setdefault("SECRET_KEY", "test-secret-key")
 os.environ.setdefault("DEBUG", "1")

@@ -20,7 +20,6 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 from django_q.tasks import async_task
 
-from cleanapp.utils import get_cleanapp_logger
 from core.billing import (
     get_active_site_count,
     get_available_plans,
@@ -33,11 +32,12 @@ from core.choices import ProfileStates, ReviewOutcome
 from core.forms import ProfileUpdateForm, SitemapForm, SitemapSettingsForm
 from core.models import BlogPost, Feedback, Page, Profile, Sitemap
 from core.stripe_webhooks import EVENT_HANDLERS
+from staleaway.utils import get_staleaway_logger
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 def get_price_id_for_plan(plan):
@@ -392,12 +392,12 @@ class PricingView(TemplateView):
         plans = get_available_plans()
         plans_by_key = {plan["key"]: plan for plan in plans}
         context["plans"] = plans
-        context["free_site_limit"] = settings.CLEANAPP_FREE_SITE_LIMIT
+        context["free_site_limit"] = settings.STALEAWAY_FREE_SITE_LIMIT
         context["starter_site_limit"] = int(
-            plans_by_key.get("starter", {}).get("site_limit", settings.CLEANAPP_STARTER_SITE_LIMIT)
+            plans_by_key.get("starter", {}).get("site_limit", settings.STALEAWAY_STARTER_SITE_LIMIT)
         )
         context["agency_site_limit"] = int(
-            plans_by_key.get("agency", {}).get("site_limit", settings.CLEANAPP_AGENCY_SITE_LIMIT)
+            plans_by_key.get("agency", {}).get("site_limit", settings.STALEAWAY_AGENCY_SITE_LIMIT)
         )
 
         if self.request.user.is_authenticated:
@@ -409,11 +409,11 @@ class PricingView(TemplateView):
             except Profile.DoesNotExist:
                 context["has_pro_subscription"] = False
                 context["current_plan_key"] = ""
-                context["current_site_limit"] = settings.CLEANAPP_FREE_SITE_LIMIT
+                context["current_site_limit"] = settings.STALEAWAY_FREE_SITE_LIMIT
         else:
             context["has_pro_subscription"] = False
             context["current_plan_key"] = ""
-            context["current_site_limit"] = settings.CLEANAPP_FREE_SITE_LIMIT
+            context["current_site_limit"] = settings.STALEAWAY_FREE_SITE_LIMIT
 
         return context
 

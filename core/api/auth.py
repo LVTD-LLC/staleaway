@@ -1,10 +1,10 @@
 from django.http import HttpRequest
 from ninja.security import APIKeyQuery
 
-from cleanapp.utils import get_cleanapp_logger
 from core.models import Profile
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 class APIKeyAuth(APIKeyQuery):

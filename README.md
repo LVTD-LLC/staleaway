@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="#" width="230" alt="PageFresh Logo">
+  <img src="#" width="230" alt="Staleaway Logo">
 </p>
 
 <!--  -->
 <div align="center">
-  <b>PageFresh</b>
+  <b>Staleaway</b>
   <b>Scheduled page review reminders for every sitemap.</b>
 </div>
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-PageFresh imports sitemap pages, tracks review status, and sends scheduled email digests so website owners and agencies can keep content current.
+Staleaway imports sitemap pages, tracks review status, and sends scheduled email digests so website owners and agencies can keep content current.
 
 ***
 
@@ -34,9 +34,9 @@ PageFresh imports sitemap pages, tracks review status, and sends scheduled email
 
 ### Render
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rasulkireev/cleanapp)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/LVTD-LLC/staleaway)
 
-**Note:** This should work out of the box with Render's free tier for light PageFresh usage. Here's what you need to know about the limitations:
+**Note:** This should work out of the box with Render's free tier for light Staleaway usage. Here's what you need to know about the limitations:
 
 - **Worker Service Limitation**: The worker service is not a dedicated worker type (those are only available on paid plans). For the free tier, I had to use a web service through a small hack, but it works fine for small review queues.
 
@@ -46,9 +46,9 @@ PageFresh imports sitemap pages, tracks review status, and sends scheduled email
 
 - **Upgrade Recommendation**: If you do upgrade to a paid plan, use the actual worker service instead of the web service workaround for better automated task reliability.
 
-**Reality Check**: PageFresh should be usable on the free tier for a small number of sites. Automated sitemap imports and email digests may occasionally fail on heavy workloads due to memory constraints.
+**Reality Check**: Staleaway should be usable on the free tier for a small number of sites. Automated sitemap imports and email digests may occasionally fail on heavy workloads due to memory constraints.
 
-If you know of any other services like Render that allow deployment via a button and provide free Redis, Postgres, and web services, please let me know in the [Issues](https://github.com/rasulkireev/cleanapp/issues) section. I can try to create deployments for those. Bear in mind that free services are usually not large enough to run this application reliably.
+If you know of any other services like Render that allow deployment via a button and provide free Redis, Postgres, and web services, please let me know in the [Issues](https://github.com/LVTD-LLC/staleaway/issues) section. I can try to create deployments for those. Bear in mind that free services are usually not large enough to run this application reliably.
 
 
 ### Docker Compose
@@ -63,7 +63,7 @@ Copy the contents of `.env.example` into `.env` and update all the necessary val
 
 Copy the contents of `docker-compose-prod.yml` into `docker-compose.yml` and run the suggested command from the top of the `docker-compose-prod.yml` file.
 
-How you are going to expose the backend container is up to you. Existing compose examples may still use the legacy `cleanapp` project name, for example `http://cleanapp-backend-1:80` as `UPSTREAM_HTTP_ADDRESS`.
+How you are going to expose the backend container is up to you. Compose examples use the `staleaway` project name, for example `http://staleaway-backend-1:80` as `UPSTREAM_HTTP_ADDRESS`.
 
 
 ### Pure Python / Django deployment
@@ -82,14 +82,14 @@ You'd still need to make sure .env has correct values.
 ### Custom Deployment on Caprover
 
 1. Create 4 apps on CapRover.
-  - `cleanapp`
-  - `cleanapp-workers`
-  - `cleanapp-postgres`
-  - `cleanapp-redis`
+  - `staleaway`
+  - `staleaway-workers`
+  - `staleaway-postgres`
+  - `staleaway-redis`
 
 2. Create a new CapRover app token for:
-   - `cleanapp`
-   - `cleanapp-workers`
+   - `staleaway`
+   - `staleaway-workers`
 
 3. Add Environment Variables to those same apps from `.env`.
 
@@ -135,3 +135,7 @@ This app uses Stripe Checkout for purchases and the Billing Portal for subscript
   - `docker compose -f docker-compose-local.yml run --rm stripe listen --forward-to http://backend:8000/stripe/webhook/${WEBHOOK_UUID}/`
 - Trigger a test event:
   - `docker compose -f docker-compose-local.yml run --rm stripe trigger customer.subscription.created`
+
+### Upgrading PageFresh / Cleanapp
+
+Follow [the data-preserving cutover runbook](docs/staleaway-cutover.md). Existing storage and queue identifiers must be preserved; changing the product name does not require copying or recreating user data.

@@ -55,7 +55,7 @@ def test_get_site_limit_counts_only_active_sites(profile):
 
 @pytest.mark.django_db
 def test_plan_lookup_by_price_id(settings):
-    settings.CLEANAPP_BILLING_PLANS = {
+    settings.STALEAWAY_BILLING_PLANS = {
         "starter": {"price_id": "price_starter", "site_limit": 5, "trial_days": 14},
         "agency": {"price_id": "price_agency", "site_limit": 30, "trial_days": 14},
     }
@@ -67,7 +67,7 @@ def test_plan_lookup_by_price_id(settings):
 
 @pytest.mark.django_db
 def test_get_trial_days_for_plan(settings):
-    settings.CLEANAPP_BILLING_PLANS = {
+    settings.STALEAWAY_BILLING_PLANS = {
         "starter": {"price_id": "price_starter", "site_limit": 5, "trial_days": 7},
         "agency": {"price_id": "price_agency", "site_limit": 30, "trial_days": 21},
     }

@@ -50,7 +50,7 @@ def test_handle_created_subscription_normalizes_legacy_plan_key(sync_state_trans
 def test_handle_created_subscription_infers_plan_from_price_id(
     sync_state_transitions, profile, settings
 ):
-    settings.CLEANAPP_BILLING_PLANS = {
+    settings.STALEAWAY_BILLING_PLANS = {
         "starter": {"price_id": "price_starter", "site_limit": 5, "trial_days": 14},
         "agency": {"price_id": "price_agency", "site_limit": 30, "trial_days": 14},
     }

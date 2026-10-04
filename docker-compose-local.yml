@@ -6,24 +6,24 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=cleanapp
-      - POSTGRES_USER=cleanapp
-      - POSTGRES_PASSWORD=cleanapp
+      - POSTGRES_DB=staleaway
+      - POSTGRES_USER=staleaway
+      - POSTGRES_PASSWORD=staleaway
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U cleanapp"]
+      test: ["CMD-SHELL", "pg_isready -U staleaway"]
       interval: 5s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7-alpine
-    command: redis-server --requirepass cleanapp
+    command: redis-server --requirepass staleaway
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     environment:
-      - REDIS_PASSWORD=cleanapp
+      - REDIS_PASSWORD=staleaway
 
   backend:
     build:
@@ -88,7 +88,7 @@ services:
     ]
     environment:
       - STRIPE_API_KEY=${STRIPE_SECRET_KEY}
-      - STRIPE_DEVICE_NAME=cleanapp_docker
+      - STRIPE_DEVICE_NAME=staleaway_docker
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -104,8 +104,8 @@ services:
     volumes:
       - minio_data:/data
     environment:
-      MINIO_ROOT_USER: cleanapp
-      MINIO_ROOT_PASSWORD: cleanapp
+      MINIO_ROOT_USER: staleaway
+      MINIO_ROOT_PASSWORD: staleaway
     command: server --console-address ":9001" /data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
@@ -121,9 +121,9 @@ services:
     entrypoint: >
       /bin/sh -c "
       sleep 5 &&
-      /usr/bin/mc config host add myminio http://minio:9000 cleanapp cleanapp &&
-      /usr/bin/mc mb myminio/cleanapp-dev &&
-      /usr/bin/mc anonymous set download myminio/cleanapp-dev &&
+      /usr/bin/mc config host add myminio http://minio:9000 staleaway staleaway &&
+      /usr/bin/mc mb myminio/staleaway-dev &&
+      /usr/bin/mc anonymous set download myminio/staleaway-dev &&
       exit 0;
       "
 

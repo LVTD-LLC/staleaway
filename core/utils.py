@@ -6,9 +6,9 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.html import conditional_escape
 
-from cleanapp.utils import get_cleanapp_logger
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 class DivErrorList(ErrorList):

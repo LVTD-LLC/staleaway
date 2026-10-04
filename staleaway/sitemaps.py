@@ -1,10 +1,8 @@
 from django.contrib import sitemaps
-from django.urls import reverse
 from django.contrib.sitemaps import GenericSitemap
-
+from django.urls import reverse
 
 from core.models import BlogPost
-
 
 
 class StaticViewSitemap(sitemaps.Sitemap):

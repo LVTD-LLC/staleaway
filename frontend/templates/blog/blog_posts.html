@@ -2,31 +2,31 @@
 {% load webpack_loader static %}
 
 {% block meta %}
-<title>PageFresh Blog</title>
+<title>Staleaway Blog</title>
 <meta name="description" content="Scheduled page review reminders for every sitemap." />
 <meta name="keywords" content="" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://{{ request.get_host }}{% url 'blog_posts' %}" />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="PageFresh Blog" />
+<meta property="og:title" content="Staleaway Blog" />
 <meta property="og:url" content="https://{{ request.get_host }}{% url 'blog_posts' %}" />
 <meta property="og:description" content="Scheduled page review reminders for every sitemap." />
-<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=PageFresh Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@rasulkireev" />
 <meta name="twitter:site" content="@rasulkireev" />
-<meta name="twitter:title" content="PageFresh Blog" />
+<meta name="twitter:title" content="Staleaway Blog" />
 <meta name="twitter:description" content="Scheduled page review reminders for every sitemap." />
-<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=PageFresh Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
 {% endblock meta %}
 
 {% block content %}
 <div class="pf-shell py-12 md:py-16">
   <div class="mx-auto max-w-3xl">
-    <h1 class="pf-page-title text-center">PageFresh Blog</h1>
+    <h1 class="pf-page-title text-center">Staleaway Blog</h1>
     {% if blog_posts %}
       <div class="mt-8 space-y-4">
         {% for post in blog_posts %}
@@ -55,9 +55,9 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "PageFresh Blog",
+    "name": "Staleaway Blog",
     "description": "Scheduled page review reminders for every sitemap.",
-    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=PageFresh Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
+    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Scheduled page review reminders for every sitemap.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
     "url": "https://{{ request.get_host }}{% url 'blog_posts' %}",
     "author": {
       "@type": "Person",

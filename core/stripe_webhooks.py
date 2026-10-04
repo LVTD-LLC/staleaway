@@ -1,14 +1,14 @@
 import stripe
 from django.conf import settings
 
-from cleanapp.utils import get_cleanapp_logger
 from core.billing import normalize_plan_key, resolve_plan_key_from_price_id
 from core.choices import ProfileStates
 from core.models import Profile
+from staleaway.utils import get_staleaway_logger
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 
 def get_profile_for_customer(customer_id, metadata=None):

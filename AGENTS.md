@@ -4,8 +4,8 @@ Root instructions for AI coding agents working in this repo.
 
 ## Start Here
 
-- Product: PageFresh, scheduled page review reminders for every sitemap.
-- Legacy technical name: `cleanapp`. The Django project package, Docker services, Render resources, Redis queue name, and database examples still use it. Do not rename those surfaces unless the user explicitly asks for a coordinated rename.
+- Product: Staleaway, scheduled page review reminders for every sitemap.
+- Product/package/service name: `staleaway`. Existing production database names, volumes, media bucket, and queue retain legacy `cleanapp` identifiers to preserve data. See `docs/staleaway-cutover.md`; never recreate storage just to rename it.
 - Read the relevant steering docs before changing code:
   - `VISION.md` for product direction and non-goals.
   - `PRODUCT.md` for users, workflows, and business constraints.
@@ -64,7 +64,7 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 - Keep review queue behavior deterministic. Preserve cadence windows, `last_review_email_sent_at`, `review_queue_attempts`, `needs_review`, `reviewed`, and `is_active` semantics.
 - Billing state transitions belong in `core.billing`, `core.stripe_webhooks`, and `Profile.track_state_change`. Treat plan aliases, site limits, Stripe metadata, and webhook idempotency as compatibility-sensitive.
 - API endpoints use Django Ninja schemas in `core/api/schemas.py` and auth in `core/api/auth.py`.
-- Log with `get_cleanapp_logger(__name__)` and structured key/value context. Avoid sensitive payloads.
+- Log with `get_staleaway_logger(__name__)` and structured key/value context. Avoid sensitive payloads.
 
 ## Frontend Rules
 
@@ -82,7 +82,7 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 - The long-term direction is AI-agent-first. Treat email as a current human workflow, not the only interface.
 - Future API and MCP surfaces should expose the same product primitives as the UI: sites/sitemaps, pages, due queues, page selection, review state, notes, and limits.
 - Do not make agents scrape UI pages or parse email digests. Add shared domain behavior and expose it through explicit API/MCP contracts.
-- Do not turn PageFresh into a CMS, broad SEO crawler, generic AI content generator, project management tool, or noisy analytics dashboard.
+- Do not turn Staleaway into a CMS, broad SEO crawler, generic AI content generator, project management tool, or noisy analytics dashboard.
 - Agencies matter. Preserve client labels, grouped digests, multi-site scanning, and clear plan usage.
 - Email remains useful for humans. Dashboard, API, and MCP features should all support the same recurring review loop.
 - Keep setup practical for small self-hosted/Render deployments.

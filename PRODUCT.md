@@ -2,11 +2,11 @@
 
 ## Product Overview
 
-PageFresh turns sitemap maintenance into a recurring review workflow. Users add sitemaps, PageFresh imports active pages, queues URLs for review on a cadence, and currently sends email digests with direct review links. The product replaces the spreadsheet/reminder-system version of website maintenance with a simple loop users and AI agents can trust.
+Staleaway turns sitemap maintenance into a recurring review workflow. Users add sitemaps, Staleaway imports active pages, queues URLs for review on a cadence, and currently sends email digests with direct review links. The product replaces the spreadsheet/reminder-system version of website maintenance with a simple loop users and AI agents can trust.
 
-PageFresh should evolve into an AI-agent-first tool. The UI and email digest remain useful human surfaces, but the core product should be available through first-class API and MCP interfaces so agents, scripts, n8n, Zapier, and other automations can add sites, inspect queues, pick pages, run checks, and mark work complete.
+Staleaway should evolve into an AI-agent-first tool. The UI and email digest remain useful human surfaces, but the core product should be available through first-class API and MCP interfaces so agents, scripts, n8n, Zapier, and other automations can add sites, inspect queues, pick pages, run checks, and mark work complete.
 
-The public product name is PageFresh. The repository, Django project package, Docker services, database names, and some deployment resources still use `cleanapp`. Do not rename those technical surfaces unless a task is explicitly about a coordinated rename.
+The public product, repository, Django project package, and application services are Staleaway (`staleaway`). Existing production storage identifiers remain unchanged; see `docs/staleaway-cutover.md`.
 
 ## Target Users
 
@@ -21,11 +21,11 @@ Secondary users:
 - Admin/operator users who need basic visibility into users, sitemaps, feedback, and scheduled jobs.
 - Self-hosters deploying through Render, Docker Compose, or a Python/Django environment.
 - AI agents and automation builders acting on behalf of a user or agency account.
-- Operators wiring PageFresh into scheduled workflows through API clients, MCP clients, n8n, Zapier, scripts, or hosted jobs.
+- Operators wiring Staleaway into scheduled workflows through API clients, MCP clients, n8n, Zapier, scripts, or hosted jobs.
 
 ## Core Jobs
 
-PageFresh should help users:
+Staleaway should help users:
 
 1. Add a sitemap quickly and know that pages were imported.
 2. Group sites by client or workspace.
@@ -46,7 +46,7 @@ AI agents should be able to:
 - Pull a random or filtered page when an agent wants exploratory maintenance work.
 - Read page metadata and stable URLs needed for SEO, schema, freshness, and content checks.
 - Mark a page as reviewed, skipped, stale, or needing follow-up.
-- Attach structured notes about what was checked and what changed outside PageFresh.
+- Attach structured notes about what was checked and what changed outside Staleaway.
 - Respect account limits, ownership, auth scopes, and audit logs.
 
 ## Current Product Surface
@@ -68,7 +68,7 @@ The app does not yet have a complete public API or MCP server. Future work shoul
 
 ## Business Model
 
-PageFresh is self-serve SaaS with a free tier and paid site-limit tiers. Billing logic is centered on active sitemap count, plan keys, Stripe price IDs, and profile state transitions. Treat billing changes as product-sensitive because they affect access, trust, and paid conversion.
+Staleaway is self-serve SaaS with a free tier and paid site-limit tiers. Billing logic is centered on active sitemap count, plan keys, Stripe price IDs, and profile state transitions. Treat billing changes as product-sensitive because they affect access, trust, and paid conversion.
 
 Plan names and defaults currently favor:
 
@@ -89,7 +89,7 @@ Plan names and defaults currently favor:
 
 ## Anti-Goals
 
-Do not turn PageFresh into:
+Do not turn Staleaway into:
 
 - A full SEO crawler or audit suite.
 - A CMS, content editor, or AI content generator.
@@ -111,7 +111,7 @@ When making product changes, optimize for:
 - Due pages delivered per digest without repeats inside the same cadence window.
 - Review completion from digest links.
 - API/MCP task completion by agents without UI scraping or email parsing.
-- Number of successful external automations using PageFresh primitives.
+- Number of successful external automations using Staleaway primitives.
 - Clarity of plan limit and billing state.
 - Low support burden for setup, email delivery, API keys, MCP clients, and webhook configuration.
 

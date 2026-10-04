@@ -11,13 +11,13 @@ from django.urls import reverse
 from django.utils import timezone
 from django_q.tasks import async_task
 
-from cleanapp.utils import get_cleanapp_logger
 from core.billing import cadence_to_timedelta, get_active_site_count, get_site_limit_for_profile
 from core.choices import ReviewCadence, ReviewOutcome, SitemapImportStatus
 from core.models import Page, Profile, Sitemap
 from core.review_queue import is_page_due_for_review
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 MAX_API_LIMIT = 100
 DEFAULT_API_LIMIT = 50

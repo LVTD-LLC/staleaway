@@ -1,7 +1,6 @@
 from django.http import HttpRequest
 from ninja import NinjaAPI
 
-from cleanapp.utils import get_cleanapp_logger
 from core.api.auth import api_key_auth, session_auth, superuser_api_auth
 from core.api.schemas import (
     AddEmailIn,
@@ -49,8 +48,9 @@ from core.review_primitives import (
     sitemap_to_dict,
     update_page_review_outcome,
 )
+from staleaway.utils import get_staleaway_logger
 
-logger = get_cleanapp_logger(__name__)
+logger = get_staleaway_logger(__name__)
 
 api = NinjaAPI(docs_url=None)
 profile_api_auth = [session_auth, api_key_auth]
