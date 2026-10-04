@@ -30,8 +30,8 @@ CapRover apps. Production keeps its existing database, media bucket, Redis queue
 credentials and volumes. Do not recreate storage during a branding/code change.
 
 Email uses configurable `DEFAULT_FROM_EMAIL`, `MAILGUN_SENDER_DOMAIN`, and `MJML_URL`.
-Stripe Checkout uses `STRIPE_PRICE_ID_MONTHLY` / `STRIPE_PRICE_ID_YEARLY`; configure
-signed subscription/checkout webhooks at `/stripe/webhook/`.
+All features are free. No payment-provider credentials or webhook setup are needed.
+Historical billing columns remain inert to preserve existing records; there is no runtime integration.
 
 ## Product baseline
 

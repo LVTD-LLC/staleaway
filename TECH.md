@@ -1,6 +1,6 @@
 # Technology
 
-Staleaway uses Django 5, PostgreSQL, Django Q2/Redis, Django Allauth, Stripe,
+Staleaway uses Django 5, PostgreSQL, Django Q2/Redis, Django Allauth,
 Anymail/Mailgun and a configured MJML HTTP renderer. The frontend is Django templates,
 Stimulus, Tailwind and webpack. Production uses the existing CapRover web and worker
 services and main-branch GitHub deployment workflows.
@@ -20,7 +20,7 @@ No dependency/runtime upgrade is part of the restoration.
 
 Use `.env.example`. Keep all credentials server-side. `SITE_URL` is the canonical
 origin; `LEGACY_HOSTS` preserves old links. Email sender and Mailgun domain are
-configurable. `STRIPE_PRICE_ID_MONTHLY` and `STRIPE_PRICE_ID_YEARLY` drive checkout.
+configurable. No payment-provider configuration is required.
 Optional analytics/error-reporting integrations should remain optional.
 
 Never rename existing database volumes, media buckets or queue identifiers to match

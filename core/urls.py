@@ -29,17 +29,4 @@ urlpatterns = [
         views.trigger_schedule_sitemap_reparse,
         name="trigger_schedule_sitemap_reparse",
     ),
-    # payments
-    path("pricing", views.PricingView.as_view(), name="pricing"),
-    path("stripe/webhook/", views.stripe_webhook_view, name="stripe_webhook"),
-    path(
-        "create-checkout-session/<int:pk>/<str:plan>/",
-        views.create_checkout_session,
-        name="user_upgrade_checkout_session",
-    ),
-    path(
-        "create-customer-portal/",
-        views.create_customer_portal_session,
-        name="create_customer_portal_session",
-    ),
 ]

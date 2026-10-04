@@ -18,3 +18,10 @@ Restore PR #8's sitemap setup, dashboard, settings, random unreviewed-page email
 Build frontend assets, run `make test` in an isolated Docker environment, check `makemigrations --check --dry-run` with migrations enabled, and test on a disposable restored database. No new migration is expected. Deployment uses the existing GitHub workflows and Staleaway services. Existing database, media, queue and secrets must not change.
 
 Rollback is redeploying image tag `cfd34068941da44ef810824b9597bfd6b6c0e3b8` for web and worker. No database rollback is necessary. Do not restore an old database over current users.
+
+## Free access follow-up (2026-10-04)
+
+The restoration description above is historical. The owner subsequently requested
+removal of all billing. Pricing, checkout, portal, webhooks, billing API/controller,
+SDK and provider settings are removed. All features are free regardless of saved
+profile state. Existing columns, migration history and user data remain unchanged.

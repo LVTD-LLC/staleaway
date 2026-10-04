@@ -22,9 +22,8 @@ For existing production configure BOTH web and worker:
 - `MAILGUN_SENDER_DOMAIN`: preserve a verified sending domain; do not assume a new domain is verified.
 - `PLAUSIBLE_SITE_DOMAIN=pagefresh.lvtd.dev` until that existing analytics site is renamed.
 
-Billing limit settings use `STALEAWAY_*_SITE_LIMIT`, with fallback to the previous
-`CLEANAPP_*_SITE_LIMIT` environment variables. Storage/queue defaults deliberately
-preserve legacy installations; new installations should set them explicitly.
+All features are now free; former billing limit settings are unused. Storage/queue
+defaults deliberately preserve legacy installations; new installations should set them explicitly.
 
 ## Ordered production procedure
 
@@ -43,10 +42,10 @@ preserve legacy installations; new installations should set them explicitly.
    tokens if needed; preserve all unrelated environment/configuration values.
 7. Update Django Site #1 to `staleaway.com` / `Staleaway` without recreating it.
    Keep legacy domains serving existing links. Redirect safe GET/HEAD requests only;
-   preserve POST webhook delivery until provider endpoint URLs have been updated.
+   preserve POST request semantics. Payment webhooks were subsequently removed.
 8. Verify HTTPS, login/signup forms, assets, API docs, worker startup, database/Redis
-   connections, identical record counts, and unchanged volume mounts. Check billing
-   webhook and email configuration without sending user mail or charging accounts.
+   connections, identical record counts, and unchanged volume mounts. Check email
+   configuration without sending user mail. Payment routes are no longer exposed.
 
 Existing login cookies cannot cross domains; users may need to log in again.
 Their accounts, password hashes, API keys, and data remain unchanged.

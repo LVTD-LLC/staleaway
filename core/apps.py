@@ -13,7 +13,6 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         import core.signals  # noqa
-        import core.stripe_webhooks  # noqa
 
         if settings.POSTHOG_API_KEY:
             posthog.api_key = settings.POSTHOG_API_KEY

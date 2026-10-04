@@ -19,7 +19,7 @@ Root instructions for AI coding agents working in this repo.
 - Keep changes scoped. Do not bundle unrelated cleanup, migrations, dependency upgrades, formatting sweeps, or renames.
 - Prefer existing Django, Tailwind, Stimulus, and project helper patterns over new abstractions.
 - Preserve user-owned changes in the worktree. Do not revert or overwrite unrelated edits.
-- Never print secrets from `.env`, Stripe, Mailgun, PostHog, Buttondown, Sentry, Logfire, S3/MinIO, or GitHub.
+- Never print secrets from `.env`, Mailgun, PostHog, Buttondown, Sentry, Logfire, S3/MinIO, or GitHub.
 - If a behavior depends on an external API or library contract, verify against current docs/source when feasible instead of guessing.
 - Summaries should name changed files and the exact checks run.
 
@@ -42,10 +42,10 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 
 ## Tests And Proof
 
-- Add or update tests for behavior changes, bug fixes, billing logic, queues, webhooks, API responses, and permission boundaries.
+- Add or update tests for behavior changes, bug fixes, queues, webhooks, API responses, and permission boundaries.
 - Existing tests live in `core/tests/` and use pytest with `pytest-django`.
 - Background task dispatch is monkeypatched in `core/tests/conftest.py`; account for that when testing signals or async workflows.
-- Mock network and provider calls. Do not hit real Stripe, Mailgun, PostHog, Buttondown, Sentry, Logfire, sitemap URLs, or page URLs from unit tests.
+- Mock network and provider calls. Do not hit real Mailgun, PostHog, Buttondown, Sentry, Logfire, sitemap URLs, or page URLs from unit tests.
 - For docs-only changes, `git diff --check` is usually sufficient.
 
 ## Migrations
@@ -58,11 +58,12 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 ## Backend Rules
 
 - This is a Django app. Use Django ORM, forms, class-based views, messages, and URL reversing in the existing style.
-- Tenant data belongs to `Profile`. User-facing queries for sitemaps, pages, email preferences, feedback, billing, and API mutations must be scoped to `request.user.profile` or `request.auth`.
+- Tenant data belongs to `Profile`. User-facing queries for sitemaps, pages, email preferences, feedback, and API mutations must be scoped to `request.user.profile` or `request.auth`.
 - Use soft archive behavior for sitemaps/pages where the current product does. Do not hard-delete user data unless explicitly required.
 - Queue recurring work with Django Q (`async_task`) and existing task modules. Prefer dotted task names where the surrounding code does.
 - Preserve PR #8 review-selection behavior and stored review state.
-- Billing uses monthly/yearly plans in `core.views`, `core.stripe_webhooks`, and `Profile.track_state_change`.
+- All features are free. No payment provider, paid entitlement checks, pricing page or checkout.
+- Historical billing columns and state choices are inert compatibility metadata; preserve existing data.
 - API endpoints use Django Ninja schemas in `core/api/schemas.py` and auth in `core/api/auth.py`.
 - Log with `get_staleaway_logger(__name__)` and structured key/value context. Avoid sensitive payloads.
 
@@ -73,7 +74,7 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 - Tailwind scans Django templates, frontend JS, and `core/**/*.py` through `tailwind.config.js`.
 - Prefer Stimulus controllers for interactivity. New controllers go in `frontend/src/controllers/` and are auto-loaded from `frontend/src/application/index.js`.
 - Do not add inline `<script>` behavior to templates when a Stimulus controller fits.
-- Keep long URLs, client labels, email addresses, and billing messages from overflowing on mobile.
+- Keep long URLs, client labels, email addresses, and status messages from overflowing on mobile.
 - Follow `DESIGN.md` for color, type, shape, motion, and component decisions.
 
 ## Product Guardrails
@@ -85,7 +86,6 @@ Do not run host `pytest` directly for normal validation. The project rules expec
 
 ## Security And Privacy
 
-- Stripe webhooks must validate signatures and keep idempotency protection.
 - Authenticated API mutations must verify ownership through `Profile`.
 - Do not expose API keys, profile keys, session data, webhook secrets, provider payloads, or PII in client-visible output.
 - External fetches need timeouts and reasonable limits. Sitemap parsing should keep recursion and max-sitemap protections.
