@@ -284,7 +284,7 @@ if GITHUB_CLIENT_ID != "":
 MAILGUN_API_KEY = env("MAILGUN_API_KEY", default="")
 ANYMAIL = {
     "MAILGUN_API_KEY": MAILGUN_API_KEY,
-    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default="staleaway.com"),
+    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default="mg.staleaway.com"),
 }
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL", default="Rasul from Staleaway <rasul@staleaway.com>"

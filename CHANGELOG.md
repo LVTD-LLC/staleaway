@@ -1,3 +1,9 @@
+# Changelog
+
+## 2026-10-07
+
+- Move the default and production Mailgun sending domain to `mg.staleaway.com`, preserving the Staleaway From address, reply forwarding and suppressions. Document paired domain/key configuration and safe delivery verification.
+
 # 2026-10-04 — Staleaway email sender
 
 - Default transactional and review-reminder emails to `Rasul from Staleaway <rasul@staleaway.com>`, using the dedicated Mailgun domain. Environment overrides remain supported.
