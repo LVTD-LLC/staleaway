@@ -11,6 +11,9 @@ FROM python:3.13
 WORKDIR /app
 
 COPY . .
+ARG DEPLOYMENT_REVISION=development
+RUN printf "%s" "$DEPLOYMENT_REVISION" > deployment-revision.txt
+
 COPY --from=build /app/frontend/build/ ./frontend/build/
 
 RUN pip install --no-cache-dir -r requirements.txt
