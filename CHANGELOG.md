@@ -1,3 +1,8 @@
+## 2026-10-08 — IndexNow
+- Add public ownership proof and revision-verified post-deploy/hourly sitemap notifications with retries and success-only checkpoints.
+- Correct public sitemap homepage (exclude login-only dashboard), include only published blog entries, and preserve full modification timestamps.
+- Add Docker-backed CI coverage. No database, billing, review queue, or email changes.
+
 # Changelog
 
 ## 2026-10-07

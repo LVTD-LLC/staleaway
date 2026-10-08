@@ -19,9 +19,12 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from staleaway.indexnow_views import deployment_revision, ownership_key
 from staleaway.sitemaps import sitemaps
 
 urlpatterns = [
+    path("indexnow-key.txt", ownership_key, name="indexnow_key"),
+    path("deployment.txt", deployment_revision, name="deployment_revision"),
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("anymail/", include("anymail.urls")),
@@ -30,7 +33,7 @@ urlpatterns = [
     path(
         "sitemap.xml",
         sitemap,
-        {"sitemaps": sitemaps},
+        {"sitemaps": sitemaps, "template_name": "sitemap.xml"},
         name="django.contrib.sitemaps.views.sitemap",
     ),
 ]

@@ -2,6 +2,7 @@ from django.contrib import sitemaps
 from django.contrib.sitemaps import GenericSitemap
 from django.urls import reverse
 
+from core.choices import BlogPostStatus
 from core.models import BlogPost
 
 
@@ -18,9 +19,8 @@ class StaticViewSitemap(sitemaps.Sitemap):
             List: urlNames that will be in the Sitemap
         """
         return [
-            "home",
+            "landing_page",
             "uses",
-            
             "blog_posts",
         ]
 
@@ -35,11 +35,14 @@ class StaticViewSitemap(sitemaps.Sitemap):
         """
         return reverse(item)
 
+
 sitemaps = {
     "static": StaticViewSitemap,
-    
     "blog": GenericSitemap(
-        {"queryset": BlogPost.objects.all(), "date_field": "created_at"},
+        {
+            "queryset": BlogPost.objects.filter(status=BlogPostStatus.PUBLISHED).order_by("pk"),
+            "date_field": "updated_at",
+        },
         priority=0.85,
         protocol="https",
     ),
