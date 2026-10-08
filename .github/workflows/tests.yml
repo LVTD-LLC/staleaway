@@ -11,5 +11,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+      - run: npm ci --include=dev && npm run build
       - run: docker compose -f docker-compose-test.yml build
       - run: make test

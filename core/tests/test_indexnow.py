@@ -2,6 +2,7 @@ import re
 from xml.etree import ElementTree
 
 import pytest
+from django.contrib.sites.models import Site
 from django.urls import reverse
 
 from core.choices import BlogPostStatus
@@ -23,7 +24,9 @@ def test_public_ownership_and_revision(client, settings, tmp_path):
 
 
 @pytest.mark.django_db
-def test_sitemap_public_pages_and_full_blog_modification_timestamp(client):
+def test_sitemap_public_pages_and_full_blog_modification_timestamp(client, settings):
+    Site.objects.update_or_create(pk=settings.SITE_ID, defaults={"domain": "testserver"})
+    Site.objects.clear_cache()
     published = BlogPost.objects.create(
         title="Public",
         slug="public",
