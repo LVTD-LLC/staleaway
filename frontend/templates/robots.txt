@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /review-page/
+
+Sitemap: {{ site_url }}/sitemap.xml

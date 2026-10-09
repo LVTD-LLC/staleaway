@@ -7,13 +7,17 @@
 <meta name="description" content="{{ blog_post.description }}" />
 <meta name="keywords" content="{{ blog_post.tags }}" />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://{{ request.get_host }}{{ blog_post.get_absolute_url }}" />
+<link rel="canonical" href="{{ site_url }}{{ blog_post.get_absolute_url }}" />
 
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ blog_post.title }}" />
-<meta property="og:url" content="https://{{ request.get_host }}{{ blog_post.get_absolute_url }}" />
+<meta property="og:url" content="{{ site_url }}{{ blog_post.get_absolute_url }}" />
 <meta property="og:description" content="{{ blog_post.description }}" />
-<meta property="og:image" content="https://osig.app/g?site=x&style=base&font=markerfelt&title={{ blog_post.title }} | Staleaway Blog&subtitle={{ blog_post.description }}&image_url={{ blog_post.image.url }}" />
+{% if blog_post.image %}
+<meta property="og:image" content="{{ blog_post.image.url }}" />
+{% else %}
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endif %}
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
@@ -21,7 +25,11 @@
 <meta name="twitter:site" content="@rasulkireev" />
 <meta name="twitter:title" content="{{ blog_post.title }}" />
 <meta name="twitter:description" content="{{ blog_post.description }}" />
-<meta name="twitter:image" content="https://osig.app/g?site=x&style=base&font=markerfelt&title={{ blog_post.title }} | Staleaway Blog&subtitle={{ blog_post.description }}&image_url={{ blog_post.image.url }}" />
+{% if blog_post.image %}
+<meta name="twitter:image" content="{{ blog_post.image.url }}" />
+{% else %}
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endif %}
 {% endblock meta %}
 
 {% block content %}
@@ -41,10 +49,10 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "{{ blog_post.title }}",
-    "description": "{{ blog_post.description }}",
-    "image": "https://osig.app/g?site=x&style=base&font=markerfelt&title={{ blog_post.title }} | Staleaway Blog&subtitle={{ blog_post.description }}&image_url={{ blog_post.image.url }}",
-    "url": "https://{{ request.get_host }}{{ blog_post.get_absolute_url }}",
+    "headline": "{{ blog_post.title|escapejs }}",
+    "description": "{{ blog_post.description|escapejs }}",
+    {% if blog_post.image %}"image": "{{ blog_post.image.url|escapejs }}",{% endif %}
+    "url": "{{ site_url|escapejs }}{{ blog_post.get_absolute_url }}",
     "datePublished": "{{ blog_post.created_at|date:'c' }}",
     "dateModified": "{{ blog_post.updated_at|date:'c' }}",
     "author": {
@@ -57,13 +65,12 @@
       "name": "Staleaway",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}"
+        "url": "{{ site_url|escapejs }}{% static 'vendors/images/logo.png' %}"
       }
     },
-    "articleBody": "{{ blog_post.content|safe|replace_quotes }}",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://{{ request.get_host }}{{ blog_post.get_absolute_url }}"
+      "@id": "{{ site_url|escapejs }}{{ blog_post.get_absolute_url }}"
     }
   }
 </script>

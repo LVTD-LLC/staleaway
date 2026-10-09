@@ -23,6 +23,11 @@ from staleaway.indexnow_views import deployment_revision, ownership_key
 from staleaway.sitemaps import sitemaps
 
 urlpatterns = [
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        name="robots",
+    ),
     path("indexnow-key.txt", ownership_key, name="indexnow_key"),
     path("deployment.txt", deployment_revision, name="deployment_revision"),
     path("admin/", admin.site.urls),

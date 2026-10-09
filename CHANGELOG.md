@@ -1,3 +1,10 @@
+# 2026-10-09 — Public SEO foundations
+
+- Add a sitemap-discovering robots.txt and descriptive homepage metadata.
+- Link the blog and technology pages from public navigation; use the public layout for technology information and the current contact address. Remove unsupported AI-service descriptions.
+- Enforce published-only blog listing/detail views; safely serialize article text in structured data and support posts without images.
+- Use the configured site origin for public canonical URLs; add regression coverage and sanitized SEO foundations.
+
 ## 2026-10-08 — IndexNow
 - Add public ownership proof and revision-verified post-deploy/hourly sitemap notifications with retries and success-only checkpoints.
 - Correct public sitemap homepage (exclude login-only dashboard), include only published blog entries, and preserve full modification timestamps.
