@@ -45,3 +45,8 @@ def available_social_providers(request):
         "available_social_providers": available_providers_list,
         "has_social_providers": len(available_providers_list) > 0,
     }
+
+
+def seo_site(request):
+    """Use the configured origin for public canonical and crawler URLs."""
+    return {"site_url": settings.SITE_URL.rstrip("/")}

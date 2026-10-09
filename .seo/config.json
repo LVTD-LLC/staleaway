@@ -1,0 +1,304 @@
+{
+  "site": {
+    "domain": "https://staleaway.com",
+    "name": "Staleaway",
+    "aliases": [
+      "StaleAway",
+      "Pagefresh",
+      "Cleanapp"
+    ],
+    "locale": {
+      "country": "United States",
+      "language": "en"
+    },
+    "repo_kind": "both",
+    "sitemap_url": "https://staleaway.com/sitemap.xml",
+    "brand_regex": null
+  },
+  "stack": {
+    "kind": "django",
+    "marketing_controller": "core/views.py",
+    "pages_dir": "frontend/templates",
+    "data_dir": null,
+    "routes_file": "core/urls.py",
+    "sitemap_path": "staleaway/sitemaps.py",
+    "robots_path": "frontend/templates/robots.txt",
+    "llms_txt_path": null,
+    "header_component": "frontend/templates/base_landing.html",
+    "footer_component": "frontend/templates/base_landing.html",
+    "content_store": {
+      "type": "app_db",
+      "platform": "django",
+      "model_or_collection": "core.BlogPost",
+      "body_format": "markdown",
+      "read_method": "published public pages; admin API only for authorized authoring",
+      "write_method": "explicit scoped admin workflow",
+      "status_field": "status",
+      "published_value": "published"
+    },
+    "content_dir": null,
+    "content_layout": "frontend/templates/blog/blog_post.html",
+    "output_url_prefix": "/blog",
+    "cms": null,
+    "figure_style": {
+      "chart_component": null,
+      "tokens": "DESIGN.md; frontend/src/styles/index.css",
+      "dark_mode": "none",
+      "notes": "Purple public design; system body font and self-hosted Barlow Condensed headings."
+    }
+  },
+  "gsc": {
+    "site_url": "sc-domain:staleaway.com"
+  },
+  "bing": {
+    "api_key_env": null,
+    "site_url": null
+  },
+  "openseo": {
+    "project_id": "54ba1e9e-335d-428a-9ceb-5b816d34febb",
+    "tracker_id": null
+  },
+  "ga4": {
+    "property_id": null
+  },
+  "competitors": [
+    {
+      "name": "Little Warden",
+      "domain": "littlewarden.com",
+      "tier": "mid",
+      "why": "Adjacent automated website monitoring, not a human review reminder equivalent",
+      "source": "https://littlewarden.com/features",
+      "checked_at": "2026-10-09"
+    },
+    {
+      "name": "Conductor Monitoring",
+      "domain": "conductor.com",
+      "tier": "head",
+      "why": "Adjacent continuous technical monitoring; not Staleaway feature parity",
+      "source": "https://www.conductor.com/platform/monitoring/",
+      "checked_at": "2026-10-09"
+    }
+  ],
+  "content_surfaces": [
+    "frontend/templates/pages/",
+    "frontend/templates/blog/"
+  ],
+  "priority_pages": [
+    "https://staleaway.com/",
+    "https://staleaway.com/blog",
+    "https://staleaway.com/uses"
+  ],
+  "crawl_hubs": [
+    "/"
+  ],
+  "authority": {
+    "dr": null,
+    "dr_source": "none",
+    "kd_ceiling": "easy",
+    "kd_source": null,
+    "last_read": null
+  },
+  "budget": {
+    "per_run_usd": 0,
+    "ai_panel_cadence_days": 14,
+    "health_diff_cadence_days": 1,
+    "claim_reverify_sample": 3,
+    "link_check_cadence_days": 7
+  },
+  "select": {
+    "floor": 9,
+    "cooldown_days": 2,
+    "no_change_research_after": 2
+  },
+  "paths": {
+    "roadmap": ".seo/roadmap.md",
+    "ledger": ".seo/content-ledger.md",
+    "truth": ".seo/truth.md",
+    "needs_you": ".seo/needs-you.md",
+    "runs": ".seo/runs/",
+    "health": ".seo/health/",
+    "briefs": ".seo/briefs/",
+    "evidence": ".seo/evidence/"
+  },
+  "logs": {
+    "path": null,
+    "format": "none"
+  },
+  "tools_detected": {
+    "gsc": true,
+    "bing_webmaster": false,
+    "dfs": false,
+    "openseo": true,
+    "answer_engine_data": false,
+    "brand_tracking": false,
+    "crawl_audit": false,
+    "python3": true,
+    "ga4": false,
+    "psi": false,
+    "logs": false,
+    "community_search": false,
+    "social_posting": false,
+    "browser": true,
+    "git": true,
+    "rowset": true,
+    "posthog": true,
+    "citeguild": false,
+    "reddit": false
+  },
+  "tools_declined": [],
+  "cache": {
+    "domain_rating": {
+      "value": null,
+      "read": null
+    },
+    "keyword_volumes": {
+      "read": null
+    },
+    "competitor_gap": {
+      "read": null
+    },
+    "ai_panel": {
+      "read": null
+    },
+    "health_fingerprint": {
+      "read": null
+    }
+  },
+  "sampling": {
+    "p1": {
+      "variants": 6,
+      "platforms": 4,
+      "n": 3
+    },
+    "p2": {
+      "variants": 3,
+      "platforms": 2,
+      "n": 2
+    },
+    "p3": {
+      "variants": 1,
+      "platforms": 1,
+      "n": 1
+    }
+  },
+  "initialized": true,
+  "radar": {
+    "seeds": [
+      "website content review",
+      "website maintenance reminders",
+      "content review schedule",
+      "sitemap page reviews",
+      "keep website content up to date"
+    ],
+    "communities": [],
+    "cadence_days": 7
+  },
+  "speed": {
+    "psi_api_key_env": "PSI_API_KEY",
+    "top_pages": 10,
+    "cadence_days": 7
+  },
+  "cadence": {
+    "gsc_hours": 20,
+    "health_hours": 6,
+    "link_check_hours": 20,
+    "radar_free_hours": 20,
+    "bing_hours": 20,
+    "outcomes_hours": 20,
+    "competitor_hours": 168,
+    "serp_hours": 168,
+    "backlinks_hours": 168,
+    "link_opportunities_hours": 168,
+    "seasonality_hours": 720,
+    "site_search_hours": 168,
+    "url_inspection_hours": 168
+  },
+  "git": {
+    "mode": "pr",
+    "merge_policy": "autonomous"
+  },
+  "repo": {
+    "watch_paths": [
+      "CHANGELOG.md",
+      "PRODUCT.md",
+      "core/views.py",
+      "core/forms.py",
+      "core/tasks.py",
+      "frontend/templates/**",
+      "staleaway/sitemaps.py"
+    ]
+  },
+  "serp": {
+    "top_queries": 20
+  },
+  "distribute": {
+    "social_skill": "postiz",
+    "window_days": 14
+  },
+  "posthog": {
+    "host": "https://us.posthog.com",
+    "project_id": 236796,
+    "production_hosts": [
+      "staleaway.com"
+    ],
+    "timezone": "UTC",
+    "success_events": [],
+    "site_search_events": [],
+    "web_vitals_enabled": true
+  },
+  "research_store": {
+    "backend": "rowset",
+    "project_key": "61d254c5-7b76-438c-8771-7262335b2dbc",
+    "seo_section_key": "a581b124-be76-45e4-ac8d-24c74b594636",
+    "datasets": {
+      "observations": {
+        "key": "6c132da9-be7d-445b-b85f-0f6e7adceb5c",
+        "index_column": "observation_id"
+      }
+    },
+    "schema_version": 1,
+    "last_sync_at": null
+  },
+  "community": {
+    "reddit_enabled": true,
+    "subreddits": [],
+    "max_results_per_query": 10
+  },
+  "citations": {
+    "citeguild_enabled": true,
+    "max_results": 10
+  },
+  "tool_evidence": {
+    "gsc": {
+      "status": "connected",
+      "checked_at": "2026-10-09",
+      "scope": "sc-domain:staleaway.com",
+      "coverage": "empty; page and query+page Sep8\u2013Oct5; preceding page Aug11\u2013Sep7"
+    },
+    "openseo": {
+      "status": "connected",
+      "checked_at": "2026-10-09",
+      "scope": "54ba1e9e-335d-428a-9ceb-5b816d34febb",
+      "coverage": "project context read"
+    },
+    "posthog": {
+      "status": "connected",
+      "checked_at": "2026-10-09",
+      "scope": "236796; staleaway.com",
+      "coverage": "project and event definitions; no signup success event observed"
+    },
+    "rowset": {
+      "status": "connected",
+      "checked_at": "2026-10-09",
+      "scope": "6c132da9-be7d-445b-b85f-0f6e7adceb5c",
+      "coverage": "schema and private setting read"
+    },
+    "browser": {
+      "status": "connected",
+      "checked_at": "2026-10-09",
+      "scope": "staleaway.com",
+      "coverage": "rendered homepage JSON-LD parsed"
+    }
+  },
+  "version": "2.2"
+}

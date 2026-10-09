@@ -12,10 +12,10 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 from django_q.tasks import async_task
 
-from staleaway.utils import get_staleaway_logger
+from core.choices import BlogPostStatus
 from core.forms import ProfileUpdateForm, SitemapForm, SitemapSettingsForm
 from core.models import BlogPost, Feedback, Page, Profile, Sitemap
-
+from staleaway.utils import get_staleaway_logger
 
 logger = get_staleaway_logger(__name__)
 
@@ -218,13 +218,15 @@ def resend_confirmation_email(request):
 
 
 class BlogView(ListView):
-    model = BlogPost
+    queryset = BlogPost.objects.filter(status=BlogPostStatus.PUBLISHED).order_by(
+        "-created_at", "-pk"
+    )
     template_name = "blog/blog_posts.html"
     context_object_name = "blog_posts"
 
 
 class BlogPostView(DetailView):
-    model = BlogPost
+    queryset = BlogPost.objects.filter(status=BlogPostStatus.PUBLISHED)
     template_name = "blog/blog_post.html"
     context_object_name = "blog_post"
 

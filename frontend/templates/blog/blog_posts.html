@@ -2,25 +2,25 @@
 {% load webpack_loader static %}
 
 {% block meta %}
-<title>Staleaway Blog</title>
-<meta name="description" content="Daily reminder for the pages that need polish." />
+<title>Website Content Review & Maintenance Blog | Staleaway</title>
+<meta name="description" content="Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit." />
 <meta name="keywords" content="" />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://{{ request.get_host }}{% url 'blog_posts' %}" />
+<link rel="canonical" href="{{ site_url }}{% url 'blog_posts' %}" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Staleaway Blog" />
-<meta property="og:url" content="https://{{ request.get_host }}{% url 'blog_posts' %}" />
-<meta property="og:description" content="Daily reminder for the pages that need polish." />
-<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta property="og:url" content="{{ site_url }}{% url 'blog_posts' %}" />
+<meta property="og:description" content="Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit." />
+<meta property="og:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit.&image_url={{ site_url }}{% static 'vendors/images/logo.png' %}" />
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@rasulkireev" />
 <meta name="twitter:site" content="@rasulkireev" />
 <meta name="twitter:title" content="Staleaway Blog" />
-<meta name="twitter:description" content="Daily reminder for the pages that need polish." />
-<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:description" content="Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit." />
+<meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit.&image_url={{ site_url }}{% static 'vendors/images/logo.png' %}" />
 {% endblock meta %}
 
 {% block content %}
@@ -56,9 +56,9 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Staleaway Blog",
-    "description": "Daily reminder for the pages that need polish.",
-    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}",
-    "url": "https://{{ request.get_host }}{% url 'blog_posts' %}",
+    "description": "Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit.",
+    "thumbnailUrl": "https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway Blog&subtitle=Read Staleaway notes on website content reviews and maintenance. Find practical ways to revisit old pages, keep information useful, and build a regular review habit.&image_url={{ site_url }}{% static 'vendors/images/logo.png' %}",
+    "url": "{{ site_url }}{% url 'blog_posts' %}",
     "author": {
       "@type": "Person",
       "givenName": "Rasul",

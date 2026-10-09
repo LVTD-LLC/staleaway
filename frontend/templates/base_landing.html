@@ -15,25 +15,25 @@
   <link rel="icon" type="image/svg+xml" href="{% static 'vendors/images/logo.svg' %}" />
 
   {% block meta %}
-  <title>Staleaway</title>
-  <meta name="description" content="Daily reminder for the pages that need polish." />
+  <title>Free Website Content Review Email Reminders | Staleaway</title>
+  <meta name="description" content="Keep website content up to date with free email review reminders. Add your sitemap, choose a schedule, and revisit a few pages at a time with Staleaway." />
   <meta name="keywords" content="website maintenance, page review, content reminders" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://{{ request.get_host }}/" />
+  <link rel="canonical" href="{{ site_url }}/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Staleaway" />
-  <meta property="og:url" content="https://{{ request.get_host }}/" />
-  <meta property="og:description" content="Daily reminder for the pages that need polish." />
-  <meta property="og:image" content="https://osig.app/g?site=meta&style=logo&font=markerfelt&title=Staleaway&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+  <meta property="og:title" content="Free Website Content Review Email Reminders | Staleaway" />
+  <meta property="og:url" content="{{ site_url }}/" />
+  <meta property="og:description" content="Keep website content up to date with free email review reminders. Add your sitemap, choose a schedule, and revisit a few pages at a time with Staleaway." />
+  <meta property="og:image" content="https://osig.app/g?site=meta&style=logo&font=markerfelt&title=Staleaway&subtitle=Keep website content up to date with free email review reminders. Add your sitemap, choose a schedule, and revisit a few pages at a time with Staleaway.&image_url={{ site_url }}{% static 'vendors/images/logo.png' %}" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:creator" content="@rasulkireev" />
   <meta name="twitter:site" content="@rasulkireev" />
-  <meta name="twitter:title" content="Staleaway" />
-  <meta name="twitter:description" content="Daily reminder for the pages that need polish." />
-  <meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway&subtitle=Daily reminder for the pages that need polish.&image_url=https://{{ request.get_host }}{% static 'vendors/images/logo.png' %}" />
+  <meta name="twitter:title" content="Free Website Content Review Email Reminders | Staleaway" />
+  <meta name="twitter:description" content="Keep website content up to date with free email review reminders. Add your sitemap, choose a schedule, and revisit a few pages at a time with Staleaway." />
+  <meta name="twitter:image" content="https://osig.app/g?site=x&style=logo&font=markerfelt&title=Staleaway&subtitle=Keep website content up to date with free email review reminders. Add your sitemap, choose a schedule, and revisit a few pages at a time with Staleaway.&image_url={{ site_url }}{% static 'vendors/images/logo.png' %}" />
   {% endblock meta %}
 
 
@@ -77,6 +77,6 @@
   </div>
 </header>
 <main id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
-<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
-{% block schema %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Staleaway","url":"https://staleaway.com","description":"Scheduled page review reminders for your website."}</script>{% endblock %}
+<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="{% url 'blog_posts' %}">Blog</a><a href="{% url 'uses' %}">Technology</a><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
+{% block schema %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Staleaway","url":"{{ site_url|escapejs }}/","description":"Scheduled page review reminders for your website."}</script>{% endblock %}
 </body></html>
