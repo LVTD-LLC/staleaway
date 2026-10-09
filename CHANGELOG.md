@@ -1,3 +1,7 @@
+# 2026-10-09 — Preserve homepage hero spacing
+
+- Shorten the SEO-refined hero sentence to preserve its original desktop line count and keep secondary links clear of decorative artwork. Search metadata is unchanged.
+
 # 2026-10-09 — Public SEO foundations
 
 - Add a sitemap-discovering robots.txt and descriptive homepage metadata.

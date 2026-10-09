@@ -34,7 +34,7 @@ def test_public_discovery_uses_configured_origin(client, settings):
         assert schemas(response)
     home = client.get("/").content.decode()
     assert "<title>Free Website Content Review Email Reminders | Staleaway</title>" in home
-    assert "free website content review reminders by email" in home
+    assert "Staleaway emails content review reminders, a few pages at a time." in home
     assert schemas(client.get("/"))[0]["url"] == "https://canonical-site.example/"
     robots = client.get("/robots.txt")
     assert robots.status_code == 200
