@@ -14,10 +14,35 @@ def current_state(request):
 
 
 def posthog_api_key(request):
-    return {
-        "posthog_api_key": settings.POSTHOG_API_KEY,
-        "plausible_site_domain": settings.PLAUSIBLE_SITE_DOMAIN,
-    }
+    """Opt public, anonymous HTML into bounded acquisition measurement only.
+
+    Account/review URLs and authenticated pages can contain private identifiers.
+    A template choice alone is not a sufficient boundary: accounts share the
+    landing layout, and a nonexistent blog slug must not become an event URL.
+    """
+    from django.urls import reverse
+
+    from core.choices import BlogPostStatus
+    from core.models import BlogPost
+
+    config = None
+    match = request.resolver_match
+    if settings.POSTHOG_API_KEY and not request.user.is_authenticated and match:
+        name = match.url_name
+        if name in {"landing_page", "blog_posts", "uses"}:
+            path = reverse(name)
+        elif name == "blog_post" and BlogPost.objects.filter(
+            slug=match.kwargs.get("slug"), status=BlogPostStatus.PUBLISHED
+        ).exists():
+            path = reverse(name, kwargs={"slug": match.kwargs["slug"]})
+        else:
+            path = None
+        if path:
+            config = {
+                "api_key": settings.POSTHOG_API_KEY,
+                "url": settings.SITE_URL.rstrip("/") + path,
+            }
+    return {"public_analytics": config}
 
 
 def available_social_providers(request):

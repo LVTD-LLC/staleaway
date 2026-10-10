@@ -1,3 +1,9 @@
+# 2026-10-10 — Bound acquisition analytics to public pages
+
+- Replace browser SDK/autocapture/replay and duplicate outbound-link tracking with explicit anonymous public pageviews. Keep private/account/error pages out of browser analytics; never send URL queries, fragments, raw referrers or page contents.
+- Keep signup outcome events with pseudonymous server IDs and fixed properties; stop cookie/email aliasing, including legacy queued jobs. Restore default cookie scrubbing in diagnostics.
+- Add route, collector and queue regression checks. Document the measurement break and unverified activation attribution; preserve customer data, reminder behavior and all free features.
+
 # 2026-10-09 — Preserve homepage hero spacing
 
 - Shorten the SEO-refined hero sentence to preserve its original desktop line count and keep secondary links clear of decorative artwork. Search metadata is unchanged.

@@ -23,22 +23,6 @@ logger = get_staleaway_logger(__name__)
 class LandingPageView(TemplateView):
     template_name = "pages/landing-page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.user.is_authenticated and settings.POSTHOG_API_KEY:
-            user = self.request.user
-            profile = user.profile
-
-            async_task(
-                "core.tasks.try_create_posthog_alias",
-                profile_id=profile.id,
-                cookies=self.request.COOKIES,
-                source_function="LandingPageView - get_context_data",
-                group="Create Posthog Alias",
-            )
-
-        return context
 
 
 class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
@@ -101,23 +85,10 @@ class AccountSignupView(SignupView):
         profile = user.profile
 
         async_task(
-            "core.tasks.try_create_posthog_alias",
-            profile_id=profile.id,
-            cookies=self.request.COOKIES,
-            source_function="AccountSignupView - form_valid",
-            group="Create Posthog Alias",
-        )
-
-        async_task(
             "core.tasks.track_event",
             profile_id=profile.id,
             event_name="user_signed_up",
-            properties={
-                "$set": {
-                    "email": profile.user.email,
-                    "username": profile.user.username,
-                },
-            },
+            properties={},
             source_function="AccountSignupView - form_valid",
             group="Track Event",
         )
