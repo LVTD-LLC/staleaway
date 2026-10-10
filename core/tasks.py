@@ -2,7 +2,7 @@ import json
 import xml.etree.ElementTree as ET
 import zoneinfo
 from datetime import time
-from urllib.parse import unquote, urlparse
+from urllib.parse import urlparse
 
 import posthog
 import requests
@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.db.models import Count
 from django.utils import timezone
+from django.utils.crypto import salted_hmac
 from django_q.tasks import async_task
 
 from staleaway.utils import get_staleaway_logger
@@ -40,71 +41,41 @@ def add_email_to_buttondown(email, tag):
 
 
 def try_create_posthog_alias(profile_id: int, cookies: dict, source_function: str = None) -> str:
-    if not settings.POSTHOG_API_KEY:
-        return "PostHog API key not found."
-
-    base_log_data = {
-        "profile_id": profile_id,
-        "source_function": source_function,
-    }
-
-    profile = Profile.objects.get(id=profile_id)
-    email = profile.user.email
-
-    base_log_data["email"] = email
-    base_log_data["profile_id"] = profile_id
-
-    posthog_cookie = cookies.get(f"ph_{settings.POSTHOG_API_KEY}_posthog")
-    if not posthog_cookie:
-        logger.warning("[Try Create Posthog Alias] No PostHog cookie found.", **base_log_data)
-        return f"No PostHog cookie found for profile {profile_id}."
-    base_log_data["posthog_cookie"] = posthog_cookie
-
-    logger.info("[Try Create Posthog Alias] Setting PostHog alias", **base_log_data)
-
-    cookie_dict = json.loads(unquote(posthog_cookie))
-    frontend_distinct_id = cookie_dict.get("distinct_id")
-
-    if frontend_distinct_id:
-        posthog.alias(frontend_distinct_id, email)
-        posthog.alias(frontend_distinct_id, str(profile_id))
-
-    logger.info("[Try Create Posthog Alias] Set PostHog alias", **base_log_data)
+    """Compatibility shim for queued jobs; never parse, log or forward cookies."""
+    return "Legacy analytics aliasing disabled."
 
 
 def track_event(
     profile_id: int, event_name: str, properties: dict, source_function: str = None
 ) -> str:
+    """Send only verified server outcomes, without legacy private properties.
+
+    Keep the signature for jobs already in the queue. In particular, ignore old
+    $set/email/username properties rather than forwarding them after deployment.
+    Browser anonymous IDs are deliberately not joined to account identities.
+    """
     if not settings.POSTHOG_API_KEY:
         return "PostHog API key not found."
+    if event_name != "user_signed_up":
+        return "Analytics event is not allowlisted."
+    if not Profile.objects.filter(id=profile_id).exists():
+        return "Analytics profile no longer exists."
 
-    base_log_data = {
-        "profile_id": profile_id,
-        "event_name": event_name,
-        "properties": properties,
-        "source_function": source_function,
-    }
-
-    try:
-        profile = Profile.objects.get(id=profile_id)
-    except Profile.DoesNotExist:
-        logger.error("[TrackEvent] Profile not found.", **base_log_data)
-        return f"Profile with id {profile_id} not found."
-
+    distinct_id = "account_" + salted_hmac(
+        "staleaway.analytics.v1", str(profile_id), algorithm="sha256"
+    ).hexdigest()
     posthog.capture(
-        profile.user.email,
-        event=event_name,
+        distinct_id,
+        event="user_signed_up",
         properties={
-            "profile_id": profile.id,
-            "email": profile.user.email,
-            "current_state": profile.state,
-            **properties,
+            "$host": urlparse(settings.SITE_URL).hostname,
+            "$process_person_profile": False,
+            "$geoip_disable": True,
+            "measurement_version": "public-v1",
+            "source": "server",
         },
     )
-
-    logger.info("[TrackEvent] Tracked event", **base_log_data)
-
-    return f"Tracked event {event_name} for profile {profile_id}"
+    return "Tracked user_signed_up."
 
 
 def track_state_change(

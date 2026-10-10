@@ -26,3 +26,7 @@ Optional analytics/error-reporting integrations should remain optional.
 Never rename existing database volumes, media buckets or queue identifiers to match
 branding. The Django package is `staleaway`; the database app label stays `core`.
 See docs/staleaway-cutover.md and docs/pr8-restoration.md.
+
+Public acquisition analytics use a bounded capture-only PostHog collector; see
+`docs/analytics-privacy.md` for exclusions and measurement limits. Run
+`npm run test:analytics` for the network-mocked collector checks.

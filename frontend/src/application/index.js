@@ -1,3 +1,4 @@
+import { capturePublicPageview } from "../analytics/public";
 import "../styles/index.css";
 
 import { Application } from "@hotwired/stimulus";
@@ -13,3 +14,6 @@ application.load(definitionsFromContext(context));
 
 application.register('dropdown', Dropdown);
 application.register('reveal', RevealController);
+
+// No browser collection runs without the public, anonymous page config.
+capturePublicPageview();

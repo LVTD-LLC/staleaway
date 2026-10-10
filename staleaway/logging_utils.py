@@ -2,6 +2,6 @@ import logfire
 
 
 def scrubbing_callback(m: logfire.ScrubMatch):
-    if m.path == ("attributes", "cookies"):
-        return m.value
-
+    # Returning None retains Logfire's default scrubbing, including cookies.
+    # Never opt authentication or analytics cookies out of that protection.
+    return None
