@@ -244,7 +244,7 @@
     "timezone": "UTC",
     "success_events": [],
     "site_search_events": [],
-    "web_vitals_enabled": true
+    "web_vitals_enabled": false
   },
   "research_store": {
     "backend": "rowset",

@@ -48,16 +48,16 @@ Use three outcomes to keep the review manageable. These are suggested labels for
 <desc id="content-review-checklist-flow-desc">After checking the page, keep confirmed content, fix a confirmed problem and recheck it, or escalate an uncertainty to its owner with a follow-up date.</desc>
 <rect x="8" y="8" width="384" height="46" rx="16" fill="var(--sa-night)" />
 <text x="200" y="38" text-anchor="middle" fill="white" font-size="18">Check the page against current evidence</text>
-<path d="M200 54V76 M64 76H336 M64 76V88 M200 76V166 M336 76V244" stroke="var(--sa-purple)" stroke-width="2" fill="none" />
-<rect x="8" y="88" width="384" height="62" rx="16" fill="var(--sa-lavender)" />
-<text x="24" y="113" fill="currentColor" font-size="18" font-weight="bold">Keep: confirmed and useful</text>
-<text x="24" y="136" fill="currentColor" font-size="16">Record what you checked and the next trigger.</text>
-<rect x="8" y="166" width="384" height="62" rx="16" fill="var(--sa-lavender)" />
-<text x="24" y="191" fill="currentColor" font-size="18" font-weight="bold">Fix: a specific problem is confirmed</text>
-<text x="24" y="214" fill="currentColor" font-size="16">Make the change, then recheck the live page.</text>
-<rect x="8" y="244" width="384" height="62" rx="16" fill="var(--sa-lavender)" />
-<text x="24" y="269" fill="currentColor" font-size="18" font-weight="bold">Escalate: the answer is still uncertain</text>
-<text x="24" y="292" fill="currentColor" font-size="16">Name the owner and a follow-up date.</text>
+<path d="M200 54V70H24V275 M24 119H40 M24 197H40 M24 275H40" stroke="var(--sa-purple)" stroke-width="2" fill="none" />
+<rect x="40" y="88" width="352" height="62" rx="16" fill="var(--sa-lavender)" />
+<text x="56" y="113" fill="currentColor" font-size="18" font-weight="bold">Keep: confirmed and useful</text>
+<text x="56" y="136" fill="currentColor" font-size="16">Note evidence and the next review trigger.</text>
+<rect x="40" y="166" width="352" height="62" rx="16" fill="var(--sa-lavender)" />
+<text x="56" y="191" fill="currentColor" font-size="18" font-weight="bold">Fix: a specific problem is confirmed</text>
+<text x="56" y="214" fill="currentColor" font-size="16">Edit, then recheck the live page.</text>
+<rect x="40" y="244" width="352" height="62" rx="16" fill="var(--sa-lavender)" />
+<text x="56" y="269" fill="currentColor" font-size="18" font-weight="bold">Escalate: the answer is uncertain</text>
+<text x="56" y="292" fill="currentColor" font-size="16">Name an owner and a follow-up date.</text>
 </svg>
 <figcaption>Staleaway’s suggested manual review decisions. An unresolved fact is not a pass.</figcaption>
 </figure>

@@ -33,8 +33,15 @@ from django.test import Client  # noqa: E402
 
 from core.blog_publishing import load_publications  # noqa: E402
 from core.models import BlogPost  # noqa: E402
+from django.contrib.sites.models import Site  # noqa: E402
+from urllib.parse import urlparse  # noqa: E402
 
 call_command("migrate", run_syncdb=True, verbosity=0)
+# Fixture site matches the public canonical origin; never touches production.
+Site.objects.update_or_create(
+    pk=settings.SITE_ID,
+    defaults={"domain": urlparse(settings.SITE_URL).netloc, "name": "Staleaway"},
+)
 # This previews the desired reviewed files, not production transition history.
 # The database is in-memory and has no prior publication to compare against.
 for desired, _previous_digest in load_publications(ROOT / "content" / "blog"):
