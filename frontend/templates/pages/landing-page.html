@@ -29,5 +29,13 @@
 <section class="sa-editorial sa-shell"><p class="sa-eyebrow">For the website you care about</p><h2>Fresh content doesn’t<br>happen by accident.</h2><p>Old team bios. Outdated instructions. A link that leads nowhere.<br class="sa-wide-only"> The little things add up. A regular review helps you catch them.</p>
   <div class="sa-benefits"><article class="sa-benefit sa-benefit-tall"><span class="sa-eyebrow">Keep your attention where it matters</span><h3>You don’t need another<br>spreadsheet to forget.</h3><p>Let your sitemap do the organizing. Staleaway brings pages back to your attention so you can focus on what needs a human touch.</p><div class="sa-page-art" aria-hidden="true"><span>YOUR WEBSITE</span><i></i><i></i><i></i><strong>✓ Looking good</strong></div></article><div class="sa-benefit-stack"><article class="sa-benefit sa-benefit-dark"><span class="sa-eyebrow">Your schedule, your call</span><h3>A few pages.<br>Not your whole afternoon.</h3><p>Choose how many pages appear in each review email, when it arrives, and who receives it.</p><span class="sa-big-star" aria-hidden="true">✳</span></article><article class="sa-benefit sa-benefit-yellow"><h3>Open source. Yours to explore.</h3><p>See how Staleaway works, or run it yourself.</p><a href="https://github.com/LVTD-LLC/staleaway">Explore the source code ↗</a></article></div></div>
 </section>
+{% if content_review_guide %}
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">Put the reminder to work</p>
+  <h2>Know what to check<br>when you open a page.</h2>
+  <p>Check facts, links, dates and the next step for your reader. Use a practical checklist and choose a review cadence your team can keep.</p>
+  <a class="sa-button" href="{{ content_review_guide.get_absolute_url }}">Read the website content review checklist ↗</a>
+</section>
+{% endif %}
 <section class="sa-final"><span aria-hidden="true">✳</span><h2>Give your website<br>a little ongoing love.</h2><a class="sa-button sa-button-large" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Get started for free ↗</a></section>
 {% endblock %}

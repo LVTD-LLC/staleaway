@@ -12,6 +12,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 from django_q.tasks import async_task
 
+from core.blog_publishing import is_repository_post
 from core.choices import BlogPostStatus
 from core.forms import ProfileUpdateForm, SitemapForm, SitemapSettingsForm
 from core.models import BlogPost, Feedback, Page, Profile, Sitemap
@@ -22,6 +23,13 @@ logger = get_staleaway_logger(__name__)
 
 class LandingPageView(TemplateView):
     template_name = "pages/landing-page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["content_review_guide"] = BlogPost.objects.filter(
+            slug="website-content-review-checklist", status=BlogPostStatus.PUBLISHED
+        ).first()
+        return context
 
 
 
@@ -200,6 +208,11 @@ class BlogPostView(DetailView):
     queryset = BlogPost.objects.filter(status=BlogPostStatus.PUBLISHED)
     template_name = "blog/blog_post.html"
     context_object_name = "blog_post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["repository_authored"] = is_repository_post(self.object)
+        return context
 
 
 @login_required

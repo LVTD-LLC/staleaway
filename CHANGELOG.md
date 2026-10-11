@@ -1,3 +1,9 @@
+# 2026-10-11 — Publish a practical content review checklist
+
+- Add a repository-reviewed website content review guide and homepage discovery link, with an organization byline, visible publication date and article/process/breadcrumb structured data.
+- Publish approved Markdown into the existing blog during web deployment. Guard against unrelated content, draft collisions and unapproved edits; preserve publication dates on repeat deployments. No database migration, worker, reminder or billing changes.
+- Add Docker-backed publication/privacy-boundary checks and public-only preview artifacts for pre-merge visual review.
+
 # 2026-10-10 — Bound acquisition analytics to public pages
 
 - Replace browser SDK/autocapture/replay and duplicate outbound-link tracking with explicit anonymous public pageviews. Keep private/account/error pages out of browser analytics; never send URL queries, fragments, raw referrers or page contents.
