@@ -86,14 +86,14 @@ After an edit, load the public page again and repeat the check that failed. Conf
 
 Copy these fields into your existing notes or task system:
 
-> **Public page:**  
-> **Checked on / reviewer:**  
-> **Reader’s task:**  
-> **Finding and evidence checked:**  
-> **Decision: keep / fix / escalate:**  
-> **Unfinished work and owner:**  
-> **Follow-up due:**  
-> **Live correction verified on:**  
+> **Public page:**<br>
+> **Checked on / reviewer:**<br>
+> **Reader’s task:**<br>
+> **Finding and evidence checked:**<br>
+> **Decision: keep / fix / escalate:**<br>
+> **Unfinished work and owner:**<br>
+> **Follow-up due:**<br>
+> **Live correction verified on:**<br>
 > **Next review date or change trigger:**
 
 For the fictional service page, a useful finding is “Saturday availability disagrees with the approved service list.” “Reviewed website” is not enough to tell the next person what happened.
