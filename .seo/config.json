@@ -31,8 +31,8 @@
       "platform": "django",
       "model_or_collection": "core.BlogPost",
       "body_format": "markdown",
-      "read_method": "published public pages; admin API only for authorized authoring",
-      "write_method": "explicit scoped admin workflow",
+      "read_method": "Published public pages; existing blog admin retained",
+      "write_method": "Reviewed content/blog Markdown + manifest; publish_repository_blog during merged web deployment, collision and previous-record digest guards",
       "status_field": "status",
       "published_value": "published"
     },

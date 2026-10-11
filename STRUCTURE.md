@@ -6,6 +6,7 @@
 - `core/views.py`, `forms.py`: PR #8 dashboard, settings, page review.
 - `core/tasks.py`, `utils.py`: sitemap parsing, review email selection and scheduling.
 - `core/api/`: session-authenticated UI helpers and the original admin blog endpoint.
+- `content/blog/`: reviewed Markdown and digest-checked publication manifests; deployment contract in `docs/blog-publishing.md`.
 - `core/tests/`: baseline behavior plus restoration, branding and compatibility regression tests.
 - `frontend/templates/`: landing, app, account and email templates.
 - `frontend/src/`: Stimulus controllers and shared `sa-*` styles.

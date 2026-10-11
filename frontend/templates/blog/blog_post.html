@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content="@rasulkireev" />
+{% if not repository_authored %}<meta name="twitter:creator" content="@rasulkireev" />{% endif %}
 <meta name="twitter:site" content="@rasulkireev" />
 <meta name="twitter:title" content="{{ blog_post.title }}" />
 <meta name="twitter:description" content="{{ blog_post.description }}" />
@@ -35,8 +35,12 @@
 {% block content %}
 <article class="container px-4 py-8 mx-auto md:relative">
   <div class="mx-auto max-w-3xl">
+    <nav aria-label="Breadcrumb" class="mb-4 text-sm"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'blog_posts' %}">Blog</a></nav>
     <h1 class="mb-6 text-3xl font-bold">{{ blog_post.title }}</h1>
 
+    {% if repository_authored %}
+      <p class="mb-6 text-gray-600">By Staleaway · Published <time datetime="{{ blog_post.created_at|date:'c' }}">{{ blog_post.created_at|date:'F j, Y' }}</time>{% if blog_post.updated_at|date:'Y-m-d' != blog_post.created_at|date:'Y-m-d' %} · Updated <time datetime="{{ blog_post.updated_at|date:'c' }}">{{ blog_post.updated_at|date:'F j, Y' }}</time>{% endif %}</p>
+    {% endif %}
     <div class="max-w-none prose prose-lg">
       {{ blog_post.content|markdown|safe }}
     </div>
@@ -56,9 +60,15 @@
     "datePublished": "{{ blog_post.created_at|date:'c' }}",
     "dateModified": "{{ blog_post.updated_at|date:'c' }}",
     "author": {
+      {% if repository_authored %}
+      "@type": "Organization",
+      "name": "Staleaway",
+      "url": "{{ site_url|escapejs }}/"
+      {% else %}
       "@type": "Person",
       "name": "Rasul Kireev",
       "url": "https://rasulkireev.com/"
+      {% endif %}
     },
     "publisher": {
       "@type": "Organization",
@@ -74,4 +84,32 @@
     }
   }
 </script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site_url|escapejs }}/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "{{ site_url|escapejs }}{% url 'blog_posts' %}"},
+      {"@type": "ListItem", "position": 3, "name": "{{ blog_post.title|escapejs }}", "item": "{{ site_url|escapejs }}{{ blog_post.get_absolute_url }}"}
+    ]
+  }
+</script>
+{% if repository_authored and blog_post.slug == 'website-content-review-checklist' %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Website content review checklist",
+    "description": "Review one website page, record what needs attention, verify fixes and choose when to return.",
+    "step": [
+      {"@type": "HowToStep", "name": "Choose a page", "text": "Choose a page from your inventory and identify its intended reader and task."},
+      {"@type": "HowToStep", "name": "Check facts, task and accessibility", "text": "Check facts, dates, links, instructions, next steps and basic accessibility against the page's purpose."},
+      {"@type": "HowToStep", "name": "Record keep, fix or escalate", "text": "Keep accurate content, record needed fixes, or escalate unresolved questions to the responsible owner."},
+      {"@type": "HowToStep", "name": "Verify fixes", "text": "Check the published page after changes, including links, instructions and the reader's next step."},
+      {"@type": "HowToStep", "name": "Schedule the next review", "text": "Choose the next review date based on how quickly the information changes and the consequences of an error."}
+    ]
+  }
+</script>
+{% endif %}
 {% endblock schema %}

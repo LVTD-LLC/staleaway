@@ -17,3 +17,11 @@ jobs:
       - run: npm ci --include=dev && npm run test:analytics && npm run build
       - run: docker compose -f docker-compose-test.yml build
       - run: make test
+      - name: Render public blog previews from isolated fixtures
+        run: docker compose -f docker-compose-test.yml run --rm backend python scripts/render_blog_previews.py
+      - name: Upload public preview for pre-merge visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-blog-preview
+          path: build/blog-preview/
+          retention-days: 7
