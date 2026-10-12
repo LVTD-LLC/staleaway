@@ -3,11 +3,13 @@ import xml.etree.ElementTree as ET
 import zoneinfo
 from datetime import time
 from urllib.parse import urlparse
+from uuid import UUID
 
 import posthog
 import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
+from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
@@ -46,7 +48,11 @@ def try_create_posthog_alias(profile_id: int, cookies: dict, source_function: st
 
 
 def track_event(
-    profile_id: int, event_name: str, properties: dict, source_function: str = None
+    profile_id: int,
+    event_name: str,
+    properties: dict,
+    source_function: str = None,
+    email_sent_id: int = None,
 ) -> str:
     """Send only verified server outcomes, without legacy private properties.
 
@@ -56,26 +62,68 @@ def track_event(
     """
     if not settings.POSTHOG_API_KEY:
         return "PostHog API key not found."
-    if event_name != "user_signed_up":
+    if event_name not in {"user_signed_up", "first_review_reminder_accepted"}:
         return "Analytics event is not allowlisted."
-    if not Profile.objects.filter(id=profile_id).exists():
+    profile = Profile.objects.select_related("user").filter(id=profile_id).first()
+    if profile is None:
         return "Analytics profile no longer exists."
+
+    occurred_at = profile.user.date_joined
+    if event_name == "first_review_reminder_accepted":
+        # Existing send history is authoritative. Do not relabel an established
+        # account's next reminder as its first just because measurement is new.
+        first_send = profile.emails_sent.order_by("created_at", "pk").first()
+        if first_send is None or first_send.pk != email_sent_id:
+            return "Not the account's first recorded reminder."
+        occurred_at = first_send.created_at
 
     distinct_id = "account_" + salted_hmac(
         "staleaway.analytics.v1", str(profile_id), algorithm="sha256"
     ).hexdigest()
-    posthog.capture(
+    event_uuid = UUID(
+        hex=salted_hmac(
+            "staleaway.analytics.event.v1", f"{event_name}:{profile_id}", algorithm="sha256"
+        ).hexdigest()[:32],
+        version=5,
+    )
+    result = posthog.capture(
         distinct_id,
-        event="user_signed_up",
+        event=event_name,
+        timestamp=occurred_at,
+        uuid=event_uuid,
         properties={
             "$host": urlparse(settings.SITE_URL).hostname,
             "$process_person_profile": False,
             "$geoip_disable": True,
-            "measurement_version": "public-v1",
+            "measurement_version": "activation-v1",
             "source": "server",
         },
     )
-    return "Tracked user_signed_up."
+    if result is not None and result[0] is False:
+        raise RuntimeError("Activation analytics enqueue failed.")
+    return f"Queued {event_name} for analytics delivery."
+
+
+def queue_activation_event(profile_id: int, event_name: str, email_sent_id: int = None):
+    """Optional telemetry must not break signup or turn a sent email into a retry."""
+    if not settings.POSTHOG_API_KEY:
+        return
+
+    def enqueue():
+        try:
+            async_task(
+                "core.tasks.track_event",
+                profile_id=profile_id,
+                event_name=event_name,
+                properties={},
+                email_sent_id=email_sent_id,
+                group="Track Event",
+            )
+        except Exception:
+            # Do not log queue payloads, request data or the provider exception.
+            logger.warning("Activation analytics queue unavailable")
+
+    transaction.on_commit(enqueue)
 
 
 def track_state_change(
@@ -466,8 +514,10 @@ def send_page_email_to_profile(profile_id: int) -> str:
     email.attach_alternative(html_content, "text/html")
 
     try:
-        email.send()
-        EmailSent.objects.create(profile=profile)
+        if email.send() != 1:
+            return "Email backend did not accept the page review message."
+        sent = EmailSent.objects.create(profile=profile)
+        queue_activation_event(profile.pk, "first_review_reminder_accepted", sent.pk)
         logger.info(
             "Page review email sent",
             email=profile.user.email,

@@ -84,24 +84,9 @@ class SitemapDetailView(LoginRequiredMixin, DetailView):
 
 
 class AccountSignupView(SignupView):
+    # Compatibility class. Measurement belongs to allauth's user_signed_up
+    # signal, including the standard URL and social signups, not this view.
     template_name = "account/signup.html"
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-
-        user = self.user
-        profile = user.profile
-
-        async_task(
-            "core.tasks.track_event",
-            profile_id=profile.id,
-            event_name="user_signed_up",
-            properties={},
-            source_function="AccountSignupView - form_valid",
-            group="Track Event",
-        )
-
-        return response
 
 
 class UserSettingsView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
