@@ -10,10 +10,11 @@ def pytest_configure(config):
 
 @pytest.fixture(autouse=True)
 def disable_background_tasks(monkeypatch):
-    from core import models, signals
+    from core import models, signals, tasks
 
     monkeypatch.setattr(models, "async_task", lambda *args, **kwargs: None)
     monkeypatch.setattr(signals, "async_task", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tasks, "async_task", lambda *args, **kwargs: None)
 
 
 @pytest.fixture

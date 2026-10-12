@@ -1,3 +1,9 @@
+# 2026-10-12 — Measure real activation milestones safely
+
+- Wire pseudonymous signup measurement to the active allauth signal, after commit, including social signups. Keep account and review pages free of browser analytics.
+- Measure the first recorded reminder only after email-backend acceptance; a zero send result no longer creates a successful-send record. Preserve existing history, review selection, cadence and all-free access.
+- Use fixed analytics properties and stable retry identities; analytics queue failure cannot fail signup or retry an accepted email. Document unobserved delivery, organic attribution and outage limits; add Docker-backed regression coverage.
+
 # 2026-10-11 — Publish a practical content review checklist
 
 - Add a repository-reviewed website content review guide and homepage discovery link, with an organization byline, visible publication date and article/process/breadcrumb structured data.

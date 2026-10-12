@@ -3,7 +3,6 @@ import re
 from unittest.mock import Mock
 
 import pytest
-from django.urls import reverse
 from allauth.account.models import EmailAddress
 
 from core.choices import BlogPostStatus
@@ -93,7 +92,7 @@ def test_queued_alias_is_noop_even_with_private_legacy_cookie(monkeypatch, profi
 def test_signup_measurement_ignores_legacy_properties(monkeypatch, profile, settings):
     settings.POSTHOG_API_KEY = "synthetic-public-project-key"
     settings.SITE_URL = "https://staleaway.com"
-    capture = Mock()
+    capture = Mock(return_value=(True, {}))
     monkeypatch.setattr("core.tasks.posthog.capture", capture)
     private = {
         "$set": {"email": profile.user.email, "username": profile.user.username},
@@ -105,40 +104,16 @@ def test_signup_measurement_ignores_legacy_properties(monkeypatch, profile, sett
     assert re.fullmatch(r"account_[a-f0-9]{64}", args[0])
     assert kwargs == {
         "event": "user_signed_up",
+        "timestamp": profile.user.date_joined,
+        "uuid": kwargs["uuid"],
         "properties": {
             "$host": "staleaway.com", "$process_person_profile": False,
-            "$geoip_disable": True, "measurement_version": "public-v1", "source": "server",
+            "$geoip_disable": True, "measurement_version": "activation-v1", "source": "server",
         },
     }
-    assert profile.user.email not in json.dumps([args, kwargs])
+    assert profile.user.email not in json.dumps([args, kwargs], default=str)
     track_event(profile.pk, "user_signed_up", {})
     assert capture.call_args[0][0] == args[0]
     capture.reset_mock()
     track_event(profile.pk, "private-event", private)
     capture.assert_not_called()
-
-
-def test_retained_signup_hook_does_not_queue_cookies_or_identity_properties(monkeypatch):
-    from allauth.account.views import SignupView
-    from django.contrib.auth.models import AnonymousUser
-    from django.http import HttpResponse
-    from django.test import RequestFactory
-
-    from core.views import AccountSignupView
-
-    # Exercise the project's successful-signup hook without sending any email.
-    queued = Mock()
-    monkeypatch.setattr("core.views.async_task", queued)
-    monkeypatch.setattr(SignupView, "form_valid", lambda self, form: HttpResponse("created"))
-    from django.contrib.auth import get_user_model
-    user = get_user_model().objects.create_user(username="signup-test", email="signup@example.invalid")
-    view = AccountSignupView()
-    view.request = RequestFactory().post(reverse("account_signup"))
-    view.request.user = AnonymousUser()
-    view.request.COOKIES = {"sessionid": "private-session-marker"}
-    view.user = user
-    assert view.form_valid(Mock()).status_code == 200
-    queued.assert_called_once()
-    assert queued.call_args[0][0] == "core.tasks.track_event"
-    assert queued.call_args[1]["properties"] == {}
-    assert "private-session-marker" not in str(queued.call_args)

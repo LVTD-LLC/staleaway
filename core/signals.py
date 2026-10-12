@@ -6,7 +6,7 @@ from django_q.tasks import async_task
 
 from staleaway.utils import get_staleaway_logger
 from core.models import EmailPreference, Profile, ProfileStates, Sitemap
-from core.tasks import add_email_to_buttondown
+from core.tasks import add_email_to_buttondown, queue_activation_event
 
 logger = get_staleaway_logger(__name__)
 
@@ -34,6 +34,13 @@ def add_email_to_buttondown_on_confirm(sender, **kwargs):
         sender=sender,
     )
     async_task(add_email_to_buttondown, kwargs["email_address"], tag="user")
+
+
+@receiver(user_signed_up)
+def measure_successful_signup(sender, request, user, **kwargs):
+    # Allauth emits this for completed password and social account creation,
+    # not failed forms, ordinary logins or email confirmation.
+    queue_activation_event(user.profile.pk, "user_signed_up")
 
 
 @receiver(user_signed_up)
