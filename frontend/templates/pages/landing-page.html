@@ -20,6 +20,7 @@
   <div id="how-it-works" class="sa-how sa-shell">
     <p class="sa-eyebrow">Less remembering. More reviewing.</p><h2>Set it up. Let the reminders come.</h2><p>No new workflow to learn. Just your sitemap, your schedule, and your inbox.</p>
     <ol class="sa-steps"><li><span>01</span> Add your sitemap</li><li><span>02</span> Choose your cadence</li><li><span>03</span> Review a few pages</li></ol>
+    {% if sitemap_guide %}<p><a class="sa-quiet-link" href="{{ sitemap_guide.get_absolute_url }}">Need the URL? Find your website’s sitemap ↗</a></p>{% endif %}
     <div class="sa-mail-preview" role="img" aria-label="Example Staleaway review email with links to an about page and a getting-started guide">
       <div class="sa-mail-bar"><span class="sa-mail-dots" aria-hidden="true">● ● ●</span><span>Your inbox, with a little purpose</span></div>
       <div class="sa-mail-content"><p class="sa-preview-label">STALEAWAY · EXAMPLE REVIEW EMAIL</p><h3>A little refresh goes a long way.</h3><p>Here are a couple of pages to give another look.</p><div class="sa-mail-row"><span><b>About us</b><small>example.com/about</small></span><span aria-hidden="true">↗</span></div><div class="sa-mail-row"><span><b>Getting started</b><small>example.com/getting-started</small></span><span aria-hidden="true">↗</span></div><p class="sa-mail-note">Your website. A little better, one page at a time.</p></div>

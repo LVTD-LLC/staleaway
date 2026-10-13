@@ -4,6 +4,7 @@ from io import StringIO
 from pathlib import Path
 
 import pytest
+from bs4 import BeautifulSoup
 from django.core.management import call_command
 from django.core.management.base import CommandError
 
@@ -160,33 +161,46 @@ def test_all_publications_roll_back_on_later_collision(tmp_path):
 
 def test_management_command_and_public_discovery(tmp_path, settings, client):
     settings.BASE_DIR = tmp_path
-    write_publication(tmp_path / "content" / "blog")
+    slugs = ("website-content-review-checklist", "find-your-website-sitemap")
+    for slug in slugs:
+        write_publication(tmp_path / "content" / "blog", slug)
     output = StringIO()
     call_command("publish_repository_blog", stdout=output)
     assert "publication_sha256=" in output.getvalue()
-    post = BlogPost.objects.get()
-    assert post.get_absolute_url() in client.get("/").content.decode()
-    assert post.get_absolute_url() in client.get("/blog").content.decode()
-    assert post.get_absolute_url() in client.get("/sitemap.xml").content.decode()
-    response = client.get(post.get_absolute_url())
-    html = response.content.decode()
-    assert "By Staleaway" in html
-    assert '<meta name="twitter:creator"' not in html
-    data = {item["@type"]: item for item in schemas(response)}
-    assert data["BlogPosting"]["author"]["@type"] == "Organization"
-    assert data["BlogPosting"]["author"]["name"] == "Staleaway"
-    assert data["BreadcrumbList"]["itemListElement"][-1]["name"] == post.title
-    assert len(data["HowTo"]["step"]) == 5
-    assert data["BlogPosting"]["datePublished"] == post.created_at.isoformat()
-    post.status = BlogPostStatus.DRAFT
-    post.save()
-    assert post.get_absolute_url() not in client.get("/").content.decode()
-    assert client.get(post.get_absolute_url()).status_code == 404
+    assert BlogPost.objects.count() == len(slugs)
+    discovery_pages = ("/", "/blog", "/sitemap.xml")
+    for post in BlogPost.objects.all():
+        for path in discovery_pages:
+            assert post.get_absolute_url() in client.get(path).content.decode()
+        response = client.get(post.get_absolute_url())
+        html = response.content.decode()
+        assert response.status_code == 200
+        assert "By Staleaway" in html
+        assert '<meta name="twitter:creator"' not in html
+        data = {item["@type"]: item for item in schemas(response)}
+        assert data["BlogPosting"]["author"]["@type"] == "Organization"
+        assert data["BlogPosting"]["author"]["name"] == "Staleaway"
+        assert data["BreadcrumbList"]["itemListElement"][-1]["name"] == post.title
+        assert len(data["HowTo"]["step"]) == 5
+        assert data["BlogPosting"]["datePublished"] == post.created_at.isoformat()
+        if post.slug == "find-your-website-sitemap":
+            assert data["HowTo"]["step"][0]["name"] == "Find the sitemap address"
+            assert data["HowTo"]["step"][-1]["name"] == "Import and verify listed pages"
+            assert len(data["FAQPage"]["mainEntity"]) == 3
+        else:
+            assert "FAQPage" not in data
+    for post in BlogPost.objects.all():
+        post.status = BlogPostStatus.DRAFT
+        post.save()
+        for path in discovery_pages:
+            assert post.get_absolute_url() not in client.get(path).content.decode()
+        assert client.get(post.get_absolute_url()).status_code == 404
 
 
-def test_existing_author_attribution_is_unchanged(client):
+@pytest.mark.parametrize("slug", ["existing-post", "find-your-website-sitemap"])
+def test_existing_author_attribution_is_unchanged(client, slug):
     post = BlogPost.objects.create(
-        slug="existing-post",
+        slug=slug,
         title="Existing",
         content="Body",
         tags="",
@@ -195,19 +209,41 @@ def test_existing_author_attribution_is_unchanged(client):
     data = {item["@type"]: item for item in schemas(client.get(post.get_absolute_url()))}
     assert data["BlogPosting"]["author"]["name"] == "Rasul Kireev"
     assert "HowTo" not in data
+    assert "FAQPage" not in data
 
 
 def test_repository_manifests_publish_and_render(client, settings):
     # Exercise the actual reviewed artifact, not just synthetic fixtures.
     source = Path(__file__).resolve().parents[2] / "content" / "blog"
     # Desired-state rendering is independent of production transition history.
-    for desired, _previous_digest in load_publications(source):
+    publications = load_publications(source)
+    assert {post.slug for post, _ in publications} >= {
+        "website-content-review-checklist", "find-your-website-sitemap"
+    }
+    for desired, _previous_digest in publications:
         desired.save(force_insert=True)
     for post in BlogPost.objects.all():
         response = client.get(post.get_absolute_url())
         assert response.status_code == 200
-        assert schemas(response)
-        assert "By Staleaway" in response.content.decode()
+        html = response.content.decode()
+        data = {item["@type"]: item for item in schemas(response)}
+        assert data["BlogPosting"]["url"].endswith(post.get_absolute_url())
+        assert "By Staleaway" in html
+        assert f'<link rel="canonical" href="{data["BlogPosting"]["url"]}"' in html
+        assert post.get_absolute_url() in client.get("/blog").content.decode()
+        assert post.get_absolute_url() in client.get("/sitemap.xml").content.decode()
+        if post.slug == "find-your-website-sitemap":
+            assert "worksheet" in html.lower()
+            assert 'href="/accounts/signup/"' in html
+            assert 'href="/blog/website-content-review-checklist"' in html
+            assert len(data["HowTo"]["step"]) == 5
+            # Structured answers must match the visible article, not only valid JSON.
+            visible_article = BeautifulSoup(html, "html.parser").select_one("article").get_text(
+                " ", strip=True
+            )
+            for question in data["FAQPage"]["mainEntity"]:
+                assert question["name"] in visible_article
+                assert question["acceptedAnswer"]["text"] in visible_article
 
 
 @pytest.mark.parametrize("directory_exists", [False, True])

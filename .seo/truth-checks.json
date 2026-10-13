@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "claim": "Sitemap import is asynchronous; no all-pages-under-a-minute promise",
+    "paths": [
+      "frontend/templates/pages/home.html"
+    ],
+    "must_match": [
+      "importing its listed pages in the background"
+    ],
+    "must_not_match": [
+      "process all your pages in under a minute"
+    ],
+    "flags": "i"
+  }
+]

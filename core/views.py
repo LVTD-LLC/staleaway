@@ -29,6 +29,9 @@ class LandingPageView(TemplateView):
         context["content_review_guide"] = BlogPost.objects.filter(
             slug="website-content-review-checklist", status=BlogPostStatus.PUBLISHED
         ).first()
+        context["sitemap_guide"] = BlogPost.objects.filter(
+            slug="find-your-website-sitemap", status=BlogPostStatus.PUBLISHED
+        ).first()
         return context
 
 
