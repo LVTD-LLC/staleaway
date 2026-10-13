@@ -237,6 +237,12 @@ def test_repository_manifests_publish_and_render(client, settings):
             assert 'href="/accounts/signup/"' in html
             assert 'href="/blog/website-content-review-checklist"' in html
             assert len(data["HowTo"]["step"]) == 5
+            article = BeautifulSoup(html, "html.parser").select_one("article")
+            examples = article.select("pre > code")
+            assert len(examples) == 2
+            assert "<sitemapindex xmlns=" in examples[0].get_text()
+            assert "<urlset xmlns=" in examples[1].get_text()
+            assert "```" not in article.get_text()
             # Structured answers must match the visible article, not only valid JSON.
             visible_article = BeautifulSoup(html, "html.parser").select_one("article").get_text(
                 " ", strip=True

@@ -38,23 +38,19 @@ A **page sitemap** has a `urlset` containing `url` entries. Each entry’s `loc`
 
 **An index points to a sitemap file:**
 
-```xml
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://example.com/help-sitemap.xml</loc>
-  </sitemap>
-</sitemapindex>
-```
+    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <sitemap>
+        <loc>https://example.com/help-sitemap.xml</loc>
+      </sitemap>
+    </sitemapindex>
 
 **A page list points to a content page:**
 
-```xml
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://example.com/help/change-address</loc>
-  </url>
-</urlset>
-```
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://example.com/help/change-address</loc>
+      </url>
+    </urlset>
 
 The outer element is the quick clue. In the first example, open the linked XML file to see the next level. In the second, the link already identifies a page to review.
 

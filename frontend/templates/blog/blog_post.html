@@ -41,7 +41,7 @@
     {% if repository_authored %}
       <p class="mb-6 text-gray-600">By Staleaway · Published <time datetime="{{ blog_post.created_at|date:'c' }}">{{ blog_post.created_at|date:'F j, Y' }}</time>{% if blog_post.updated_at|date:'Y-m-d' != blog_post.created_at|date:'Y-m-d' %} · Updated <time datetime="{{ blog_post.updated_at|date:'c' }}">{{ blog_post.updated_at|date:'F j, Y' }}</time>{% endif %}</p>
     {% endif %}
-    <div class="max-w-none prose prose-lg">
+    <div class="max-w-none prose prose-lg sa-blog-body">
       {{ blog_post.content|markdown|safe }}
     </div>
   </div>

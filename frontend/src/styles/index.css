@@ -12,6 +12,8 @@ html { scroll-behavior: smooth; }
 .sa-site input, .sa-site textarea, .sa-site select { max-width: 100%; }
 .sa-site main { min-height: 60vh; }
 .sa-site main p, .sa-site main td, .sa-site main a { overflow-wrap: anywhere; }
+.sa-blog-body ol, .sa-blog-body ul { padding-inline-start: 1.5em; }
+.sa-blog-body pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .sa-shell { max-width: 1360px; margin: 0 auto; padding: 0 32px; }
 .sa-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 24px; color: #210340; background: #fff; border-radius: 8px; }
 .sa-skip:focus { top: 10px; }
