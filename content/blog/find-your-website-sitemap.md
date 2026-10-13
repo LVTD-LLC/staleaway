@@ -1,6 +1,6 @@
 To find your website sitemap, try your domain followed by `/sitemap.xml`, check `/robots.txt` for a `Sitemap:` address, or open your CMS’s sitemap settings. Then check whether that address lists pages or links to other sitemap files. Choose the public pages you want to review before importing the list into Staleaway.
 
-You can follow these steps without a Staleaway account. You need a browser and a website you manage; CMS access helps if the common locations do not work. The goal is a usable list for human content reviews, not a promise that Google has indexed everything in it.
+You can follow these steps without a Staleaway account. You need a browser and a website you manage; CMS access helps if the common locations do not work. The goal is a usable list for human content reviews.
 
 **The short version:**
 
@@ -24,17 +24,39 @@ Still nothing? Use the CMS or SEO plugin’s own settings. They are a better sou
 
 **WordPress with Yoast SEO:** open Yoast SEO → Settings → Site features. Under Technical SEO, find XML sitemaps and use **View the XML sitemap**. [Yoast’s instructions](https://yoast.com/help/xml-sitemaps-in-the-wordpress-seo-plugin/) show that route. Its usual index is `/sitemap_index.xml`; following the settings link avoids confusion when another address redirects there.
 
-**Shopify:** open `/sitemap.xml` at your store’s domain. [Shopify generates this file](https://help.shopify.com/en/manual/promoting-marketing/seo/find-site-map) and links separate sitemaps for content such as products, collections, pages and blog posts. Private mode restricts access. Do not remove privacy controls merely to make an import work.
+**Shopify:** open `/sitemap.xml` at your store’s domain. [Shopify generates this file](https://help.shopify.com/en/manual/promoting-marketing/seo/find-site-map) and links separate sitemaps for content such as products, collections, pages and blog posts. A password-protected or private store may prevent access. Do not remove privacy controls merely to make an import work.
 
 **Webflow:** check `/sitemap.xml`. If it is missing, inspect Site settings → SEO → Sitemap. [Webflow’s auto-generation instructions](https://help.webflow.com/hc/en-us/articles/33961355371667-Create-a-sitemap-in-Webflow) require enabling the setting, saving and publishing; a project may instead use a custom sitemap. Check with whoever maintains the site before changing that configuration.
 
-These locations were checked against the linked platform documentation on October 13, 2026. Your site’s actual response is the final check. If you do not manage its settings, ask the maintainer for the public XML sitemap URL rather than changing plugins or search-visibility settings to experiment.
+Platform documentation checked October 13, 2026. Confirm the address on your own site. If you do not manage its settings, ask the maintainer for the public XML sitemap URL rather than changing plugins or search-visibility settings to experiment.
 
 ## 2. Identify an XML page list or index
 
 A browser may show raw XML, a styled table, or a notice that the XML has no style information. None of those appearances alone tells you whether the file is usable. Look at what its entries point to.
 
-A **page sitemap** has a `urlset` containing `url` entries. Each entry’s `loc` gives a page address. A **sitemap index** has a `sitemapindex` containing `sitemap` entries; those `loc` values point to other sitemap files. The [XML protocol](https://www.sitemaps.org/protocol.html) defines both structures.
+A **page sitemap** has a `urlset` containing `url` entries. Each entry’s `loc` gives a page address. A **sitemap index** has a `sitemapindex` containing `sitemap` entries; those `loc` values point to other sitemap files. The [Sitemaps XML protocol 0.9](https://www.sitemaps.org/protocol.html) defines both structures. These small examples follow that specification; `example.com` is an illustrative domain, not an import target.
+
+**An index points to a sitemap file:**
+
+```xml
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://example.com/help-sitemap.xml</loc>
+  </sitemap>
+</sitemapindex>
+```
+
+**A page list points to a content page:**
+
+```xml
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/help/change-address</loc>
+  </url>
+</urlset>
+```
+
+The outer element is the quick clue. In the first example, open the linked XML file to see the next level. In the second, the link already identifies a page to review.
 
 <figure>
 <svg viewBox="0 0 400 370" width="100%" role="img" aria-labelledby="find-your-website-sitemap-flow-title find-your-website-sitemap-flow-desc" style="max-width:400px;height:auto;display:block;margin:auto;color:var(--sa-ink)">
@@ -55,12 +77,12 @@ A **page sitemap** has a `urlset` containing `url` entries. Each entry’s `loc`
 <text x="200" y="327" text-anchor="middle" fill="currentColor" font-size="18" font-weight="bold">A human still needs to review the content.</text>
 <text x="200" y="354" text-anchor="middle" fill="currentColor" font-size="14">Staleaway · October 2026</text>
 </svg>
-<figcaption>A sitemap index is an extra layer of discovery. If your address already opens a page list, start there. Importing a list does not establish that the content was reviewed.</figcaption>
+<figcaption>An index leads to a page list. If your address already opens a page list, start at the second box.</figcaption>
 </figure>
 
-For a public example, open [Staleaway’s sitemap](/sitemap.xml). At this guide’s publication it uses `urlset`, with `loc` entries for public pages such as the blog. This demonstrates the file’s shape; it is not evidence of a customer import or a complete inventory of every application route.
+For a public example, open [Staleaway’s sitemap](/sitemap.xml). At this guide’s publication it uses `urlset`, with `loc` entries for public pages such as the blog. Look for the page addresses inside its `loc` entries.
 
-An index is not an error. Staleaway’s importer follows XML sitemap indexes, but large, deeply nested or partly unavailable indexes can produce an incomplete list. A relevant child sitemap can make your first review list easier to inspect.
+An index is not an error. Staleaway’s importer follows XML sitemap indexes, but large, deeply nested or partly unavailable indexes can produce an incomplete list. Start with a relevant child if that makes your list easier to inspect.
 
 ## 3. Choose the review scope
 
@@ -74,7 +96,7 @@ Keep a separate note of important pages missing from the sitemap. Membership is 
 
 ## 4. Check import readiness
 
-Staleaway needs the full address of an XML sitemap. A homepage, an HTML directory of links, and a `robots.txt` file are not interchangeable with that input. Use an uncompressed XML sitemap URL; do not assume a downloadable `.gz` file is supported. HTTP transport compression is a separate matter.
+Staleaway needs the full address of an XML sitemap. A homepage, an HTML directory of links, and a `robots.txt` file are not interchangeable with that input. Use an uncompressed XML sitemap URL; do not assume a downloadable `.gz` file is supported.
 
 Open the chosen address without relying on your CMS login. A sign-in screen, password prompt, access-denied response or HTML error page means you have not yet confirmed a usable public XML input. If you are unsure what the response contains, ask the maintainer rather than sharing access tokens or disabling protection.
 
@@ -95,9 +117,9 @@ This is a **manual worksheet for your notes**, not a Staleaway feature or an aut
 > **After importing: which expected pages actually appeared?**<br>
 > **Unresolved issue and next action:**
 
-Stop at an uncertain input instead of recording it as a pass. A narrower list is useful only if it contains the pages you intend to review; a short empty file is not a better result.
+If you cannot tell whether the address opens XML, ask your site maintainer before importing. Check that a narrower list still contains the pages you need.
 
-**Worked example:** you manage public help articles and find an index through the CMS settings. One child lists help pages, while another lists the news archive. You open the help child, confirm that known public articles appear, and put that child’s full URL in the worksheet. After adding it to Staleaway, you compare the imported list with those same representative articles. If one is missing, record the mismatch and investigate before calling the setup complete. This is an illustrative workflow, not a customer result or a guarantee that checking a sample proves completeness.
+**Worked example:** you manage public help articles and find an index through the CMS settings. One child lists help pages, while another lists the news archive. You open the help child, confirm that known public articles appear, and put that child’s full URL in the worksheet. After adding it to Staleaway, you compare the imported list with those same representative articles. If an expected article is missing, check that its address appears in the child sitemap. This example illustrates the workflow; checking a sample does not prove that the whole list arrived.
 
 ## 5. Import and verify listed pages
 
