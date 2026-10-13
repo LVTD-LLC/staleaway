@@ -41,7 +41,7 @@
     {% if repository_authored %}
       <p class="mb-6 text-gray-600">By Staleaway · Published <time datetime="{{ blog_post.created_at|date:'c' }}">{{ blog_post.created_at|date:'F j, Y' }}</time>{% if blog_post.updated_at|date:'Y-m-d' != blog_post.created_at|date:'Y-m-d' %} · Updated <time datetime="{{ blog_post.updated_at|date:'c' }}">{{ blog_post.updated_at|date:'F j, Y' }}</time>{% endif %}</p>
     {% endif %}
-    <div class="max-w-none prose prose-lg">
+    <div class="max-w-none prose prose-lg sa-blog-body">
       {{ blog_post.content|markdown|safe }}
     </div>
   </div>
@@ -108,6 +108,34 @@
       {"@type": "HowToStep", "name": "Record keep, fix or escalate", "text": "Keep accurate content, record needed fixes, or escalate unresolved questions to the responsible owner."},
       {"@type": "HowToStep", "name": "Verify fixes", "text": "Check the published page after changes, including links, instructions and the reader's next step."},
       {"@type": "HowToStep", "name": "Schedule the next review", "text": "Choose the next review date based on how quickly the information changes and the consequences of an error."}
+    ]
+  }
+</script>
+{% endif %}
+{% if repository_authored and blog_post.slug == 'find-your-website-sitemap' %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Find your website sitemap and prepare it for review reminders",
+    "description": "Find a public XML sitemap, choose which pages to review and verify the imported page list.",
+    "step": [
+      {"@type": "HowToStep", "name": "Find the sitemap address", "text": "Check the website's robots.txt, CMS settings or platform documentation for its full sitemap URL."},
+      {"@type": "HowToStep", "name": "Identify an XML page list or index", "text": "Open the sitemap and distinguish a urlset of page URLs from a sitemapindex that links to child sitemaps."},
+      {"@type": "HowToStep", "name": "Choose the review scope", "text": "Check representative page entries and choose a relevant child sitemap when you only want to review one section."},
+      {"@type": "HowToStep", "name": "Check import readiness", "text": "Use the manual worksheet to check that the selected address returns public, uncompressed XML with the intended page entries."},
+      {"@type": "HowToStep", "name": "Import and verify listed pages", "text": "Add the sitemap URL to Staleaway, allow background processing and open the sitemap entry to check which intended pages appeared."}
+    ]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Does having a sitemap mean my pages are indexed?", "acceptedAnswer": {"@type": "Answer", "text": "No. Google says a sitemap does not guarantee crawling or indexing. A content review also needs a human check of the page itself."}},
+      {"@type": "Question", "name": "Can I use my homepage or robots.txt URL instead?", "acceptedAnswer": {"@type": "Answer", "text": "No. Find the XML sitemap address first. Staleaway imports the supplied sitemap; it does not discover it from a homepage or a robots.txt file."}},
+      {"@type": "Question", "name": "Will Staleaway review or rewrite the pages for me?", "acceptedAnswer": {"@type": "Answer", "text": "No. Staleaway sends review reminders. You check the content and make changes in your own publishing system."}}
     ]
   }
 </script>

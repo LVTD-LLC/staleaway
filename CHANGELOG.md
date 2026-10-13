@@ -1,3 +1,9 @@
+# 2026-10-13 — Find a sitemap and start a focused review list
+
+- Publish a source-checked sitemap-finding guide with CMS starting points, an index-versus-page-list diagram, and a manual import-readiness worksheet. Explain import and reminder limits without indexing or completion promises.
+- Add published-only homepage discovery, process/question structured data and publication regression coverage; retain the existing guarded blog publisher. Keep blog list markers inside the mobile column and wrap XML examples legibly.
+- Replace the unsupported onboarding promise to process every page in under a minute with background-import guidance. No parser, queue, account, storage or billing behavior changes.
+
 # 2026-10-12 — Measure real activation milestones safely
 
 - Wire pseudonymous signup measurement to the active allauth signal, after commit, including social signups. Keep account and review pages free of browser analytics.
