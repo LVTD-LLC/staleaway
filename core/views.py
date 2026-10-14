@@ -39,11 +39,14 @@ class LandingPageView(TemplateView):
 class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     login_url = "account_login"
     template_name = "pages/home.html"
-    success_message = "Sitemap URL added successfully"
+    success_message = "Sitemap saved. Import runs in the background; open its entry to check which pages appeared."
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = SitemapForm()
+        context["sitemap_guide"] = BlogPost.objects.filter(
+            slug="find-your-website-sitemap", status=BlogPostStatus.PUBLISHED
+        ).first()
         context["sitemaps"] = Sitemap.objects.filter(profile=self.request.user.profile).order_by(
             "-created_at"
         )

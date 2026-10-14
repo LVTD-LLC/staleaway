@@ -70,3 +70,22 @@ if sitemap.status_code != 200:
     raise RuntimeError("Preview sitemap failed")
 (output / "sitemap.xml").write_bytes(sitemap.content)
 print(f"Rendered {len(paths)} public previews in build/blog-preview")
+
+# Exercise account setup templates with synthetic users, no network or real rows.
+from unittest.mock import patch  # noqa: E402
+from django.contrib.auth import get_user_model  # noqa: E402
+from core.models import Sitemap  # noqa: E402
+
+with patch('core.models.async_task'), patch('core.signals.async_task'), patch('core.tasks.async_task'):
+    preview_user = get_user_model().objects.create_user(username='setup-preview', email='preview@example.com')
+    client.force_login(preview_user)
+    setup_cases = [('setup-first', client.get('/home')),
+                   ('setup-first-error', client.post('/home', {'sitemap_url': 'not-a-url'}))]
+    Sitemap.objects.create(profile=preview_user.profile, sitemap_url='https://example.com/sitemap.xml')
+    setup_cases.extend([('setup-existing', client.get('/home')),
+                        ('setup-existing-error', client.post('/home', {'sitemap_url': 'not-a-url'}))])
+    for name, response in setup_cases:
+        if response.status_code != 200:
+            raise RuntimeError(f'Setup preview failed: {name}: HTTP {response.status_code}')
+        (output / f'{name}.html').write_bytes(response.content)
+print('Rendered 4 synthetic setup states; no production data or sends')

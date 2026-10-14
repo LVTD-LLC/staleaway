@@ -2,6 +2,8 @@ import { Controller } from "@hotwired/stimulus";
 import { showMessage } from "../utils/messages";
 
 export default class extends Controller {
+    static values = { errors: Boolean };
+
     static targets = [
         "item",
         "formContainer",
@@ -11,7 +13,7 @@ export default class extends Controller {
     ];
 
     connect() {
-        if (this.shouldSkipOnboarding()) {
+        if (!this.errorsValue && this.shouldSkipOnboarding()) {
             this.hideOnboarding();
         }
     }
