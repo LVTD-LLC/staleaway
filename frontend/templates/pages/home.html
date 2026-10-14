@@ -7,7 +7,7 @@
 {% endblock meta %}
 
 {% block content %}
-  <div class="container px-4 py-8 mx-auto max-w-3xl bg-white lg:min-w-0 md:pt-10 lg:flex-1" data-controller="sitemap">
+  <div class="container px-4 py-8 mx-auto max-w-3xl bg-white lg:min-w-0 md:pt-10 lg:flex-1" data-controller="sitemap" data-sitemap-errors-value="{{ form.errors|yesno:'true,false' }}">
     {% if not sitemaps %}
     <div class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 backdrop-blur-sm" aria-hidden="true" data-sitemap-target="onboardingOverlay"></div>
 
@@ -42,12 +42,7 @@
               <div class="space-y-4">
                 {{ form.non_field_errors }}
                 <div>
-                  {{ form.sitemap_url.errors | safe }}
-                  <label for="{{ form.sitemap_url.id_for_label }}" class="block text-sm font-medium text-gray-700">Sitemap URL</label>
-                  <div class="mt-1">
-                    {{ form.sitemap_url }}
-                  </div>
-                  <p class="mt-2 text-xs text-gray-500">Enter the full URL to your sitemap (e.g., https://example.com/sitemap.xml)</p>
+                  {% include "components/sitemap_url_field.html" %}
                 </div>
               </div>
 
@@ -80,7 +75,7 @@
           data-sitemap-target="toggleButton"
           class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md border border-transparent shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          Add Sitemap
+          {% if form.errors %}Cancel{% else %}Add Sitemap{% endif %}
         </button>
         {% else %}
         <button
@@ -95,7 +90,7 @@
     </div>
 
     {% if sitemaps %}
-    <div class="hidden px-6 py-4" data-sitemap-target="formContainer">
+    <div class="{% if not form.errors %}hidden {% endif %}px-6 py-4" data-sitemap-target="formContainer">
       <div class="flex flex-col">
         <div class="mt-5 md:mt-0">
           <form method="post">
@@ -105,10 +100,7 @@
                 <div class="grid grid-cols-6 gap-6">
                   {{ form.non_field_errors }}
                   <div class="col-span-6">
-                    {{ form.sitemap_url.errors | safe }}
-                    <label for="{{ form.sitemap_url.id_for_label }}" class="block text-sm font-medium text-gray-700">Sitemap URL</label>
-                    {{ form.sitemap_url }}
-                    <p class="mt-2 text-sm text-gray-500">Enter the full URL to your sitemap (e.g., https://example.com/sitemap.xml)</p>
+                    {% include "components/sitemap_url_field.html" %}
                   </div>
                 </div>
               </div>

@@ -1,0 +1,10 @@
+<label for="{{ form.sitemap_url.id_for_label }}" class="block text-sm font-medium text-gray-700">Sitemap URL</label>
+<div class="mt-1">{{ form.sitemap_url }}</div>
+<div id="sitemap-url-errors" role="alert">{{ form.sitemap_url.errors }}</div>
+<div id="sitemap-url-help" class="mt-2 space-y-2 text-sm text-gray-600">
+  <p>Paste the full address of a public XML sitemap, not your website's homepage. For example: <span class="break-all">https://example.com/sitemap.xml</span></p>
+  {% if sitemap_guide %}
+    <p><a class="text-purple-700 underline" href="{{ sitemap_guide.get_absolute_url }}" target="_blank" rel="noopener noreferrer">Find your sitemap and check it before importing <span class="text-xs">(opens in a new tab)</span></a></p>
+  {% endif %}
+  <p>After saving, open the sitemap entry to check which pages appeared. Saving a URL does not confirm that its pages imported.</p>
+</div>

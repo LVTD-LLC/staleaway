@@ -78,7 +78,8 @@ class SitemapForm(forms.ModelForm):
         widgets = {
             'sitemap_url': forms.URLInput(attrs={
                 'class': 'block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm',
-                'placeholder': 'https://example.com/sitemap.xml'
+                'placeholder': 'https://example.com/sitemap.xml',
+                'aria-describedby': 'sitemap-url-help sitemap-url-errors'
             })
         }
         labels = {

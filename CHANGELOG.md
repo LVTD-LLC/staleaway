@@ -1,3 +1,9 @@
+# 2026-10-14 — Sitemap setup help and visible validation
+
+- Link the published sitemap-finding guide beside both sitemap inputs in a new tab without sending a referrer; clarify that saving a URL is not import confirmation.
+- Keep invalid submissions visible for returning users and for first-time users who previously skipped onboarding; preserve entered values and associate help/errors with the input.
+- Cover published-only help, ownership and validation recovery in isolated tests and render synthetic onboarding previews. No queue, billing, customer-data or analytics changes.
+
 # 2026-10-13 — Find a sitemap and start a focused review list
 
 - Publish a source-checked sitemap-finding guide with CMS starting points, an index-versus-page-list diagram, and a manual import-readiness worksheet. Explain import and reminder limits without indexing or completion promises.
