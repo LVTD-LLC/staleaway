@@ -10,6 +10,13 @@ urlpatterns = [
     path("sitemap/<int:pk>", views.SitemapDetailView.as_view(), name="sitemap_detail"),
     path("settings", views.UserSettingsView.as_view(), name="settings"),
     path("admin-panel", views.AdminPanelView.as_view(), name="admin_panel"),
+    # Public, client-only planning tools
+    path("tools", views.ToolsView.as_view(), name="tools"),
+    path(
+        "tools/content-review-planner",
+        views.ContentReviewPlannerView.as_view(),
+        name="content_review_planner",
+    ),
     # blog
     path("blog", views.BlogView.as_view(), name="blog_posts"),
     path("blog/<slug:slug>", views.BlogPostView.as_view(), name="blog_post"),

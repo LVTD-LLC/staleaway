@@ -2,8 +2,10 @@
 
 As of 2026-10-10, browser measurement is an explicit PostHog `$pageview` on
 successful anonymous public pages only: homepage, blog index, technology page,
-and published articles. Account, review, dashboard, sitemap, authenticated and
-error pages have no browser analytics configuration. Missing configuration,
+published articles, and (from 2026-10-15) the free tools hub and content review
+planner. Planner inputs and outputs stay in the browser; no tool-use events or
+values are collected, saved or added to URLs. Account, review, dashboard, sitemap,
+authenticated and error pages have no browser analytics configuration. Missing configuration,
 blocked storage, DNT/GPC, or a failed request means **unobserved**, not zero traffic.
 
 The collector sends only the canonical public URL/path/host, a new random UUID,

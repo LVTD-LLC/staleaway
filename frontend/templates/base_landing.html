@@ -66,6 +66,6 @@
   </div>
 </header>
 <main id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
-<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="{% url 'blog_posts' %}">Blog</a><a href="{% url 'uses' %}">Technology</a><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
+<footer class="sa-footer"><div class="sa-footer-inner"><a class="sa-wordmark" href="{% url 'landing_page' %}">Staleaway<span aria-hidden="true">✳</span></a><p>A little attention. A fresher website.</p><nav aria-label="Footer navigation"><a href="{% url 'blog_posts' %}">Blog</a><a href="{% url 'tools' %}">Free tools</a><a href="{% url 'uses' %}">Technology</a><a href="mailto:rasul@lvtd.dev">Contact</a><a href="https://github.com/LVTD-LLC/staleaway">Source code</a></nav><small>© {% now 'Y' %} <a href="https://lvtd.dev">LVTD, LLC</a></small></div></footer>
 {% block schema %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Staleaway","url":"{{ site_url|escapejs }}/","description":"Scheduled page review reminders for your website."}</script>{% endblock %}
 </body></html>

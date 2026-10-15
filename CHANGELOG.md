@@ -1,3 +1,9 @@
+# 2026-10-15 — Free content review workload planner
+
+- Add a client-only whole-page review planner and a free tools hub, with homepage, blog and footer discovery. Calculate workload and target capacity without promising app coverage or completion dates.
+- Keep planner inputs local: no upload, persistence, URL parameters, tool-use events or customer data. Add accessible validation, plain-text copy/download, reset, and a manual fallback for unavailable JavaScript.
+- Add public canonical/schema/sitemap coverage, arithmetic and boundary regression tests, and planner preview artifacts. Preserve free access, existing privacy exclusions, reminder selection, storage and database behavior.
+
 # 2026-10-14 — Sitemap setup help and visible validation
 
 - Link the published sitemap-finding guide beside both sitemap inputs in a new tab without sending a referrer; clarify that saving a URL is not import confirmation.

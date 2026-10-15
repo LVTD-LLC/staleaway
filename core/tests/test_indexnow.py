@@ -41,6 +41,8 @@ def test_sitemap_public_pages_and_full_blog_modification_timestamp(client, setti
     ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     urls = {node.findtext("s:loc", namespaces=ns): node for node in root}
     paths = [url.removeprefix("https://testserver") for url in urls]
-    assert sorted(paths) == ["/", "/blog", "/blog/public", "/uses"]
+    assert sorted(paths) == [
+        "/", "/blog", "/blog/public", "/tools", "/tools/content-review-planner", "/uses"
+    ]
     stamp = urls["https://testserver/blog/public"].findtext("s:lastmod", namespaces=ns)
     assert stamp == published.updated_at.isoformat()

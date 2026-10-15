@@ -1,0 +1,29 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>Free Website Content Review Tools | Staleaway</title>
+<meta name="description" content="Plan manageable website content reviews with free Staleaway tools. Estimate review workload, whole-page batches and target capacity." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'tools' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Free Website Content Review Tools | Staleaway" />
+<meta property="og:description" content="Practical tools for planning a manageable website content review habit." />
+<meta property="og:url" content="{{ site_url }}{% url 'tools' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Free Website Content Review Tools | Staleaway" />
+<meta name="twitter:description" content="Practical tools for planning a manageable website content review habit." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <span aria-current="page">Free tools</span></nav>
+  <header class="sa-tool-heading"><p class="sa-eyebrow">A little planning. A sustainable habit.</p><h1>Free website content review tools</h1><p>Make room for a careful review before you commit to a schedule. These tools help you estimate the work; they do not scan your website, grade content or promise that every page will be reviewed.</p></header>
+  <article class="sa-tool-card"><p class="sa-eyebrow">Workload & capacity</p><h2>Content review workload planner</h2><p>Enter a page count, review time and available sessions. See how many whole pages fit in each session, the weeks your list needs and any capacity gap at your target. Copy or download the estimate for your own planning notes.</p><p>Inputs stay in your browser and are not saved.</p><a class="sa-button" href="{% url 'content_review_planner' %}">Open the free review planner ↗</a></article>
+  <section class="sa-tool-copy"><h2>From a plan to a repeatable habit</h2><p>A review estimate helps you reserve time. A <a href="{% url 'blog_posts' %}">practical website maintenance guide</a> helps you decide what to check when you open a page.</p><p>When you are ready for reminders, Staleaway lets you add a sitemap and choose a daily, weekly or monthly email cadence. Reminder selection and human review are separate from a workload calculation. Every feature is free.</p><a class="sa-button" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Set up free review reminders ↗</a></section>
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free Website Content Review Tools","url":"{{ site_url|escapejs }}{% url 'tools' %}","hasPart":{"@type":"WebApplication","name":"Content Review Workload Planner","url":"{{ site_url|escapejs }}{% url 'content_review_planner' %}"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"}]}</script>
+{% endblock %}

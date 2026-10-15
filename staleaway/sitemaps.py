@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib import sitemaps
 from django.contrib.sitemaps import GenericSitemap
 from django.urls import reverse
@@ -22,7 +24,14 @@ class StaticViewSitemap(sitemaps.Sitemap):
             "landing_page",
             "uses",
             "blog_posts",
+            "tools",
+            "content_review_planner",
         ]
+
+    def lastmod(self, item):
+        if item in {"tools", "content_review_planner"}:
+            return date(2026, 10, 15)
+        return None
 
     def location(self, item):
         """Get location for each item in the Sitemap

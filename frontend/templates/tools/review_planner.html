@@ -1,0 +1,63 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>Content Review Workload Planner — Free | Staleaway</title>
+<meta name="description" content="Estimate pages per review session, total review time and weeks needed. A free, private content review workload planner with a copyable plan." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'content_review_planner' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Content Review Workload Planner — Free | Staleaway" />
+<meta property="og:description" content="Turn a page count and your available review time into a realistic whole-page workload estimate." />
+<meta property="og:url" content="{{ site_url }}{% url 'content_review_planner' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Content Review Workload Planner — Free | Staleaway" />
+<meta name="twitter:description" content="Estimate whole-page review batches, time and target capacity with a free, private workload planner." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'tools' %}">Free tools</a> / <span aria-current="page">Content review planner</span></nav>
+  <header class="sa-tool-heading"><p class="sa-eyebrow">Free planning tool</p><h1>Content review workload planner</h1>
+    <p>Estimate how many whole pages fit into a review session, the time your review list needs, and whether it fits your target number of weeks. Start with your page count and a realistic review estimate. The calculation runs in your browser; it does not scan your website or schedule reminders.</p>
+    <p class="sa-tool-note">Updated <time datetime="2026-10-15">October 15, 2026</time> · All Staleaway features are free.</p>
+  </header>
+  <section class="sa-planner" aria-labelledby="planner-heading" data-controller="review-planner">
+    <h2 id="planner-heading">Plan a manageable review batch</h2>
+    <p>Prefilled numbers are an illustrative example, not a recommendation. No inputs are sent, saved or added to the URL. A local text file is created only if you choose Download.</p>
+    <p class="sa-tool-notice" data-review-planner-target="unavailable">Interactive calculation is unavailable until JavaScript loads. No estimate has been calculated. You can use the manual formula below.</p>
+    <noscript><p>JavaScript is disabled. The manual method below works without it.</p></noscript>
+    <div class="sa-tool-errors" data-review-planner-target="summary" role="alert" tabindex="-1" hidden></div>
+    <fieldset disabled data-review-planner-target="fields">
+      <legend class="sr-only">Review workload assumptions</legend>
+      <div class="sa-planner-inputs">
+      {% for field in planner_fields %}
+        <div class="sa-planner-field">
+          <label for="planner-{{ field.key }}">{{ field.label }}</label>
+          <input type="text" inputmode="numeric" autocomplete="off" spellcheck="false" id="planner-{{ field.key }}" value="{{ field.example }}" data-field="{{ field.key }}" data-review-planner-target="input" data-action="input->review-planner#invalidate keydown.enter->review-planner#calculate" aria-describedby="planner-{{ field.key }}-hint planner-{{ field.key }}-error" />
+          <p id="planner-{{ field.key }}-hint" class="sa-tool-note">{{ field.hint }}</p>
+          <p id="planner-{{ field.key }}-error" class="sa-tool-field-error" data-review-planner-target="error" data-field="{{ field.key }}"></p>
+        </div>
+      {% endfor %}
+      </div>
+      <div class="sa-tool-actions"><button type="button" class="sa-button" data-action="review-planner#calculate">Calculate workload</button><button type="button" class="sa-tool-secondary" data-action="review-planner#reset">Reset to example</button></div>
+    </fieldset>
+    <p class="sa-tool-status" role="status" data-review-planner-target="status"></p>
+    <section class="sa-planner-result" aria-labelledby="estimate-heading" data-review-planner-target="result" hidden>
+      <h3 id="estimate-heading">Your workload estimate</h3>
+      <dl class="sa-planner-breakdown" data-review-planner-target="breakdown"></dl>
+      <p class="sa-tool-notice" data-review-planner-target="bottleneck"></p>
+      <p>Assumes distinct pages, equal review time and every session used. Spare minutes do not carry between sessions. Reserved time includes the full final session; page slots may exceed your review list. Fixes, research and interruptions may need additional time.</p>
+      <p><strong>This is not an audit score, a deadline or a forecast of Staleaway coverage.</strong> It does not change your reminder settings.</p>
+      <div class="sa-tool-actions"><button type="button" class="sa-button" data-review-planner-target="copy" data-action="review-planner#copy" disabled>Copy estimate</button><button type="button" class="sa-tool-secondary" data-review-planner-target="download" data-action="review-planner#download" disabled>Download text</button></div>
+      <p role="status" data-review-planner-target="copyStatus"></p>
+      <label for="planner-export">Plain-text estimate</label><textarea id="planner-export" rows="10" readonly data-review-planner-target="export"></textarea>
+    </section>
+  </section>
+  {% include 'tools/review_planner_content.html' %}
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Review Workload Planner","description":"Estimate whole-page batches, review time and capacity for a website content review plan.","url":"{{ site_url|escapejs }}{% url 'content_review_planner' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-10-15","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"},{"@type":"ListItem","position":3,"name":"Content review planner","item":"{{ site_url|escapejs }}{% url 'content_review_planner' %}"}]}</script>
+{% endblock %}

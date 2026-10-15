@@ -36,6 +36,48 @@ class LandingPageView(TemplateView):
 
 
 
+class ToolsView(TemplateView):
+    template_name = "tools/index.html"
+
+
+class ContentReviewPlannerView(TemplateView):
+    template_name = "tools/review_planner.html"
+    extra_context = {
+        "planner_fields": [
+            {
+                "key": "pages",
+                "label": "Pages to review",
+                "example": "60",
+                "hint": "1–100,000 pages. Choose a distinct, manageable review list.",
+            },
+            {
+                "key": "minutesPerPage",
+                "label": "Minutes per page",
+                "example": "8",
+                "hint": "1–480 minutes. Estimate a careful review, not just opening a link.",
+            },
+            {
+                "key": "sessionMinutes",
+                "label": "Minutes per session",
+                "example": "30",
+                "hint": "1–480 minutes reserved for each review session.",
+            },
+            {
+                "key": "sessionsPerWeek",
+                "label": "Sessions per week",
+                "example": "2",
+                "hint": "1–7 sessions. This planner does not assign sessions to days.",
+            },
+            {
+                "key": "targetWeeks",
+                "label": "Target weeks",
+                "example": "8",
+                "hint": "1–104 weeks. A planning window, not a promised deadline.",
+            },
+        ],
+    }
+
+
 class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     login_url = "account_login"
     template_name = "pages/home.html"
