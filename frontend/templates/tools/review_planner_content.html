@@ -1,0 +1,70 @@
+<div class="sa-tool-guide prose max-w-none">
+  <h2 id="read-result">What your review plan means</h2>
+  <p>A content review planner estimates how many sessions and working weeks one manual pass through your website pages will take. It answers a practical question: can the review work fit into the time you have set aside? It does not decide which pages are accurate, which deserve attention first, or when a particular fact will expire.</p>
+  <p><strong>Pages per session</strong> counts only complete reviews that fit your time estimate. If a review takes eight minutes, a thirty-minute session holds three pages, not four. The spare six minutes cannot become part of another session in this model. That makes the estimate different from simply dividing total review time by your weekly availability.</p>
+  <p><strong>Weeks needed</strong> means weeks of work at your chosen number of sessions, rounded up. It is not a calendar finish date. Missed sessions, holidays, research, approval waits and fixes can extend the work. The target comparison shows how many pages would remain after the entered number of weeks, assuming you complete every planned session and choose different pages each time.</p>
+
+  <h2 id="methodology">How the workload calculation works</h2>
+  <p>The inputs are your assumptions, not industry benchmarks. Count the pages you intend to review, estimate minutes per page, and choose a session length you can protect. Use whole numbers. This version accepts one to seven sessions per week; it does not assign them to particular days. The target is a number of working weeks, not a promise about page freshness.</p>
+  <ol>
+    <li>Divide minutes per session by minutes per page. Round down to find the whole-page batch, capped at your page count.</li>
+    <li>Divide the page count by that batch. Round up to find sessions needed.</li>
+    <li>Divide sessions needed by sessions per week. Round up to find weeks needed.</li>
+    <li>Multiply batch size by sessions per week and target weeks. Subtract this capacity from your page count; a negative shortfall becomes zero.</li>
+    <li>For minimum weekly sessions to meet the target, divide sessions needed by target weeks and round up. A result above seven is outside this planner's input range.</li>
+  </ol>
+  <p>Estimated review time is pages multiplied by minutes per page. Reserved calendar time is sessions needed multiplied by session length, including unused time in the final session. If even one page cannot fit into a session, there is no whole-page plan to calculate. Increase the session length or divide the work into a different, manually planned process.</p>
+  <figure>
+    <svg viewBox="0 0 400 264" width="100%" role="img" aria-labelledby="review-planner-method-title review-planner-method-desc" style="max-width:400px;height:auto;display:block;margin:auto;color:var(--sa-ink)">
+      <title id="review-planner-method-title">Whole pages determine the review workload</title>
+      <desc id="review-planner-method-desc">First fit complete page reviews into a session. Then fit the required sessions into working weeks. Unused minutes are not carried between sessions.</desc>
+      <rect x="8" y="8" width="384" height="60" rx="16" fill="var(--sa-lavender)" />
+      <text x="200" y="34" text-anchor="middle" fill="currentColor" font-size="18" font-weight="bold">Session time ÷ page time</text>
+      <text x="200" y="56" text-anchor="middle" fill="currentColor" font-size="16">Round down → whole pages per session</text>
+      <path d="M200 68V88m-6-6 6 6 6-6" fill="none" stroke="var(--sa-purple)" stroke-width="2" />
+      <rect x="8" y="92" width="384" height="60" rx="16" fill="var(--sa-lavender)" />
+      <text x="200" y="118" text-anchor="middle" fill="currentColor" font-size="18" font-weight="bold">Page list ÷ pages per session</text>
+      <text x="200" y="140" text-anchor="middle" fill="currentColor" font-size="16">Round up → sessions needed</text>
+      <path d="M200 152V172m-6-6 6 6 6-6" fill="none" stroke="var(--sa-purple)" stroke-width="2" />
+      <rect x="8" y="176" width="384" height="60" rx="16" fill="var(--sa-lavender)" />
+      <text x="200" y="202" text-anchor="middle" fill="currentColor" font-size="18" font-weight="bold">Sessions needed ÷ weekly sessions</text>
+      <text x="200" y="224" text-anchor="middle" fill="currentColor" font-size="16">Round up → working weeks needed</text>
+      <text x="200" y="258" text-anchor="middle" fill="currentColor" font-size="13">Staleaway · Method checked 15 October 2026</text>
+    </svg>
+    <figcaption>Whole-page batching keeps leftover minutes from being counted as completed reviews.</figcaption>
+  </figure>
+
+  <h2 id="worked-example">A 60-page review, worked through</h2>
+  <p>This is a fictional planning example, not customer data or a recommended review speed. With 60 pages, eight minutes per page and thirty-minute sessions, each session holds three pages. You need twenty sessions. At two sessions per week, that is ten working weeks, with 480 minutes of estimated review work inside 600 reserved minutes.</p>
+  <p>An eight-week target has room for sixteen sessions, or 48 pages. Twelve pages remain. Three sessions each week would provide enough whole sessions within the target; the last week would need fewer. Alternatively, keep two weekly sessions and extend the target to ten weeks. Do not reduce the review-time estimate just to make the result look better.</p>
+  <aside class="sa-tool-example" aria-label="Worked example decision">
+    <p><strong>Choose the constraint you can change:</strong> more sessions, longer sessions, fewer pages in this pass, or a later target. Keep urgent corrections outside that trade-off.</p>
+  </aside>
+
+  <h2 id="choose-pages">Set priorities before filling the sessions</h2>
+  <p>Group pages with similar review effort rather than treating a short contact page and a long tutorial as identical. Run the planner separately for each group, then check that the groups are not using the same calendar time. Time a few actual reviews and replace the example estimate with what you learn. Set aside additional time for fixes and follow-up.</p>
+  <p>A page's next review date is a separate decision. <a href="https://help.marcom.business.cornell.edu/roles-and-review-process/review-cycle">Cornell's content-review guidance</a> varies the cycle by how often information changes. <a href="https://core.fiu.edu/blog/2026/how-to-set-up-a-review-schedule-in-cascade.html">FIU's scheduling guide</a> connects reviews to known updates and expiring information. These are institution-specific practices, not universal deadlines or Staleaway features.</p>
+  <p>If a service changes today, check the affected page today. A workload estimate cannot make an incorrect statement safe until next month's slot. Use the <a href="/blog/website-content-review-checklist">website content review checklist</a> to record evidence, unresolved questions and who owns the next action.</p>
+  <figure>
+    <svg viewBox="0 0 400 218" width="100%" role="img" aria-labelledby="review-planner-priority-title review-planner-priority-desc" style="max-width:400px;height:auto;display:block;margin:auto;color:var(--sa-ink)">
+      <title id="review-planner-priority-title">Urgent changes and routine work take different paths</title>
+      <desc id="review-planner-priority-desc">A known change needs a targeted check now. A routine review list goes into planned sessions. Both paths require a recorded decision and follow-up for unfinished work.</desc>
+      <rect x="8" y="8" width="384" height="54" rx="16" fill="var(--sa-lavender)" />
+      <text x="200" y="31" text-anchor="middle" fill="currentColor" font-size="17" font-weight="bold">Known change → targeted check now</text>
+      <text x="200" y="51" text-anchor="middle" fill="currentColor" font-size="15">Do not wait for the routine calendar.</text>
+      <rect x="8" y="76" width="384" height="54" rx="16" fill="var(--sa-lavender)" />
+      <text x="200" y="99" text-anchor="middle" fill="currentColor" font-size="17" font-weight="bold">Routine page list → planned sessions</text>
+      <text x="200" y="119" text-anchor="middle" fill="currentColor" font-size="15">Choose distinct pages; record what you checked.</text>
+      <path d="M200 130V149m-6-6 6 6 6-6" fill="none" stroke="var(--sa-purple)" stroke-width="2" />
+      <text x="200" y="172" text-anchor="middle" fill="currentColor" font-size="17" font-weight="bold">Both paths: record decisions + follow-up</text>
+      <text x="200" y="204" text-anchor="middle" fill="currentColor" font-size="13">Staleaway · Manual planning workflow · October 2026</text>
+    </svg>
+    <figcaption>A planned review session does not replace a response to a known change.</figcaption>
+  </figure>
+
+  <h2 id="next-step">Turn the plan into a review habit</h2>
+  <p>The calculator works locally in your browser. It does not read your site, save your plan to an account, send reminders or schedule calendar events. Copy or download the result if you want to keep your assumptions. The calculation uses no changing external rates; its method was checked on 15 October 2026.</p>
+  <p>Staleaway's separate <a href="/#how-it-works">email reminder workflow</a> can help you begin regular reviews. <a href="/blog/find-your-website-sitemap">Find your website's sitemap</a>, then choose a daily, weekly or monthly reminder and pages per email. Staleaway selects from eligible unreviewed pages at random. This estimate instead assumes you choose different pages for each completed review. Reminder frequency does not guarantee complete or repeated site coverage.</p>
+  <p>Opening a review link marks that page reviewed and redirects to it; it does not prove the content was checked or a fix finished. Keep your own record for deadlines and unresolved work. If reminders suit the habit you want, <a href="/accounts/signup/">create a free Staleaway account</a>. The planner neither changes those settings nor predicts delivery.</p>
+  <p><small>Cite this tool: Staleaway, <a href="/tools/content-review-planner">Content review planner</a>, methodology checked 15 October 2026.</small></p>
+</div>

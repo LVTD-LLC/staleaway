@@ -38,5 +38,11 @@
   <a class="sa-button" href="{{ content_review_guide.get_absolute_url }}">Read the website content review checklist ↗</a>
 </section>
 {% endif %}
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">Make space for the work</p>
+  <h2>How much review time<br>does your website need?</h2>
+  <p>Estimate a whole-page batch and the sessions your review list needs. Use your own assumptions; the planner does not scan your website.</p>
+  <a class="sa-button" href="{% url 'content_review_planner' %}">Try the content review workload planner ↗</a>
+</section>
 <section class="sa-final"><span aria-hidden="true">✳</span><h2>Give your website<br>a little ongoing love.</h2><a class="sa-button sa-button-large" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Get started for free ↗</a></section>
 {% endblock %}

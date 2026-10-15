@@ -1,0 +1,14 @@
+# Content review workload planner
+
+- Intent owner: `/tools/content-review-planner` — calculate whole-page manual review capacity and target-week shortfall. The existing checklist remains the owner for what to inspect and how to choose review timing.
+- Audience: a website owner planning one manual pass through distinct existing pages.
+- Information gain: interactive whole-page batching exposes unused session time and a target shortfall; explicit assumptions, reproducible example and text export make the estimate reusable. No claim to a new or unique tool category.
+- Method: `batch=min(pages,floor(sessionMinutes/minutesPerPage))`; reject a zero batch. Round up pages/batch to sessions, then sessions/weekly sessions to weeks. Compare batch × weekly sessions × target weeks against the page count. Estimate review minutes separately from reserved session minutes. No dates are assigned.
+- Example: 60 pages,8minutes/page,30minutes/session,2sessions/week,8target weeks →3pages/session,20sessions,10weeks,480review minutes,600reserved minutes,12pages left at target;3weekly sessions required. Illustrative arithmetic, not customer data or a benchmark.
+- Boundaries: no scan, account write, uploads, saved inputs, fetched inputs, per-entity result URLs or extra analytics. No promise of complete/repeated Staleaway review coverage, automatic audits, email delivery or completed human review.
+- Sources checked2026-10-15: [FIU review scheduling](https://core.fiu.edu/blog/2026/how-to-set-up-a-review-schedule-in-cascade.html), [Cornell content review cycles](https://help.marcom.business.cornell.edu/roles-and-review-process/review-cycle), `core/tasks.py`, `core/views.py`, `PRODUCT.md`. Institutional timing examples are not universal requirements.
+- Interaction references: [Contentelli capacity calculator](https://contentelli.com/tools/content-calendar-calculator/) (numeric inputs and compact result), [CalcSpan runway calculator](https://www.calcspan.com/tool/content-calendar-runway-calculator/) (assumptions, breakdown and text export). Use interaction concepts, not copied design or claims.
+- Maintenance: regression-test arithmetic and input boundaries; recheck product handoff if review-selection behavior changes. No external rates or dataset to refresh.
+- Publication gate: PR CI with Docker-backed `make test`, independent editorial/code review, actual browser arithmetic/input/clipboard/download/no-JS checks, responsive rendering and privacy checks before merge; deployed revision and live result after merge.
+- Research and measurements remain private in existing Rowset: project61d254c5-7b76-438c-8771-7262335b2dbc, dataset6c132da9-be7d-445b-b85f-0f6e7adceb5c, indexes `staleaway:20261015:planner-brief` and `staleaway:daily-seo:2026-10-15`.
+- Outcome reads: 2026-11-05 and2026-11-12 if deployedOctober15. Treat acquisition and activation as observed, coverage-qualified signals; no causal uplift inferred.
