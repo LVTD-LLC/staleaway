@@ -1,3 +1,8 @@
+# 2026-10-16 — Connect review guides to the workload planner
+
+- Add contextual planner links at the scheduling step of the review checklist and after sitemap-import guidance, so readers can choose a manageable manual review batch without creating an account.
+- Keep both guides’ intent, titles, existing review workflow and planner calculations unchanged. Use exact previous-publication digests to preserve editorial safeguards; publication updates modification dates while retaining original publication dates.
+
 # 2026-10-15 — Free content review workload planner
 
 - Add a client-only whole-page review planner and a free tools hub, with homepage, blog and footer discovery. Calculate workload and target capacity without promising app coverage or completion dates.
