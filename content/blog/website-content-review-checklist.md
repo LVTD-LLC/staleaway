@@ -108,6 +108,8 @@ Choose an initial review date using two questions: how likely is the information
 
 Known changes override the calendar. Examples include a new service offering, an event cancellation, a changed contact address or a product release that alters instructions. Keep the unresolved-work follow-up separate from the next routine review; a monthly reminder is not a reason to leave a confirmed error live for a month.
 
+Before committing to a batch, try the free [content review planner](/tools/content-review-planner). Enter your page count, estimated minutes per page and available review sessions to see how many whole pages fit and whether your target leaves unfinished work. No account is needed. It estimates a manual pass you organize yourself, not Staleaway’s reminder coverage.
+
 ### Where Staleaway fits
 
 Staleaway lets you add a sitemap and choose daily, weekly or monthly reminder settings and a number of pages per email. It supports the habit of opening a few pages for human review. All features are currently free, and the [technology behind Staleaway](/uses) is documented publicly.

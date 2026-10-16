@@ -125,6 +125,8 @@ To use the list for reminders, [create a free Staleaway account](/accounts/signu
 
 Then choose the pages per review email and a daily, weekly or monthly cadence. The [Staleaway workflow](/#how-it-works) brings pages to your attention; it does not certify them as accurate. Reminders select unreviewed pages rather than guaranteeing that every page is covered within a particular interval.
 
+Not sure how much review time to set aside? Use the free [content review workload planner](/tools/content-review-planner) with the number of pages you intend to check. You can compare a smaller batch with more review sessions before choosing your own plan. The estimate stays separate from your reminder settings.
+
 When a reminder arrives, opening **Review This Page** marks the page reviewed before redirecting you to it. That recorded action is not proof that you checked its claims or finished an edit. Use the [website content review checklist](/blog/website-content-review-checklist) to inspect the content, record a decision and verify any fix in your own publishing system.
 
 ### Common mistakes to avoid
