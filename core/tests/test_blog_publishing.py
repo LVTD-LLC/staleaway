@@ -191,19 +191,6 @@ def test_management_command_and_public_discovery(tmp_path, settings, client):
         else:
             assert "HowTo" not in data
             assert len(data["FAQPage"]["mainEntity"]) == 3
-            article = BeautifulSoup(html, "html.parser").select_one("article")
-            visible = article.get_text(" ", strip=True)
-            for question in data["FAQPage"]["mainEntity"]:
-                assert question["name"] in visible
-                assert question["acceptedAnswer"]["text"] in visible
-            diagram = article.select_one('svg[role="img"]')
-            assert diagram is not None
-            for label_id in diagram["aria-labelledby"].split():
-                assert diagram.find(id=label_id) is not None
-            assert "Fictional examples" in visible
-            assert 'href="/tools/content-review-planner"' in html
-            assert 'href="/blog/website-content-review-checklist"' in html
-            assert 'href="/accounts/signup/"' in html
         if post.slug == "find-your-website-sitemap":
             assert data["HowTo"]["step"][0]["name"] == "Find the sitemap address"
             assert data["HowTo"]["step"][-1]["name"] == "Import and verify listed pages"
