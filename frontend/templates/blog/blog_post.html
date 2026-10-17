@@ -140,4 +140,38 @@
   }
 </script>
 {% endif %}
+{% if repository_authored and blog_post.slug == 'content-review-vs-change-monitoring' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can unchanged website content be out of date?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A page can remain unchanged while the business facts behind it change. Check its claims against current sources and the responsible owner. Monitoring relevant upstream sources can help, but a quiet monitor alone does not prove the page is current."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need both content review and change monitoring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use both when you need alerts about watched changes and a regular check of your own content’s usefulness and accuracy. Define the evidence and follow-up owner for each signal so that an alert or reminder leads to a decision, not automatic rewriting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does opening a Staleaway reminder prove the review is complete?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Opening the review link marks the page reviewed and redirects you to it. It does not prove that the content was checked or a fix was completed. Keep unresolved work and verification in your own record."
+      }
+    }
+  ]
+}
+</script>
+{% endif %}
 {% endblock schema %}

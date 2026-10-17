@@ -1,3 +1,9 @@
+# 2026-10-17 — Choose content reviews or change monitoring
+
+- Publish a source-checked comparison with an original change/accuracy decision diagram, clearly fictional examples and a copyable follow-up record. Credit automated rules, AI and technical monitoring without implying Staleaway provides them.
+- Add published-only homepage discovery and scoped question structured data; preserve existing checklist, sitemap and workload-planning intent. Cover publication visibility, draft boundaries and rendered question/diagram consistency.
+- Keep the guarded publishing path, review selection, customer data, analytics privacy and free access unchanged.
+
 # 2026-10-16 — Connect review guides to the workload planner
 
 - Add contextual planner links at the scheduling step of the review checklist and after sitemap-import guidance, so readers can choose a manageable manual review batch without creating an account.

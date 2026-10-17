@@ -161,13 +161,17 @@ def test_all_publications_roll_back_on_later_collision(tmp_path):
 
 def test_management_command_and_public_discovery(tmp_path, settings, client):
     settings.BASE_DIR = tmp_path
-    slugs = ("website-content-review-checklist", "find-your-website-sitemap")
+    slugs = (
+        "website-content-review-checklist",
+        "find-your-website-sitemap",
+        "content-review-vs-change-monitoring",
+    )
     for slug in slugs:
         write_publication(tmp_path / "content" / "blog", slug)
     output = StringIO()
     call_command("publish_repository_blog", stdout=output)
     assert "publication_sha256=" in output.getvalue()
-    assert BlogPost.objects.count() == len(slugs)
+    assert set(BlogPost.objects.values_list("slug", flat=True)) == set(slugs)
     discovery_pages = ("/", "/blog", "/sitemap.xml")
     for post in BlogPost.objects.all():
         for path in discovery_pages:
@@ -181,13 +185,17 @@ def test_management_command_and_public_discovery(tmp_path, settings, client):
         assert data["BlogPosting"]["author"]["@type"] == "Organization"
         assert data["BlogPosting"]["author"]["name"] == "Staleaway"
         assert data["BreadcrumbList"]["itemListElement"][-1]["name"] == post.title
-        assert len(data["HowTo"]["step"]) == 5
         assert data["BlogPosting"]["datePublished"] == post.created_at.isoformat()
+        if post.slug in {"website-content-review-checklist", "find-your-website-sitemap"}:
+            assert len(data["HowTo"]["step"]) == 5
+        else:
+            assert "HowTo" not in data
+            assert len(data["FAQPage"]["mainEntity"]) == 3
         if post.slug == "find-your-website-sitemap":
             assert data["HowTo"]["step"][0]["name"] == "Find the sitemap address"
             assert data["HowTo"]["step"][-1]["name"] == "Import and verify listed pages"
             assert len(data["FAQPage"]["mainEntity"]) == 3
-        else:
+        elif post.slug == "website-content-review-checklist":
             assert "FAQPage" not in data
     for post in BlogPost.objects.all():
         post.status = BlogPostStatus.DRAFT
@@ -218,7 +226,9 @@ def test_repository_manifests_publish_and_render(client, settings):
     # Desired-state rendering is independent of production transition history.
     publications = load_publications(source)
     assert {post.slug for post, _ in publications} >= {
-        "website-content-review-checklist", "find-your-website-sitemap"
+        "website-content-review-checklist",
+        "find-your-website-sitemap",
+        "content-review-vs-change-monitoring",
     }
     for desired, _previous_digest in publications:
         desired.save(force_insert=True)
@@ -232,6 +242,24 @@ def test_repository_manifests_publish_and_render(client, settings):
         assert f'<link rel="canonical" href="{data["BlogPosting"]["url"]}"' in html
         assert post.get_absolute_url() in client.get("/blog").content.decode()
         assert post.get_absolute_url() in client.get("/sitemap.xml").content.decode()
+        if post.slug == "content-review-vs-change-monitoring":
+            assert post.get_absolute_url() in client.get("/").content.decode()
+            assert data["BlogPosting"]["headline"] == post.title
+            assert "HowTo" not in data
+            assert len(data["FAQPage"]["mainEntity"]) == 3
+            article = BeautifulSoup(html, "html.parser").select_one("article")
+            visible = article.get_text(" ", strip=True)
+            for question in data["FAQPage"]["mainEntity"]:
+                assert question["name"] in visible
+                assert question["acceptedAnswer"]["text"] in visible
+            diagram = article.select_one('svg[role="img"]')
+            assert diagram is not None
+            for label_id in diagram["aria-labelledby"].split():
+                assert diagram.find(id=label_id) is not None
+            assert "Fictional examples" in visible
+            assert 'href="/tools/content-review-planner"' in html
+            assert 'href="/blog/website-content-review-checklist"' in html
+            assert 'href="/accounts/signup/"' in html
         if post.slug == "find-your-website-sitemap":
             assert "worksheet" in html.lower()
             assert 'href="/accounts/signup/"' in html
