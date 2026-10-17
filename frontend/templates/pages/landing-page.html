@@ -38,6 +38,14 @@
   <a class="sa-button" href="{{ content_review_guide.get_absolute_url }}">Read the website content review checklist ↗</a>
 </section>
 {% endif %}
+{% if review_monitoring_guide %}
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">Choose the right signal</p>
+  <h2>A page can stay the same.<br>The facts can still change.</h2>
+  <p>Compare human content review with website change monitoring. See when a reminder, a change alert or both can help you keep pages useful.</p>
+  <a class="sa-button" href="{{ review_monitoring_guide.get_absolute_url }}">Compare content review and change monitoring ↗</a>
+</section>
+{% endif %}
 <section class="sa-editorial sa-shell">
   <p class="sa-eyebrow">Make space for the work</p>
   <h2>How much review time<br>does your website need?</h2>

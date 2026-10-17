@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "slug": "content-review-vs-change-monitoring",
+  "title": "Content review vs website change monitoring",
+  "description": "Choose content review reminders, website change monitoring or both. Includes a decision framework, honest tradeoffs and a copyable review record.",
+  "tags": "content review, website monitoring, website maintenance",
+  "author": "Staleaway",
+  "content_sha256": "ca0c7ac2ca8a9ef79cdd37226fb149fc83454c900d2c55a9e612a40e433ee3ac",
+  "expected_previous_sha256": null
+}

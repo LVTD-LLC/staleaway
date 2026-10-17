@@ -32,6 +32,9 @@ class LandingPageView(TemplateView):
         context["sitemap_guide"] = BlogPost.objects.filter(
             slug="find-your-website-sitemap", status=BlogPostStatus.PUBLISHED
         ).first()
+        context["review_monitoring_guide"] = BlogPost.objects.filter(
+            slug="content-review-vs-change-monitoring", status=BlogPostStatus.PUBLISHED
+        ).first()
         return context
 
 
