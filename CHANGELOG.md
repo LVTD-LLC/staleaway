@@ -1,3 +1,9 @@
+# 2026-10-18 — Keep content-review handoffs actionable
+
+- Extend the existing website content review checklist with a copyable owner-handoff record and a clearly fictional follow-through example. Separate accepted work, permission to publish and live-result verification.
+- Ground the guidance in published council practices, keep unresolved dates intact and keep private access details out of shared records.
+- Preserve the article title, URL and original publication date through the guarded publishing workflow. No new product assignments, review-queue behavior, analytics or billing changes.
+
 # 2026-10-17 — Choose content reviews or change monitoring
 
 - Publish a source-checked comparison with an original change/accuracy decision diagram, clearly fictional examples and a copyable follow-up record. Credit automated rules, AI and technical monitoring without implying Staleaway provides them.
