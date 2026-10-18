@@ -100,6 +100,27 @@ For the fictional service page, a useful finding is “Saturday availability dis
 
 This log is a manual aid, not a Staleaway feature or a compliance certificate. Use public page addresses where appropriate; keep private review-link tokens, customer details and restricted source material out of shared notes and screenshots.
 
+### Hand unfinished work to a named owner
+
+Before a reviewer goes on leave or changes roles, hand over the open findings as well as the page list. Name the person who can confirm the facts, the editor who can publish a correction and the person who will check the live result. One person may do all three jobs. Ask the receiving owner to accept the work and agree a follow-up date; a forwarded reminder alone does not record that agreement.
+
+Add these handoff fields to the same review log:
+
+> **Public page / unresolved finding:**<br>
+> **Evidence checked / question still open:**<br>
+> **Receiving owner / pending or accepted / accepted on:**<br>
+> **Editor / live-result checker:**<br>
+> **Next action / follow-up due:**<br>
+> **Fallback contact if no response:**
+
+For example, continue the fictional Saturday-consultation review above. The current service list confirms weekday availability, but the reviewer cannot publish. The operations owner accepts responsibility for getting the correction published; the website editor agrees to update the availability statement. Before the reviewer leaves, a colleague agrees to check the published wording and enquiry link by the recorded follow-up date. Until that check happens, the log says “correction requested,” not “fixed.”
+
+If nobody accepts responsibility, leave the finding open and use the fallback contact you agreed with the site owner. Do not reset its original finding date or replace its follow-up with the next routine review. A potentially misleading claim still needs the urgent owner decision described above.
+
+Peterborough City Council [records service conversations so another team member can follow progress when someone is away](https://www.peterborough.gov.uk/website-content-playbook/content-auditing-process). Essex County Council [describes training and guidance as part of handing a service to its ongoing owners](https://blog.essex.gov.uk/essex-digital-service/invisible-work-supports-service-success). These examples show institutional practice, not measured results for this suggested handoff.
+
+The record stays outside Staleaway; it does not add assignments, approval tracking or verified completion to the app. Share only what the recipient needs. Transfer access through your approved process for granting access, not passwords or private review-link tokens pasted into the log.
+
 ## 5. Choose a review schedule you can maintain
 
 Separate **time to do reviews** from **when a particular page must be checked**. You might reserve a weekly session for a small batch while checking an event page immediately when its date changes. A quiet evergreen page may need less frequent attention than a service page with changing availability.
