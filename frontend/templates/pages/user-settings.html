@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="px-6 py-4" data-controller="email">
+      <div id="reminder-settings" class="px-6 py-4" data-controller="email">
         <div class="flex flex-col">
           <h3 class="mb-6 text-lg font-medium leading-6 text-gray-900">Email Addresses</h3>
           <p class="mb-4 text-sm text-gray-600">Manage email addresses that will receive notifications. Toggle the checkbox to enable/disable notifications for each address.</p>
@@ -163,7 +163,7 @@
           <p class="mb-4 text-sm text-gray-600">Configure how often you want to receive review emails and how many pages to include for each sitemap.</p>
 
           {% for sitemap in sitemaps %}
-          <div class="p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div id="sitemap-settings-{{ sitemap.id }}" class="p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200">
             <div class="mb-3">
               <h4 class="text-sm font-medium text-gray-900 break-all">{{ sitemap.sitemap_url }}</h4>
               <p class="text-xs text-gray-500">Added {{ sitemap.created_at|date:"M d, Y" }}</p>

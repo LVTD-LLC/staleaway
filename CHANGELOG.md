@@ -1,3 +1,8 @@
+# 2026-10-20 — Connect imported pages to reminder setup
+
+- Show each sitemap's saved reminder preferences with a direct link to its settings, and connect imported-page checks to email recipients and timing.
+- Explain that an empty page list is not an import success or failure signal; offer a safe recheck without duplicate sitemap entries. Scheduling, review selection and private-page analytics remain unchanged.
+
 # 2026-10-18 — Keep content-review handoffs actionable
 
 - Extend the existing website content review checklist with a copyable owner-handoff record and a clearly fictional follow-through example. Separate accepted work, permission to publish and live-result verification.

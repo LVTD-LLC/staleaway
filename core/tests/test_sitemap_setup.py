@@ -59,3 +59,38 @@ def test_setup_success_is_saved_not_import_verified_and_scoped(auth_client, prof
     assert Sitemap.objects.get(profile=profile).import_status == 'pending'
     container = re.search(r'<div class="([^"]*)" data-sitemap-target="formContainer">', html)
     assert 'hidden' in container.group(1).split()
+
+
+@pytest.mark.parametrize('has_pages', [False, True])
+def test_post_import_handoff_reaches_owned_settings(auth_client, profile, django_user_model, has_pages):
+    from allauth.account.models import EmailAddress
+    from core.models import Page
+
+    EmailAddress.objects.create(user=profile.user, email=profile.user.email, primary=True, verified=True)
+    sitemap = Sitemap.objects.create(profile=profile, sitemap_url='https://example.com/sitemap.xml',
+                                    pages_per_review=3, review_cadence='weekly')
+    if has_pages:
+        Page.objects.create(profile=profile, sitemap=sitemap, url='https://example.com/about')
+    other = django_user_model.objects.create_user(username='other-handoff', email='other@example.com')
+    private = Sitemap.objects.create(profile=other.profile, sitemap_url='https://private.example/sitemap.xml')
+    target = f'/settings#sitemap-settings-{sitemap.pk}'
+    for path in ['/home', f'/sitemap/{sitemap.pk}']:
+        response = auth_client.get(path)
+        assert response.status_code == 200
+        html = response.content.decode()
+        assert f'href="{target}"' in html
+        assert 'Saved cadence: Weekly · Up to 3 pages per review email' in html
+        assert 'href="/settings#reminder-settings"' in html
+        assert 'public-analytics-config' not in html
+        assert private.sitemap_url not in html
+        assert f'href="/settings#sitemap-settings-{private.pk}"' not in html
+        if path.startswith('/sitemap/'):
+            assert ('No imported pages to show yet' in html) == (not has_pages)
+            assert ('Check for imported pages' in html) == (not has_pages)
+    settings_response = auth_client.get('/settings')
+    assert settings_response.status_code == 200
+    settings_html = settings_response.content.decode()
+    assert f'id="sitemap-settings-{sitemap.pk}"' in settings_html
+    assert 'id="reminder-settings"' in settings_html
+    assert f'id="sitemap-settings-{private.pk}"' not in settings_html
+    assert auth_client.get(f'/sitemap/{private.pk}').status_code == 404
