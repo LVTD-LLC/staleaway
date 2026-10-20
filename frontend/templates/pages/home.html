@@ -90,6 +90,10 @@
     </div>
 
     {% if sitemaps %}
+    <div class="px-6 pt-4 text-sm text-gray-600">
+      <p>Open a sitemap to check which pages imported, then confirm your reminder preferences.</p>
+      <p class="mt-2"><a href="{% url 'settings' %}#reminder-settings" class="font-medium text-purple-700 underline hover:text-purple-900">Check email recipients and timing</a>. Saved settings apply without a separate activation step; a reminder still needs available unreviewed pages.</p>
+    </div>
     <div class="{% if not form.errors %}hidden {% endif %}px-6 py-4" data-sitemap-target="formContainer">
       <div class="flex flex-col">
         <div class="mt-5 md:mt-0">
@@ -159,6 +163,7 @@
                   </div>
                 </div>
               </div>
+              {% include "components/sitemap_reminder_preferences.html" %}
             </li>
             {% endfor %}
           </ul>

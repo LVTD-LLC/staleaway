@@ -24,6 +24,8 @@
           </p>
         </div>
       </div>
+      {% include "components/sitemap_reminder_preferences.html" %}
+      <p class="mt-3 text-sm text-gray-600"><a href="{% url 'settings' %}#reminder-settings" class="font-medium text-purple-700 underline hover:text-purple-900">Check email recipients and timing</a> before settling into your review routine. These are saved preferences, not confirmation that an email has been sent.</p>
     </div>
 
     {% if pages %}
@@ -139,8 +141,10 @@
         <svg class="mx-auto w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-gray-900">No pages found</h3>
-        <p class="mt-1 text-sm text-gray-500">This sitemap doesn't have any pages yet.</p>
+        <h2 class="mt-2 text-sm font-medium text-gray-900">No imported pages to show yet</h2>
+        <p class="mt-2 text-sm text-gray-600">Import runs in the background. An empty list does not tell us whether it is still running or could not import the XML.</p>
+        <p class="mt-2 text-sm text-gray-600">Check again after allowing time for the import. If the list stays empty, open the sitemap source above and check the public XML with your site maintainer. Do not add duplicate entries to retry.</p>
+        <a href="{% url 'sitemap_detail' sitemap.id %}" class="inline-flex mt-4 sa-button">Check for imported pages</a>
       </div>
     </div>
     {% endif %}

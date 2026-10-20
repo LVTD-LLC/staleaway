@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-2 mt-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+  <p class="text-gray-600">
+    Saved cadence: {{ sitemap.get_review_cadence_display }} · Up to {{ sitemap.pages_per_review }} page{{ sitemap.pages_per_review|pluralize }} per review email from this sitemap.
+  </p>
+  <a href="{% url 'settings' %}#sitemap-settings-{{ sitemap.id }}" class="font-medium text-purple-700 underline hover:text-purple-900">
+    Edit reminder settings
+  </a>
+</div>
