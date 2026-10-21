@@ -80,6 +80,13 @@ class ContentReviewPlannerView(TemplateView):
         ],
     }
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["review_monitoring_guide"] = BlogPost.objects.filter(
+            slug="content-review-vs-change-monitoring", status=BlogPostStatus.PUBLISHED
+        ).first()
+        return context
+
 
 class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     login_url = "account_login"

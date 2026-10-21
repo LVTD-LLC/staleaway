@@ -1,3 +1,8 @@
+# 2026-10-21 — Match review plans to the right workflow
+
+- Help workload-planner readers choose between regular human-review reminders, page-specific deadlines and change monitoring before signing up.
+- Link the existing comparison only while it is published. Keep calculations, local-only inputs and free access unchanged; update only the planner's content modification date.
+
 # 2026-10-20 — Connect imported pages to reminder setup
 
 - Show each sitemap's saved reminder preferences with a direct link to its settings, and connect imported-page checks to email recipients and timing.
