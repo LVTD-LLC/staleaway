@@ -5,7 +5,8 @@ from xml.etree import ElementTree
 import pytest
 from django.urls import reverse
 
-from core.models import Page, Sitemap
+from core.choices import BlogPostStatus
+from core.models import BlogPost, Page, Sitemap
 from core.tests.test_analytics_privacy import analytics_config
 from core.tests.test_public_seo import schemas
 
@@ -34,7 +35,7 @@ def test_public_tool_metadata_and_schema(client, settings, name):
         assert data[0]["@type"] == "WebApplication"
         assert data[0]["offers"] == {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
         assert data[0]["isAccessibleForFree"] is True
-        assert data[0]["dateModified"] == "2026-10-15"
+        assert data[0]["dateModified"] == "2026-10-21"
         assert "Content review workload planner" in html
         assert 'data-controller="review-planner"' in html
         assert '<fieldset disabled data-review-planner-target="fields">' in html
@@ -67,7 +68,12 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     for entry in root.findall("sm:url", namespace):
         if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools")):
-            assert entry.findtext("sm:lastmod", namespaces=namespace) == "2026-10-15"
+            expected = (
+                "2026-10-21"
+                if entry.findtext("sm:loc", namespaces=namespace).endswith(planner)
+                else "2026-10-15"
+            )
+            assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
 
 
 def test_tool_inputs_are_not_server_state_or_analytics(client, settings):
@@ -86,3 +92,22 @@ def test_tool_inputs_are_not_server_state_or_analytics(client, settings):
     assert client.post(path, {"pages": marker}).status_code == 405
     assert before == (Page.objects.count(), Sitemap.objects.count())
     assert client.get(path + "/private-synthetic-marker").status_code == 404
+
+
+@pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
+def test_planner_workflow_handoff_only_links_published_comparison(client, status):
+    path = "/blog/content-review-vs-change-monitoring"
+    if status is not None:
+        BlogPost.objects.create(
+            title="Synthetic comparison",
+            slug="content-review-vs-change-monitoring",
+            content="Synthetic body",
+            tags="",
+            status=status,
+        )
+    html = client.get(reverse("content_review_planner")).content.decode()
+    assert (f'href="{path}"' in html) == (status == BlogPostStatus.PUBLISHED)
+    assert "Synthetic comparison" not in html
+    assert "Synthetic body" not in html
+    assert "calendar or task system" in html
+    assert "cannot guarantee that a particular page appears before its deadline" in html
