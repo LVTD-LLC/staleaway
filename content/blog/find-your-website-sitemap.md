@@ -101,7 +101,7 @@ Keep three lists distinct: your intended review inventory, the page addresses in
 - An intended public page is missing from the selected XML: check another relevant child sitemap, then ask the maintainer whether the omission is intentional. Absence alone does not mean the page is broken or unindexed.
 - A draft or private page belongs in your review inventory but not in public XML: keep its record in a restricted system and review it there. Do not publish private addresses or credential-bearing links to make an import look complete.
 - A public address is in the selected XML but absent from imported records: note the exact input and check time, then investigate with the maintainer. A child fetch failure or traversal limit can leave a partial import. Repeatedly adding the same sitemap does not establish coverage.
-- The XML includes sections outside this review: choose a more relevant child before adding it. If you already imported it, inspect what appeared before changing anything. A different input is not an automatic cleanup of existing records; this guide does not promise filtering or synchronization.
+- The XML includes sections outside this review: choose a more relevant child before adding it. If you already imported it, inspect what appeared before changing anything. Choosing a different input does not automatically remove existing records or keep them synchronized with the new list.
 
 ### Copyable mismatch record
 
@@ -119,7 +119,7 @@ Use this in your own notes, **not as a Staleaway form or automatic report**. Kee
 
 **Fictional example:** a help editor includes a draft refund policy in a restricted inventory. It is intentionally unpublished, so its absence from public XML needs no sitemap repair. The editor keeps its review in the existing CMS workflow.
 
-The same editor finds a published delivery guide in the selected help XML but cannot find its address in Staleaway’s imported list. They record the input, missing public address and check date, assign a maintainer to investigate, and set a follow-up date. They leave the difference unresolved until they check the actual records again. Neither case is closed merely because an XML file opened successfully.
+The same editor finds a published delivery guide in the selected help XML but cannot find its address in Staleaway’s imported list. They record the input, missing public address and check date, assign a maintainer to investigate, and set a follow-up date. They check the actual records again before marking the missing-page issue resolved. Opening an XML file is not that verification.
 
 <h2 id="check-import-readiness">4. Check import readiness</h2>
 
