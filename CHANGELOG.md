@@ -1,3 +1,8 @@
+# 2026-10-22 — Reconcile sitemap inputs with a review inventory
+
+- Extend the existing sitemap guide with a copyable three-list mismatch record and clearly fictional next-action examples. Distinguish intended inventory, selected XML and actual imported pages without implying complete imports, synchronization or private-page support.
+- Add section jump links for the longer guide; preserve its title, URL, original publication date and guarded publishing workflow. No importer, reminder, analytics, storage or billing changes.
+
 # 2026-10-21 — Match review plans to the right workflow
 
 - Help workload-planner readers choose between regular human-review reminders, page-specific deadlines and change monitoring before signing up.

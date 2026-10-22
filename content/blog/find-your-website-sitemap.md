@@ -10,7 +10,9 @@ You can follow these steps without a Staleaway account. You need a browser and a
 4. Check import readiness with the worksheet below.
 5. Import and verify listed pages.
 
-## 1. Find the sitemap address
+**Jump to:** [Find the address](#find-sitemap-address) · [Read the XML](#read-sitemap-xml) · [Choose the scope](#choose-review-scope) · [Reconcile your inventory](#reconcile-review-inventory) · [Check readiness](#check-import-readiness) · [Verify the import](#verify-imported-pages)
+
+<h2 id="find-sitemap-address">1. Find the sitemap address</h2>
 
 Start with the public domain visitors actually use. Add `/sitemap.xml` to it: for the illustrative domain `example.com`, that would be `https://example.com/sitemap.xml`. If it opens, keep the full address, including any final destination after a redirect. A familiar filename is a starting point, not proof that the response is a sitemap.
 
@@ -30,7 +32,7 @@ Still nothing? Use the CMS or SEO plugin’s own settings. They are a better sou
 
 Platform documentation checked October 13, 2026. Confirm the address on your own site. If you do not manage its settings, ask the maintainer for the public XML sitemap URL rather than changing plugins or search-visibility settings to experiment.
 
-## 2. Identify an XML page list or index
+<h2 id="read-sitemap-xml">2. Identify an XML page list or index</h2>
 
 A browser may show raw XML, a styled table, or a notice that the XML has no style information. None of those appearances alone tells you whether the file is usable. Look at what its entries point to.
 
@@ -80,7 +82,7 @@ For a public example, open [Staleaway’s sitemap](/sitemap.xml). At this guide�
 
 An index is not an error. Staleaway’s importer follows XML sitemap indexes, but large, deeply nested or partly unavailable indexes can produce an incomplete list. Start with a relevant child if that makes your list easier to inspect.
 
-## 3. Choose the review scope
+<h2 id="choose-review-scope">3. Choose the review scope</h2>
 
 Before copying the address into an app, decide what you want to maintain. “Our public help articles” is a useful scope. “Every URL that exists” may include archives, product variants or other pages you do not intend to review in this pass.
 
@@ -88,9 +90,38 @@ Open a few representative entries. Do they reach the live pages you expected? If
 
 Shopify’s separate content sitemaps illustrate why this matters: a shop owner reviewing buying guides might start with the blog list rather than the full store index. A WordPress editor should likewise check the entries, rather than assume a file with “post” in its name contains every page they care about.
 
-Keep a separate note of important pages missing from the sitemap. Membership is not proof that a page is current, and absence does not by itself mean a page is broken. Ask the site maintainer whether an omission is intentional. Do not add private pages or credential-bearing links to a public sitemap to make a review list look complete.
+<h3 id="reconcile-review-inventory">Reconcile the sitemap with your review inventory</h3>
 
-## 4. Check import readiness
+A **content inventory** is your own record of content you intend to maintain. It can be broader than a public sitemap. [Tulane’s content-audit guidance](https://communications.tulane.edu/drupal-guide/web-content-management/content-audit) recommends checking CMS content and navigation alongside the sitemap. The [University of Oregon’s audit guide](https://digital.uoregon.edu/project-kickoff/content-audit) also separates collecting page addresses from evaluating their content. Sources checked October 22, 2026.
+
+Keep three lists distinct: your intended review inventory, the page addresses in the XML you selected, and the records that actually appear after import. Compare addresses, not just totals. Equal counts can hide different pages. Start with a manageable section; a sample check is not evidence that the whole inventory matches.
+
+**Use the difference to choose the next action:**
+
+- An intended public page is missing from the selected XML: check another relevant child sitemap, then ask the maintainer whether the omission is intentional. Absence alone does not mean the page is broken or unindexed.
+- A draft or private page belongs in your review inventory but not in public XML: keep its record in a restricted system and review it there. Do not publish private addresses or credential-bearing links to make an import look complete.
+- A public address is in the selected XML but absent from imported records: note the exact input and check time, then investigate with the maintainer. A child fetch failure or traversal limit can leave a partial import. Repeatedly adding the same sitemap does not establish coverage.
+- The XML includes sections outside this review: choose a more relevant child before adding it. If you already imported it, inspect what appeared before changing anything. Choosing a different input does not automatically remove existing records or keep them synchronized with the new list.
+
+### Copyable mismatch record
+
+Use this in your own notes, **not as a Staleaway form or automatic report**. Keep restricted identifiers and access details out of public or broadly shared records.
+
+> **Public page address, or a restricted internal reference:**<br>
+> **In my intended inventory: yes / no / uncertain:**<br>
+> **In the selected XML: yes / no / not checked:**<br>
+> **In imported records: yes / no / not checked:**<br>
+> **Exact XML input and checked date:**<br>
+> **Intended visibility and difference found:**<br>
+> **Person responsible for the next action:**<br>
+> **Next action and next check date:**<br>
+> **Result verified, or still unresolved:**
+
+**Fictional example:** a help editor includes a draft refund policy in a restricted inventory. It is intentionally unpublished, so its absence from public XML needs no sitemap repair. The editor keeps its review in the existing CMS workflow.
+
+The same editor finds a published delivery guide in the selected help XML but cannot find its address in Staleaway’s imported list. They record the input, missing public address and check date, assign a maintainer to investigate, and set a follow-up date. They check the actual records again before marking the missing-page issue resolved. Opening an XML file is not that verification.
+
+<h2 id="check-import-readiness">4. Check import readiness</h2>
 
 Staleaway needs the full address of an XML sitemap. A homepage, an HTML directory of links, and a `robots.txt` file are not interchangeable with that input. Use an uncompressed XML sitemap URL; do not assume a downloadable `.gz` file is supported.
 
@@ -115,9 +146,9 @@ This is a **manual worksheet for your notes**, not a Staleaway feature or an aut
 
 If you cannot tell whether the address opens XML, ask your site maintainer before importing. Check that a narrower list still contains the pages you need.
 
-**Worked example:** you manage public help articles and find an index through the CMS settings. One child lists help pages, while another lists the news archive. You open the help child, confirm that known public articles appear, and put that child’s full URL in the worksheet. After adding it to Staleaway, you compare the imported list with those same representative articles. If an expected article is missing, check that its address appears in the child sitemap. This example illustrates the workflow; checking a sample does not prove that the whole list arrived.
+After importing, use the [mismatch record](#reconcile-review-inventory) for expected pages that did not appear. Keep the readiness check separate from the later content review: opening a sitemap does not check the facts on its pages.
 
-## 5. Import and verify listed pages
+<h2 id="verify-imported-pages">5. Import and verify listed pages</h2>
 
 To use the list for reminders, [create a free Staleaway account](/accounts/signup/) or sign in to your existing account. In the dashboard, enter the full XML address in **Sitemap URL** and choose **Add Sitemap**. Import runs in the background. Open the sitemap entry and check which intended pages appeared.
 
