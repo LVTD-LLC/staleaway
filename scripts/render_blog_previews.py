@@ -51,7 +51,7 @@ output = ROOT / "build" / "blog-preview"
 output.mkdir(parents=True, exist_ok=True)
 shutil.copytree(ROOT / "frontend" / "build", output / "static", dirs_exist_ok=True)
 client = Client()
-paths = ["/", "/blog", "/tools", "/tools/content-review-planner", *[post.get_absolute_url() for post in BlogPost.objects.all()]]
+paths = ["/", "/blog", "/tools", "/tools/content-review-planner", "/for/nonprofits", *[post.get_absolute_url() for post in BlogPost.objects.all()]]
 for url in paths:
     response = client.get(url)
     if response.status_code != 200:

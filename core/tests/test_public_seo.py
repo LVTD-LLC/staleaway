@@ -22,7 +22,7 @@ def schemas(response):
 
 def test_public_discovery_uses_configured_origin(client, settings):
     settings.SITE_URL = "https://canonical-site.example/"
-    for path in ("/", "/blog", "/uses"):
+    for path in ("/", "/blog", "/uses", "/for/nonprofits"):
         response = client.get(path)
         assert response.status_code == 200
         html = response.content.decode()
@@ -31,7 +31,16 @@ def test_public_discovery_uses_configured_origin(client, settings):
         assert 'href="/blog"' in html
         assert 'href="/uses"' in html
         assert "noindex" not in html
-        assert schemas(response)
+        data = schemas(response)
+        assert data
+        if path == "/for/nonprofits":
+            assert len(re.findall(r'<link rel="canonical"', html)) == 1
+            assert data[0]["@type"] == "WebPage"
+            assert data[0]["url"] == "https://canonical-site.example/for/nonprofits"
+            assert data[0]["datePublished"] == "2026-10-23"
+            assert data[0]["dateModified"] == "2026-10-23"
+            breadcrumbs = next(item for item in data if item["@type"] == "BreadcrumbList")
+            assert breadcrumbs["itemListElement"][-1]["item"] == data[0]["url"]
     home = client.get("/").content.decode()
     assert "<title>Free Website Content Review Email Reminders | Staleaway</title>" in home
     assert "Staleaway emails content review reminders, a few pages at a time." in home

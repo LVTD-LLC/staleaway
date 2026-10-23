@@ -1,3 +1,9 @@
+# 2026-10-23 — Content review reminders for nonprofit editors
+
+- Add a source-checked nonprofit fit page with fictional public-page fact checks, a routine-review/direct-update decision diagram and honest account, deadline and coverage limits.
+- Connect the homepage and free tools hub to the new page; add canonical, dated sitemap and structured data. Extend existing anonymous canonical-only pageview measurement while preserving private/authenticated exclusions.
+- Render the new page in isolated CI previews and cover discovery, schema and privacy boundaries. No content publisher, review selection, customer storage, billing or team-permission changes.
+
 # 2026-10-22 — Reconcile sitemap inputs with a review inventory
 
 - Extend the existing sitemap guide with a copyable three-list mismatch record and clearly fictional next-action examples. Distinguish intended inventory, selected XML and actual imported pages without implying complete imports, synchronization or private-page support.

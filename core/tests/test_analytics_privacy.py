@@ -21,7 +21,7 @@ def analytics_config(response):
     return json.loads(match.group(1)) if match else None
 
 
-@pytest.mark.parametrize("path", ["/", "/blog", "/uses", "/tools", "/tools/content-review-planner"])
+@pytest.mark.parametrize("path", ["/", "/blog", "/uses", "/tools", "/tools/content-review-planner", "/for/nonprofits"])
 def test_only_canonical_public_url_reaches_collector(client, settings, path):
     settings.POSTHOG_API_KEY = "synthetic-public-project-key"
     settings.SITE_URL = "http://testserver"
@@ -40,7 +40,7 @@ def test_only_canonical_public_url_reaches_collector(client, settings, path):
         "/accounts/login/", "/accounts/signup/", "/accounts/password/reset/",
         "/accounts/password/reset/key/invalid-key/", "/accounts/confirm-email/invalid-key/",
         "/home", "/settings", "/review-page/123/", "/sitemap/123",
-        "/blog/missing-private-marker", "/missing-private-marker",
+        "/blog/missing-private-marker", "/missing-private-marker", "/for/nonprofits/private-marker",
     ],
 )
 def test_private_auth_redirect_and_error_responses_have_no_analytics(client, settings, path):
@@ -52,7 +52,7 @@ def test_private_auth_redirect_and_error_responses_have_no_analytics(client, set
     assert "script.outbound-links" not in html
 
 
-@pytest.mark.parametrize("path", ["/", "/blog", "/uses", "/home", "/settings", "/tools", "/tools/content-review-planner"])
+@pytest.mark.parametrize("path", ["/", "/blog", "/uses", "/home", "/settings", "/tools", "/tools/content-review-planner", "/for/nonprofits"])
 def test_authenticated_pages_have_no_browser_measurement(auth_client, settings, path):
     settings.POSTHOG_API_KEY = "synthetic-public-project-key"
     from django.contrib.auth import get_user_model

@@ -29,7 +29,14 @@ def posthog_api_key(request):
     match = request.resolver_match
     if settings.POSTHOG_API_KEY and not request.user.is_authenticated and match:
         name = match.url_name
-        if name in {"landing_page", "blog_posts", "uses", "tools", "content_review_planner"}:
+        if name in {
+            "landing_page",
+            "blog_posts",
+            "uses",
+            "tools",
+            "content_review_planner",
+            "for_nonprofits",
+        }:
             path = reverse(name)
         elif name == "blog_post" and BlogPost.objects.filter(
             slug=match.kwargs.get("slug"), status=BlogPostStatus.PUBLISHED

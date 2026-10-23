@@ -53,35 +53,40 @@ def test_public_tool_metadata_and_schema(client, settings, name):
 
 def test_tools_are_discoverable_without_blog_fixtures(client):
     planner = reverse("content_review_planner")
+    nonprofit = reverse("for_nonprofits")
     for path in ["/", "/blog", "/tools"]:
         response = client.get(path)
         assert response.status_code == 200
         html = response.content.decode()
         assert f'href="{planner}"' in html
         assert 'href="/tools"' in html
+        if path in {"/", "/tools"}:
+            assert f'href="{nonprofit}"' in html
     sitemap = client.get("/sitemap.xml")
     assert sitemap.status_code == 200
     root = ElementTree.fromstring(sitemap.content)
     locations = [element.text for element in root.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
     assert sum(url.endswith(planner) for url in locations) == 1
     assert sum(url.endswith("/tools") for url in locations) == 1
+    assert sum(url.endswith(nonprofit) for url in locations) == 1
     namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     for entry in root.findall("sm:url", namespace):
-        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools")):
+        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, "/")):
             expected = (
                 "2026-10-21"
                 if entry.findtext("sm:loc", namespaces=namespace).endswith(planner)
-                else "2026-10-15"
+                else "2026-10-23"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
 
 
-def test_tool_inputs_are_not_server_state_or_analytics(client, settings):
+@pytest.mark.parametrize("name", ["content_review_planner", "for_nonprofits"])
+def test_public_page_inputs_are_not_server_state_or_analytics(client, settings, name):
     settings.POSTHOG_API_KEY = "synthetic-project-key"
     settings.SITE_URL = "http://testserver"
     before = (Page.objects.count(), Sitemap.objects.count())
     marker = "private-synthetic-marker"
-    path = reverse("content_review_planner")
+    path = reverse(name)
     response = client.get(path, {"pages": marker, "token": marker})
     assert response.status_code == 200
     assert marker not in response.content.decode()

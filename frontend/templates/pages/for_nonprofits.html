@@ -1,0 +1,119 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>Website content review for nonprofits | Staleaway</title>
+<meta name="description" content="Free website content review reminders for nonprofits. Revisit public program and volunteer pages, with clear limits for urgent updates and deadlines." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'for_nonprofits' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Website content review for nonprofits | Staleaway" />
+<meta property="og:description" content="Free reminders for routine public-page reviews. Keep urgent changes and fixed deadlines in your own calendar or CMS." />
+<meta property="og:url" content="{{ site_url }}{% url 'for_nonprofits' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Website content review for nonprofits | Staleaway" />
+<meta name="twitter:description" content="Free reminders for routine public-page reviews. Keep urgent changes and fixed deadlines in your own calendar or CMS." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <span aria-current="page">For nonprofits</span></nav>
+  <header class="sa-tool-heading">
+    <p class="sa-eyebrow">A little attention for the pages people rely on</p>
+    <h1>Website content review reminders for nonprofits</h1>
+    <p>Staleaway helps nonprofit website editors revisit public program, volunteer and contact pages with free email reminders. Add an XML sitemap, choose an email cadence and review the pages you receive. Keep urgent service changes and fixed publication deadlines in your own calendar or CMS workflow; reminders do not guarantee per-page coverage.</p>
+    <p><a href="#nonprofit-fit">Fit</a> · <a href="#nonprofit-next-action">Examples and next actions</a> · <a href="#nonprofit-start">Setup</a> · <a href="#nonprofit-questions">Limits</a></p>
+    <p>By Staleaway · Published <time datetime="2026-10-23">October 23, 2026</time></p>
+    <a class="sa-button" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Start free review reminders ↗</a>
+  </header>
+  <article class="sa-tool-copy" aria-label="Nonprofit reminder fit and setup">
+    <section aria-labelledby="nonprofit-fit">
+      <h2 id="nonprofit-fit">For the editor keeping a small nonprofit's public pages current</h2>
+      <p>You can use Staleaway when you already have someone who can check facts and edit your website, but need a recurring prompt to return to pages. You still make the editorial decisions and publish changes in your own website system.</p>
+      <h3>A program page can outlast its original plan</h3>
+      <p>A visitor reads the hours on a program page and decides when to come. The editor may know how to change that page without knowing whether the hours are still right. Put the program coordinator's current operating schedule beside the public claim before deciding the page needs no changes.</p>
+      <h3>A volunteer page needs an answer from someone running the activity</h3>
+      <p>An opportunity can remain visible after an intake closes. A reminder can bring the page back to your attention, but it cannot tell you whether places remain. Ask the volunteer coordinator about the current role, application route and next intake. Known closures need a direct update, not a wait for the next reminder.</p>
+      <h3>A departing contact leaves more than a biography</h3>
+      <p>When a named staff contact changes, check the places that send visitors to them: a program description, contact page or linked document. Keep the edit and its follow-up with the person responsible for publishing. An extra email recipient in Staleaway is not a replacement editor or a transfer of account access.</p>
+    </section>
+    <section aria-labelledby="nonprofit-next-action">
+      <h2 id="nonprofit-next-action">Choose the next action before setting a cadence</h2>
+      <p>Use this decision rule for nonprofit website content reviews: correct a known wrong fact now; put a fixed publication date in a calendar or CMS task; use recurring reminders for routine revisits. These are different jobs, even when they concern the same page.</p>
+      <figure>
+        <svg viewBox="0 0 440 410" width="100%" role="img" aria-labelledby="nonprofit-review-title nonprofit-review-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="nonprofit-review-title">Choose direct edits, dated tasks or review reminders</title>
+          <desc id="nonprofit-review-desc">A known change needs a direct edit now. A fixed deadline needs a calendar or CMS task. A routine revisit can use Staleaway review reminders. Staleaway's proposed working method, not automatic routing.</desc>
+          <rect x="2" y="2" width="436" height="406" rx="24" fill="var(--sa-lavender, currentColor)" />
+          <g fill="currentColor" text-anchor="middle">
+            <text x="220" y="40" font-size="21" font-weight="bold">What does this page need?</text>
+            <text x="220" y="91" font-size="20" font-weight="bold">A fact you know has changed</text>
+            <text x="220" y="123" font-size="19">Edit now; check related pages</text>
+            <text x="220" y="187" font-size="20" font-weight="bold">An update due on a specific date</text>
+            <text x="220" y="219" font-size="19">Use a calendar or CMS task</text>
+            <text x="220" y="283" font-size="20" font-weight="bold">A routine revisit of public content</text>
+            <text x="220" y="315" font-size="19">Use Staleaway review reminders</text>
+            <text x="220" y="377" font-size="17">Staleaway · proposed working method</text>
+          </g>
+          <g stroke="currentColor" opacity=".25"><path d="M30 151H410"/><path d="M30 247H410"/><path d="M30 343H410"/></g>
+        </svg>
+        <figcaption>Reminders support routine revisits. They do not route urgent changes or schedule individual page deadlines.</figcaption>
+      </figure>
+      <h3>Keep the fact check outside the reminder</h3>
+      <p>For a page that needs another person's input, put the public claim, its fact source and the next action in your own working notes. The examples below are fictional. This is a suggested manual method, not a Staleaway assignment form or approval record.</p>
+      <ul>
+        <li><strong>Program page:</strong> “Drop-in hours are Tuesday afternoons.” Ask the program coordinator to compare that statement with the current operating schedule. If the hours changed, have the website editor correct the page and check any linked visitor instructions.</li>
+        <li><strong>Volunteer page:</strong> “Applications are open.” Ask the volunteer coordinator to confirm that the role is still available. If there is a closing date, assign a dated update in your own calendar rather than relying on a sampled reminder.</li>
+        <li><strong>Event page:</strong> “The workshop is at the community hall.” Compare it with the organizer's approved event details. A venue move or cancellation needs a direct edit and a check of other pages linking to the event.</li>
+        <li><strong>Contact page:</strong> “Ask our outreach lead.” Confirm who owns that role and whether the published contact route is current. Record who will publish the correction and when you will check it, without adding private contact records to a public page.</li>
+      </ul>
+      <p>After publishing a correction, check the live page and linked instructions before recording the issue resolved. If confirmation is missing, keep a named follow-up owner and date in your notes. Opening a Staleaway review link marks the page reviewed before redirecting to it; it does not prove the fact check or correction happened. Use the <a href="/blog/website-content-review-checklist">website content review checklist</a> for the broader review and unfinished-work record.</p>
+    </section>
+    <section aria-labelledby="nonprofit-reminders">
+      <h2 id="nonprofit-reminders">How Staleaway supports nonprofit website content reviews</h2>
+      <h3>Start with public pages in an XML sitemap</h3>
+      <p>Add the XML sitemap containing the public pages you want to revisit, then inspect the imported list. A sitemap is not a full inventory of drafts, private documents or every page in your CMS. The <a href="/blog/find-your-website-sitemap">sitemap setup guide</a> explains how to find the input and reconcile missing pages.</p>
+      <h3>Choose a manageable email batch</h3>
+      <p>Choose daily, weekly or monthly email cadence and the pages per email. Selection samples eligible unreviewed pages; it is not an ordered schedule or a guarantee of when a particular page appears. Use the <a href="{% url 'content_review_planner' %}">free content review workload planner</a> to estimate the manual time you can set aside.</p>
+      <h3>Use review links from the owning account</h3>
+      <p>Review links require signing in to the account that owns those page records. Additional email recipients do not get separate reviewer permissions. Ask colleagues for facts through your usual communication channel; do not share account credentials or treat a forwarded review link as a task assignment.</p>
+      <h3>Keep your existing editing tools</h3>
+      <p>Staleaway does not edit your CMS, publish corrections or approve content. It provides the prompt to look again. Keep your own calendar for deadlines and your usual notes for unresolved checks. If you need automatic alerts about page changes or technical conditions, compare <a href="/blog/content-review-vs-change-monitoring">content review reminders and website change monitoring</a> before choosing.</p>
+    </section>
+    <section aria-labelledby="nonprofit-start">
+      <h2 id="nonprofit-start">Start with a review habit you can maintain</h2>
+      <ol>
+        <li>Choose the account owner who will receive reminders and can coordinate website edits.</li>
+        <li>Find your public XML sitemap, add it to Staleaway and check which pages imported.</li>
+        <li>Choose your email cadence and pages per email. Reserve time for the human review.</li>
+        <li>Use a real reminder to open a page while signed in. Confirm facts with the responsible person and record unfinished work separately.</li>
+      </ol>
+      <p>Every feature is currently free. You do not need a paid nonprofit plan. If an existing CMS review queue or calendar already prompts the right person reliably, keeping that workflow may be enough.</p>
+    </section>
+    <section aria-labelledby="nonprofit-questions">
+      <h2 id="nonprofit-questions">Before you choose reminders</h2>
+      <h3>Is this a nonprofit website maintenance service?</h3>
+      <p>No. Staleaway sends content review reminders. It does not provide website backups, security updates, uptime monitoring, donation processing, accessibility certification or a managed editing service.</p>
+      <h3>Will every page be checked by our next event?</h3>
+      <p>No. Email cadence does not guarantee review coverage or a per-page deadline. Put an event launch, registration closure or other fixed date in your own calendar or CMS workflow, and check the affected pages directly.</p>
+      <h3>Can several volunteers independently approve pages?</h3>
+      <p>No. Staleaway has no team approval or assignment workflow. Review links are tied to the owning account. Colleagues can confirm facts outside the app; the account owner remains responsible for using its review links.</p>
+      <h3>Should we add private beneficiary or donor information?</h3>
+      <p>No. Use this workflow for public website pages. Keep private records, unpublished documents and credentials in your existing restricted systems, not in a public sitemap or a shared review note.</p>
+    </section>
+    <section aria-labelledby="nonprofit-basis">
+      <h2 id="nonprofit-basis">What this approach is based on</h2>
+      <p>The <a href="https://www.muncienonprofits.org/blog/why-keeping-your-nonprofits-website-current-matters">Nonprofit Support Network's website guidance</a> recommends checking program information, staff details and contact routes, and having coworkers notify the responsible editor. <a href="https://ds-docs.y.org/docs/howto/content-audit/">YMCA Website Services' content-audit guidance</a> includes an inventory of unpublished CMS content, a broader task than reviewing a public sitemap.</p>
+      <p>Staleaway's examples and decision rule are recommendations, not findings from nonprofit customers. Product capabilities were checked against the <a href="https://github.com/LVTD-LLC/staleaway/tree/8220271af5e22ea7ce47ff57745f5d09311e6844">Staleaway source</a> on October 23, 2026. Reminder delivery is not proof of a completed content review.</p>
+    </section>
+    <p><a class="sa-button" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Set up free reminders ↗</a></p>
+    <p>Still planning? Browse the <a href="{% url 'tools' %}">free content review tools</a> first.</p>
+  </article>
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Website content review reminders for nonprofits","url":"{{ site_url|escapejs }}{% url 'for_nonprofits' %}","description":"Free reminders for routine public-page reviews. Keep urgent changes and fixed deadlines in your own calendar or CMS.","datePublished":"2026-10-23","dateModified":"2026-10-23","author":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"For nonprofits","item":"{{ site_url|escapejs }}{% url 'for_nonprofits' %}"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Staleaway","url":"{{ site_url|escapejs }}/","applicationCategory":"ProductivityApplication","operatingSystem":"Web","description":"Scheduled email reminders for human website content reviews.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this a nonprofit website maintenance service?","acceptedAnswer":{"@type":"Answer","text":"No. Staleaway sends content review reminders. It does not provide website backups, security updates, uptime monitoring, donation processing, accessibility certification or a managed editing service."}},{"@type":"Question","name":"Will every page be checked by our next event?","acceptedAnswer":{"@type":"Answer","text":"No. Email cadence does not guarantee review coverage or a per-page deadline. Put an event launch, registration closure or other fixed date in your own calendar or CMS workflow, and check the affected pages directly."}},{"@type":"Question","name":"Can several volunteers independently approve pages?","acceptedAnswer":{"@type":"Answer","text":"No. Staleaway has no team approval or assignment workflow. Review links are tied to the owning account. Colleagues can confirm facts outside the app; the account owner remains responsible for using its review links."}},{"@type":"Question","name":"Should we add private beneficiary or donor information?","acceptedAnswer":{"@type":"Answer","text":"No. Use this workflow for public website pages. Keep private records, unpublished documents and credentials in your existing restricted systems, not in a public sitemap or a shared review note."}}]}</script>
+{% endblock %}
