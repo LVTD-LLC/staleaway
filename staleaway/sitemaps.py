@@ -26,13 +26,14 @@ class StaticViewSitemap(sitemaps.Sitemap):
             "blog_posts",
             "tools",
             "content_review_planner",
+            "for_nonprofits",
         ]
 
     def lastmod(self, item):
+        if item in {"landing_page", "tools", "for_nonprofits"}:
+            return date(2026, 10, 23)
         if item == "content_review_planner":
             return date(2026, 10, 21)
-        if item == "tools":
-            return date(2026, 10, 15)
         return None
 
     def location(self, item):

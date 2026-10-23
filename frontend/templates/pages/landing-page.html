@@ -52,5 +52,11 @@
   <p>Estimate a whole-page batch and the sessions your review list needs. Use your own assumptions; the planner does not scan your website.</p>
   <a class="sa-button" href="{% url 'content_review_planner' %}">Try the content review workload planner ↗</a>
 </section>
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">For a small nonprofit team</p>
+  <h2>Keep your public pages<br>ready for the people who need them.</h2>
+  <p>Build a manageable review habit for program details, volunteer information and other public website content.</p>
+  <a class="sa-button" href="{% url 'for_nonprofits' %}">Explore nonprofit website content reviews ↗</a>
+</section>
 <section class="sa-final"><span aria-hidden="true">✳</span><h2>Give your website<br>a little ongoing love.</h2><a class="sa-button sa-button-large" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Get started for free ↗</a></section>
 {% endblock %}

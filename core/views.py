@@ -38,9 +38,12 @@ class LandingPageView(TemplateView):
         return context
 
 
-
 class ToolsView(TemplateView):
     template_name = "tools/index.html"
+
+
+class NonprofitsView(TemplateView):
+    template_name = "pages/for_nonprofits.html"
 
 
 class ContentReviewPlannerView(TemplateView):

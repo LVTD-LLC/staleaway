@@ -10,6 +10,8 @@ urlpatterns = [
     path("sitemap/<int:pk>", views.SitemapDetailView.as_view(), name="sitemap_detail"),
     path("settings", views.UserSettingsView.as_view(), name="settings"),
     path("admin-panel", views.AdminPanelView.as_view(), name="admin_panel"),
+    # Public audience workflow
+    path("for/nonprofits", views.NonprofitsView.as_view(), name="for_nonprofits"),
     # Public, client-only planning tools
     path("tools", views.ToolsView.as_view(), name="tools"),
     path(
