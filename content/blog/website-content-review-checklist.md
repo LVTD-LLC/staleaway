@@ -4,7 +4,18 @@ Start with one public page. You need permission to edit it, or a way to reach th
 
 Use the [Staleaway reminder workflow](/#how-it-works) if a nudge helps you begin. The checklist works without an account, too.
 
-## The checklist to use on each page
+
+<nav aria-label="On this page">
+<p><strong>On this page</strong></p>
+<ul>
+<li><a href="#review-checklist">Use the checklist</a></li>
+<li><a href="#download-review-log">Download the review log</a></li>
+<li><a href="#owner-handoff">Hand off unfinished work</a></li>
+<li><a href="#review-schedule">Choose a review schedule</a></li>
+</ul>
+</nav>
+
+<h2 id="review-checklist">The checklist to use on each page</h2>
 
 1. **Purpose:** Who is this page for, and what should they be able to do after reading it?
 2. **Facts:** Are the offer, dates, contact details, instructions and eligibility rules still correct? What current source confirms them?
@@ -84,23 +95,36 @@ The following are fictional teaching examples, not customer stories or measured 
 
 After an edit, load the public page again and repeat the check that failed. Confirm that the corrected fact appears and the next step still works. This is where “change requested” becomes “change verified.” They should be separate states in your notes.
 
-Copy these fields into your existing notes or task system:
+<h3 id="download-review-log">Download a content review log template</h3>
+
+Use the log in your existing notes or task system, or start with these optional spreadsheet files:
+
+- <a href="/static/vendors/downloads/content-review-log.csv" download="staleaway-content-review-log.csv">Download the blank review log (CSV)</a> — column headings only, ready for your first record.
+- <a href="/static/vendors/downloads/content-review-log-fictional-example.csv" download="staleaway-content-review-log-fictional-example.csv">Download the fictional example log (CSV)</a> — three teaching records, not customer data or completed reviews.
+
+No account is needed. Open or import a file in your spreadsheet app; choose UTF-8 and a comma separator if it asks. Keep one row per finding so separate corrections can have different owners and follow-up dates. The fields below also work without a spreadsheet.
+
+Record **Decision** separately from **Action status**. A “fix” decision can still have “correction requested; not yet verified” as its status. Leave the live-verification fields empty until you have checked the published correction, then record the date and evidence. The fictional example leaves those fields empty deliberately. It also shows a confirmed “keep” decision and an unresolved “escalate” decision.
+
+These are manual files, not a connection to Staleaway. Downloading one does not save a review, assign work or schedule a reminder. Keep your working copy in an approved location; do not put customer details, private review links or restricted evidence into a shared file. Use a non-sensitive reference to evidence when the source itself must stay private.
+
+Copyable fields:
 
 > **Public page:**<br>
 > **Checked on / reviewer:**<br>
 > **Reader’s task:**<br>
 > **Finding and evidence checked:**<br>
 > **Decision: keep / fix / escalate:**<br>
-> **Unfinished work and owner:**<br>
+> **Action status / unfinished work and owner:**<br>
 > **Follow-up due:**<br>
-> **Live correction verified on:**<br>
+> **Live correction verified on / verification evidence:**<br>
 > **Next review date or change trigger:**
 
 For the fictional service page, a useful finding is “Saturday availability disagrees with the approved service list.” “Reviewed website” is not enough to tell the next person what happened.
 
 This log is a manual aid, not a Staleaway feature or a compliance certificate. Use public page addresses where appropriate; keep private review-link tokens, customer details and restricted source material out of shared notes and screenshots.
 
-### Hand unfinished work to a named owner
+<h3 id="owner-handoff">Hand unfinished work to a named owner</h3>
 
 Before a reviewer goes on leave or changes roles, hand over the open findings as well as the page list. Name the person who can confirm the facts, the editor who can publish a correction and the person who will check the live result. One person may do all three jobs. Ask the receiving owner to accept the work and agree a follow-up date; a forwarded reminder alone does not record that agreement.
 
@@ -121,7 +145,7 @@ Peterborough City Council [records service conversations so another team member 
 
 The record stays outside Staleaway; it does not add assignments, approval tracking or verified completion to the app. Share only what the recipient needs. Transfer access through your approved process for granting access, not passwords or private review-link tokens pasted into the log.
 
-## 5. Choose a review schedule you can maintain
+<h2 id="review-schedule">5. Choose a review schedule you can maintain</h2>
 
 Separate **time to do reviews** from **when a particular page must be checked**. You might reserve a weekly session for a small batch while checking an event page immediately when its date changes. A quiet evergreen page may need less frequent attention than a service page with changing availability.
 

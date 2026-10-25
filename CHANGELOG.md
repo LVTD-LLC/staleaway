@@ -1,3 +1,8 @@
+# 2026-10-25 — Downloadable manual content review log
+
+- Add ungated blank and clearly fictional CSV review logs to the existing checklist, with separate review decisions, follow-up status and live-correction evidence. Keep the visible HTML fields as an alternative.
+- Add section jump links and concise spreadsheet/privacy guidance. Preserve the guide’s title, original publication and guarded update workflow; no account exports, tracking, reminders, permissions or billing changes.
+
 # 2026-10-23 — Content review reminders for nonprofit editors
 
 - Add a source-checked nonprofit fit page with fictional public-page fact checks, a routine-review/direct-update decision diagram and honest account, deadline and coverage limits.
