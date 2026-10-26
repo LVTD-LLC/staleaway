@@ -124,7 +124,13 @@ For a concrete example, [Terminalfour’s content documentation](https://docs.te
 
 Timing deserves its own check. [Drupal Scheduler’s documentation](https://www.drupal.org/docs/contributed-modules/scheduler/configuring-scheduled-publication) explains that scheduled publishing and unpublishing run through cron, so execution follows that schedule. A date entered in a field is not by itself proof that the public change happened at that moment.
 
-**Fictional handoff example:** an event announcement must stop accepting registrations at 17:00 Europe/London on 30 October 2026. The editor arranges a review before the cutoff to confirm the closing message and the registration system’s own deadline. The publishing owner records the chosen CMS action, its timezone and the scheduler’s expected execution. Afterward, a named editor checks the public announcement and registration route. If the CMS cannot meet the deadline, the team arranges an earlier approved change or a supervised update. A routine reminder is not the fallback for a missed cutoff.
+**Fictional handoff example — not a completed review:** an event announcement must stop accepting registrations at 17:00 Europe/London on 30 October 2026.
+
+- **Review:** Sam, the fictional web editor, checks the closing message and registration platform’s separate cutoff at 10:00 Europe/London on 29 October.
+- **Chosen publishing action:** Jo, the fictional publishing owner, will replace the announcement’s registration invitation with an approved closed-registration notice at 16:45 Europe/London on 30 October. The earlier notice is agreed with the event owner. In this example, the CMS’s next automatic publish is too late, so Jo uses a supervised update instead of relying on expiry.
+- **Verification:** Taylor, the fictional checker, will inspect the public notice after Jo’s update and the registration route after the 17:00 cutoff. The task stays pending until those checks are recorded; if either result is wrong, Taylor escalates it to the responsible owner. Changing the announcement does not close the registration platform.
+
+A routine reminder is not the fallback for a missed cutoff.
 
 Use this short handoff in your existing task or CMS record:
 
