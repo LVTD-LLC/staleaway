@@ -1,3 +1,8 @@
+# 2026-10-26 — Review dates, expiry and CMS workflow fit
+
+- Extend the existing content-review/change-monitoring comparison with a source-checked review-date versus expiry decision aid and a clearly fictional deadline handoff.
+- Explain CMS scheduler limits and when an existing editorial workflow is sufficient; keep page-specific deadlines separate from random review reminders. Preserve the guide’s title, original publication, guarded publishing and free product behavior.
+
 # 2026-10-25 — Downloadable manual content review log
 
 - Add ungated blank and clearly fictional CSV review logs to the existing checklist, with separate review decisions, follow-up status and live-correction evidence. Keep the visible HTML fields as an alternative.
