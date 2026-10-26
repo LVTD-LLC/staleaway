@@ -114,11 +114,23 @@ This record is a suggested method for your own document, not a feature that Stal
 
 A content review date asks for an editorial check. An expiry date can change what is published, depending on the CMS and its configuration. Before setting either, decide whether you want someone to inspect the content or whether you have already agreed what must happen to it. Read your CMS’s field description; the label alone is not enough.
 
-| What you need | Appropriate next step | What to verify |
-|---|---|---|
-| Check whether a service description is still accurate | A human review reminder, or your existing CMS review workflow | Who will check the facts and where unfinished work stays visible |
-| Stop displaying a time-limited announcement | An agreed expiry, replacement or unpublish action in your publishing system | The intended public result, responsible editor and actual execution time |
-| Notice an unexpected edit or a change to a watched source | A configured change monitor | What it watches and which conditions cause an alert |
+<dl>
+<div>
+<dt>Check whether a service description is still accurate</dt>
+<dd><strong>Next step:</strong> A human review reminder, or your existing CMS review workflow.</dd>
+<dd><strong>Verify:</strong> Who will check the facts and where unfinished work stays visible.</dd>
+</div>
+<div>
+<dt>Stop displaying a time-limited announcement</dt>
+<dd><strong>Next step:</strong> An agreed expiry, replacement or unpublish action in your publishing system.</dd>
+<dd><strong>Verify:</strong> The intended public result, responsible editor and actual execution time.</dd>
+</div>
+<div>
+<dt>Notice an unexpected edit or a change to a watched source</dt>
+<dd><strong>Next step:</strong> A configured change monitor.</dd>
+<dd><strong>Verify:</strong> What it watches and which conditions cause an alert.</dd>
+</div>
+</dl>
 
 For a concrete example, [Terminalfour’s content documentation](https://docs.terminalfour.com/documentation/managing-content/create-content/) describes a Review date that emails the last editor or content owner. Its Expiry date affects content on the next publish; whether content stops publishing in place or moves to an archive depends on the Archive Section setting. These are documented behaviors, not a test of your installation. Confirm them with your CMS administrator before relying on a deadline.
 
