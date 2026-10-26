@@ -12,6 +12,7 @@ This guide helps you choose the workflow, not a winning vendor. The decision fra
 <li><a href="#human-review-wins">Where human content review wins</a></li>
 <li><a href="#two-questions">Use two questions before deciding what to do</a></li>
 <li><a href="#combine-workflows">Combine alerts and reminders without duplicating work</a></li>
+<li><a href="#review-date-vs-expiry">Review dates, expiry and your CMS workflow</a></li>
 <li><a href="#staleaway-fit">When Staleaway is the right fit</a></li>
 <li><a href="#common-decisions">Common decisions</a></li>
 </ul>
@@ -108,6 +109,34 @@ Use one external document or task record for the resulting decision. Copy this r
 - **Return condition:** next planned review or a named change that should bring it forward.
 
 This record is a suggested method for your own document, not a feature that Staleaway fills in. Use the [free workload planner](/tools/content-review-planner) to choose a manual review batch that fits your available time. Its estimate is not a promise of reminder coverage or completion.
+
+<h2 id="review-date-vs-expiry">Review date vs expiry date: choose the action first</h2>
+
+A content review date asks for an editorial check. An expiry date can change what is published, depending on the CMS and its configuration. Before setting either, decide whether you want someone to inspect the content or whether you have already agreed what must happen to it. Read your CMS’s field description; the label alone is not enough.
+
+| What you need | Appropriate next step | What to verify |
+|---|---|---|
+| Check whether a service description is still accurate | A human review reminder, or your existing CMS review workflow | Who will check the facts and where unfinished work stays visible |
+| Stop displaying a time-limited announcement | An agreed expiry, replacement or unpublish action in your publishing system | The intended public result, responsible editor and actual execution time |
+| Notice an unexpected edit or a change to a watched source | A configured change monitor | What it watches and which conditions cause an alert |
+
+For a concrete example, [Terminalfour’s content documentation](https://docs.terminalfour.com/documentation/managing-content/create-content/) describes a Review date that emails the last editor or content owner. Its Expiry date affects content on the next publish; whether content stops publishing in place or moves to an archive depends on the Archive Section setting. These are documented behaviors, not a test of your installation. Confirm them with your CMS administrator before relying on a deadline.
+
+Timing deserves its own check. [Drupal Scheduler’s documentation](https://www.drupal.org/docs/contributed-modules/scheduler/configuring-scheduled-publication) explains that scheduled publishing and unpublishing run through cron, so execution follows that schedule. A date entered in a field is not by itself proof that the public change happened at that moment.
+
+**Fictional handoff example:** an event announcement must stop accepting registrations at 17:00 Europe/London on 30 October 2026. The editor arranges a review before the cutoff to confirm the closing message and the registration system’s own deadline. The publishing owner records the chosen CMS action, its timezone and the scheduler’s expected execution. Afterward, a named editor checks the public announcement and registration route. If the CMS cannot meet the deadline, the team arranges an earlier approved change or a supervised update. A routine reminder is not the fallback for a missed cutoff.
+
+Use this short handoff in your existing task or CMS record:
+
+> **Public page / time-limited claim:**<br>
+> **Review before / responsible person:**<br>
+> **Agreed publishing action / owner:**<br>
+> **Deadline and timezone / scheduler checked:**<br>
+> **Public result checked on / evidence or unresolved follow-up:**
+
+This is a manual planning aid, not a Staleaway feature. Set page-specific deadlines in a system that supports them; Staleaway’s random reminder selection does not guarantee a particular page will arrive before its cutoff, and Staleaway does not unpublish content.
+
+Check your existing CMS workflow before adding another tool. If it already gives your team the review reminders, ownership, approvals and decision record you need, keep that as the source of truth. Staleaway can suit a simpler sitemap-based reminder habit; it should not replace a working editorial approval record. Use the [content review checklist](/blog/website-content-review-checklist#owner-handoff) for the check itself and any unfinished correction.
 
 <h2 id="staleaway-fit">When Staleaway is the right fit</h2>
 
