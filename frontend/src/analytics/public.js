@@ -1,5 +1,5 @@
 // Deliberately use PostHog's capture API, not an auto-collecting remote SDK.
-// Contract: https://posthog.com/docs/api/capture (verified 2026-10-10).
+// Contract: https://posthog.com/docs/api/capture (verified 2026-10-27).
 const INGEST_URL = "https://us.i.posthog.com/i/v0/e/";
 const STORAGE_KEY = "staleaway_public_visitor_v1";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -23,10 +23,10 @@ function acquisitionReferrer(referrer, origin) {
   }
 }
 
-async function capturePublicPageview(win = window, doc = document) {
+function publicConfig(win, doc) {
   const element = doc.getElementById("public-analytics-config");
   if (!element || win.navigator.doNotTrack === "1" || win.doNotTrack === "1" || win.navigator.globalPrivacyControl) {
-    return false;
+    return null;
   }
   try {
     const config = JSON.parse(element.textContent);
@@ -34,8 +34,19 @@ async function capturePublicPageview(win = window, doc = document) {
     // Only the server's public route may be measured. Do not use location.href
     // or read any old PostHog cookie/superproperty/identity storage.
     if (!config.api_key || canonical.origin !== win.location.origin || canonical.pathname !== win.location.pathname || canonical.search || canonical.hash) {
-      return false;
+      return null;
     }
+    return { config, canonical };
+  } catch (error) {
+    return null;
+  }
+}
+
+async function capturePublicEvent(event, version, win, doc) {
+  const context = publicConfig(win, doc);
+  if (!context) return false;
+  try {
+    const { config, canonical } = context;
     let visitorId = win.localStorage.getItem(STORAGE_KEY);
     if (!UUID.test(visitorId || "")) {
       visitorId = win.crypto.randomUUID();
@@ -50,7 +61,7 @@ async function capturePublicPageview(win = window, doc = document) {
       "$process_person_profile": false,
       "$geoip_disable": true,
       "acquisition_referrer": referrer,
-      "measurement_version": "public-v1",
+      "measurement_version": version,
       "is_qa": isQa,
       "is_known_bot": /bot|crawler|spider|headless|playwright/i.test(win.navigator.userAgent || ""),
     };
@@ -64,7 +75,7 @@ async function capturePublicPageview(win = window, doc = document) {
       keepalive: true,
       body: JSON.stringify({
         api_key: config.api_key,
-        event: "$pageview",
+        event,
         distinct_id: visitorId,
         properties,
       }),
@@ -77,4 +88,34 @@ async function capturePublicPageview(win = window, doc = document) {
   }
 }
 
-module.exports = { acquisitionReferrer, capturePublicPageview };
+function capturePublicPageview(win = window, doc = document) {
+  return capturePublicEvent("$pageview", "public-v1", win, doc);
+}
+
+const listeningDocuments = new WeakSet();
+
+function installPublicSignupClicks(win = window, doc = document) {
+  const context = publicConfig(win, doc);
+  if (!context || listeningDocuments.has(doc)) return false;
+  const signupPath = context.config.signup_path;
+  // The destination is server-owned, never an arbitrary data attribute or URL.
+  if (signupPath !== "/accounts/signup/") return false;
+  doc.addEventListener("click", event => {
+    if (!event.isTrusted || event.defaultPrevented || event.button !== 0) return;
+    try {
+      const anchor = event.target.closest("a[href]");
+      if (!anchor) return;
+      const destination = new URL(anchor.href, win.location.origin);
+      if (destination.origin !== win.location.origin || destination.pathname !== signupPath || destination.search || destination.hash || destination.username || destination.password) return;
+      // No text, element attributes, destination URL, placement, or inputs sent.
+      // Recheck opt-outs/config on every click; never delay or prevent navigation.
+      capturePublicEvent("public_signup_cta_clicked", "public-cta-v1", win, doc);
+    } catch (error) {
+      // Invalid/non-element targets and analytics failures leave navigation alone.
+    }
+  });
+  listeningDocuments.add(doc);
+  return true;
+}
+
+module.exports = { acquisitionReferrer, capturePublicPageview, installPublicSignupClicks };

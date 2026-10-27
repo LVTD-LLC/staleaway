@@ -48,6 +48,7 @@ def posthog_api_key(request):
             config = {
                 "api_key": settings.POSTHOG_API_KEY,
                 "url": settings.SITE_URL.rstrip("/") + path,
+                "signup_path": reverse("account_signup"),
             }
     return {"public_analytics": config}
 

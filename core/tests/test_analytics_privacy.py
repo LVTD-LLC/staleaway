@@ -28,7 +28,11 @@ def test_only_canonical_public_url_reaches_collector(client, settings, path):
     response = client.get(path, {"next": "/review-page/123/?token=private-marker"})
     assert response.status_code == 200
     config = analytics_config(response)
-    assert config == {"api_key": settings.POSTHOG_API_KEY, "url": "http://testserver" + path}
+    assert config == {
+        "api_key": settings.POSTHOG_API_KEY,
+        "url": "http://testserver" + path,
+        "signup_path": "/accounts/signup/",
+    }
     html = response.content.decode()
     assert "posthog.init" not in html
     assert "script.outbound-links" not in html

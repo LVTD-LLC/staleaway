@@ -91,7 +91,8 @@ def test_public_page_inputs_are_not_server_state_or_analytics(client, settings, 
     assert response.status_code == 200
     assert marker not in response.content.decode()
     assert analytics_config(response) == {
-        "api_key": "synthetic-project-key", "url": "http://testserver" + path
+        "api_key": "synthetic-project-key", "url": "http://testserver" + path,
+        "signup_path": "/accounts/signup/",
     }
     assert marker not in json.dumps(analytics_config(response))
     assert client.post(path, {"pages": marker}).status_code == 405
