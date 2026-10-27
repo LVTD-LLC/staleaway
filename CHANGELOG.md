@@ -1,3 +1,7 @@
+# 2026-10-27
+
+- Add bounded anonymous signup-link intent measurement on public resources, with canonical-only source URLs, opt-out/QA boundaries, unchanged navigation and no account-identity join.
+
 # 2026-10-26 — Review dates, expiry and CMS workflow fit
 
 - Extend the existing content-review/change-monitoring comparison with a source-checked review-date versus expiry decision aid and a clearly fictional deadline handoff.

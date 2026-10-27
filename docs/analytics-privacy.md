@@ -1,6 +1,6 @@
 # Acquisition measurement boundary
 
-As of 2026-10-10, browser measurement is an explicit PostHog `$pageview` on
+As of 2026-10-10, browser measurement includes an explicit PostHog `$pageview` on
 successful anonymous public pages only: homepage, blog index, technology page,
 published articles, and (from 2026-10-15) the free tools hub and content review
 planner. Planner inputs and outputs stay in the browser; no tool-use events or
@@ -16,9 +16,32 @@ not sent. The new UUID namespace is intentionally not joined to old email-based
 identities. Fetch omits credentials and sends no HTTP referrer.
 
 This uses the official [PostHog capture endpoint](https://posthog.com/docs/api/capture),
-checked 2026-10-10. It does not load the browser SDK or Plausible outbound-link
+rechecked 2026-10-27. It does not load the browser SDK or Plausible outbound-link
 script. There is no browser replay, autocapture, pageleave or Web Vitals collection.
 Those signals cannot be treated as measured after this boundary change.
+
+## Public signup intent (2026-10-27)
+
+Anonymous public pages also emit `public_signup_cta_clicked` with
+`measurement_version = 'public-cta-v1'` for trusted primary-button or keyboard
+clicks on the same-origin `/accounts/signup/` link, including nested icons and
+modified primary clicks. It uses the same anonymous UUID and bounded properties
+as public pageviews. Only the canonical **source page** is sent: no destination,
+link text, placement, DOM attributes, query, fragment or form/tool values.
+Links with destination parameters/fragments or credentials are ignored.
+There is no listener on private/authenticated/error pages; DNT/GPC and route
+configuration are rechecked on each click. Navigation is never blocked or delayed
+for analytics, and missing/failed requests remain unobserved.
+
+Filter the production host, exact event/version and exclude `is_qa = true` and
+`is_known_bot = true`. Remaining events are not guaranteed human. Counts are
+clicks, not signups or unique people; use distinct anonymous IDs for visitor
+counts. Same-page pageview/click IDs support public discovery diagnostics, but
+are deliberately **not joined to account identities**. A click does not prove
+that signup loaded, an account was created, a reminder was accepted, or a human
+review happened. Do not call this an organic activation funnel or infer lift.
+Browser QA intercepts capture requests; it does not create production accounts
+or send reminders. Actual eligible click ingestion remains a separate readback.
 
 ## Server activation measurement (2026-10-12)
 
@@ -71,7 +94,7 @@ and [PostHog 5.4.0 capture source](https://github.com/PostHog/posthog-python/blo
   cohort signups on or after deployment and pair their later first-reminder events.
   Use an explicit observation window and allow for each user's chosen cadence.
   Do not divide all reminders by unrelated signups or combine this with the old
-  `public-v1` population. Compare only mature cohorts.
+  `public-v1` or `public-cta-v1` population. Compare only mature cohorts.
 - This does **not** join anonymous visits to account signups or attribute activation
   to organic search, an article or an AI referrer. A real production event readback
   is still needed before declaring live coverage. Do not create customer signups
