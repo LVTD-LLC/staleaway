@@ -41,6 +41,13 @@ class LandingPageView(TemplateView):
 class ToolsView(TemplateView):
     template_name = "tools/index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["review_monitoring_guide"] = BlogPost.objects.filter(
+            slug="content-review-vs-change-monitoring", status=BlogPostStatus.PUBLISHED
+        ).first()
+        return context
+
 
 class NonprofitsView(TemplateView):
     template_name = "pages/for_nonprofits.html"

@@ -30,7 +30,9 @@ class StaticViewSitemap(sitemaps.Sitemap):
         ]
 
     def lastmod(self, item):
-        if item in {"landing_page", "tools", "for_nonprofits"}:
+        if item == "tools":
+            return date(2026, 10, 28)
+        if item in {"landing_page", "for_nonprofits"}:
             return date(2026, 10, 23)
         if item == "content_review_planner":
             return date(2026, 10, 21)
