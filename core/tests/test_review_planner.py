@@ -75,6 +75,8 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
             expected = (
                 "2026-10-21"
                 if entry.findtext("sm:loc", namespaces=namespace).endswith(planner)
+                else "2026-10-28"
+                if entry.findtext("sm:loc", namespaces=namespace).endswith("/tools")
                 else "2026-10-23"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
@@ -101,7 +103,8 @@ def test_public_page_inputs_are_not_server_state_or_analytics(client, settings, 
 
 
 @pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
-def test_planner_workflow_handoff_only_links_published_comparison(client, status):
+@pytest.mark.parametrize("name", ["content_review_planner", "tools"])
+def test_workflow_handoff_only_links_published_comparison(client, status, name):
     path = "/blog/content-review-vs-change-monitoring"
     if status is not None:
         BlogPost.objects.create(
@@ -111,9 +114,12 @@ def test_planner_workflow_handoff_only_links_published_comparison(client, status
             tags="",
             status=status,
         )
-    html = client.get(reverse("content_review_planner")).content.decode()
+    html = client.get(reverse(name)).content.decode()
     assert (f'href="{path}"' in html) == (status == BlogPostStatus.PUBLISHED)
     assert "Synthetic comparison" not in html
     assert "Synthetic body" not in html
-    assert "calendar or task system" in html
-    assert "cannot guarantee that a particular page appears before its deadline" in html
+    if name == "content_review_planner":
+        assert "calendar or task system" in html
+        assert "cannot guarantee that a particular page appears before its deadline" in html
+    else:
+        assert "does not monitor changes or guarantee a page will appear before a deadline" in html

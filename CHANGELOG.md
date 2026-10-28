@@ -1,3 +1,7 @@
+# 2026-10-28 — Tools-to-workflow discovery
+
+- Add a published-only comparison link and concise workflow-fit guidance before the tools hub signup CTA. Keep recurring reminders separate from page-specific deadlines and change detection; preserve free access, private workflows and existing guide content.
+
 # 2026-10-27
 
 - Add bounded anonymous signup-link intent measurement on public resources, with canonical-only source URLs, opt-out/QA boundaries, unchanged navigation and no account-identity join.
