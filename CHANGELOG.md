@@ -1,3 +1,8 @@
+# 2026-10-29 — Choose the next page to review
+
+- Extend the existing content review checklist with a manual page-priority sequence, a clearly fictional backlog example and a section jump link. Distinguish urgent corrections, time-sensitive checks and routine reader tasks.
+- Link the method to the existing review log and workload planner; explain that priorities and deadlines remain manual, not Staleaway features. Preserve article metadata, original publication and guarded publishing; no queue, analytics, customer-data or billing changes.
+
 # 2026-10-28 — Tools-to-workflow discovery
 
 - Add a published-only comparison link and concise workflow-fit guidance before the tools hub signup CTA. Keep recurring reminders separate from page-specific deadlines and change detection; preserve free access, private workflows and existing guide content.
