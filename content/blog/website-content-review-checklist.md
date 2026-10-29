@@ -9,6 +9,7 @@ Use the [Staleaway reminder workflow](/#how-it-works) if a nudge helps you begin
 <p><strong>On this page</strong></p>
 <ul>
 <li><a href="#review-checklist">Use the checklist</a></li>
+<li><a href="#review-priorities">Choose which page to review first</a></li>
 <li><a href="#download-review-log">Download the review log</a></li>
 <li><a href="#owner-handoff">Hand off unfinished work</a></li>
 <li><a href="#review-schedule">Choose a review schedule</a></li>
@@ -35,9 +36,21 @@ Pick a page with a concrete job: explain a service, accept event registrations o
 
 Open the live page, not only the editor preview. Have the current source for important facts nearby: an approved service list, an organizer’s event details or the version of the product a tutorial describes. Another old page repeating the same claim is not strong confirmation.
 
-Prioritize a page you know has changed, or one where a mistake could send someone to the wrong place. A reminder can help you notice overlooked pages, but a known incorrect date should not wait its turn.
+<h3 id="review-priorities">Which website pages should you review first?</h3>
 
-For legal, medical or other high-consequence material, the content owner may need a qualified reviewer. This checklist helps organize the work; it does not supply that expertise.
+Start with a known error that could mislead someone, then a page tied to an approaching change or deadline. Among the remaining pages, choose one that supports an important reader task. Do not let a low visit count, an old update date or a routine reminder decide the order on its own.
+
+Use this suggested manual order for a small review batch:
+
+1. **Act on known problems outside the routine queue.** If a published address is wrong or a cancelled event still accepts bookings, contact the responsible owner now. Confirm the correction and who can publish it. For legal, medical or other high-consequence material, involve a qualified reviewer; this checklist does not supply that expertise.
+2. **Give time-sensitive pages a named follow-up.** Check pages affected by a launch, event or service change before visitors need the new information. Record the relevant date, source and owner. Do not wait for a random reminder to select the page, or treat a follow-up date as proof that the work happened.
+3. **Choose a useful next page from the remainder.** Ask which page helps someone complete an important task and which facts are most likely to have changed. Use visitor feedback or analytics if available, but a quiet contact or eligibility page can still matter. Missing analytics is a reason to use what you know about the task, not to label the page unimportant.
+
+Iowa’s [content audit guidance](https://dxtraining.iowa.gov/auditing-content) offers crucial pages as one starting point and cautions that low traffic does not necessarily mean content is unhelpful. The order above is Staleaway’s suggested working method, not an institutional policy or a tested scoring model.
+
+**A fictional batch choice:** You have a contact page with a confirmed wrong address, an event page whose registration deadline is approaching, and an older evergreen guide with no reported change. Escalate the address correction immediately. Give the event check an owner and a date before registration closes. Leave the guide in the next routine batch unless another finding changes its priority. A popular guide does not automatically outrank the incorrect address.
+
+Write one line for each page you set aside: **reason for its place in the queue / next action / owner / follow-up date or change trigger**. Put open corrections in the [review log](#download-review-log), and use the [workload planner](/tools/content-review-planner) to keep the routine batch realistic. These notes stay outside Staleaway: the app does not score pages or let you set a per-page priority or deadline.
 
 ## 2. Check the facts and try the next step
 
