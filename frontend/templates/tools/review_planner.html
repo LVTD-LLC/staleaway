@@ -20,7 +20,7 @@
   <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'tools' %}">Free tools</a> / <span aria-current="page">Content review planner</span></nav>
   <header class="sa-tool-heading"><p class="sa-eyebrow">Free planning tool</p><h1>Content review workload planner</h1>
     <p>Estimate how many whole pages fit into a review session, the time your review list needs, and whether it fits your target number of weeks. Start with your page count and a realistic review estimate. The calculation runs in your browser; it does not scan your website or schedule reminders.</p>
-    <p class="sa-tool-note">Updated <time datetime="2026-10-21">October 21, 2026</time> · All Staleaway features are free.</p>
+    <p class="sa-tool-note">Updated <time datetime="2026-10-30">October 30, 2026</time> · All Staleaway features are free.</p>
   </header>
   <section class="sa-planner" aria-labelledby="planner-heading" data-controller="review-planner">
     <h2 id="planner-heading">Plan a manageable review batch</h2>
@@ -52,12 +52,19 @@
       <div class="sa-tool-actions"><button type="button" class="sa-button" data-review-planner-target="copy" data-action="review-planner#copy" disabled>Copy estimate</button><button type="button" class="sa-tool-secondary" data-review-planner-target="download" data-action="review-planner#download" disabled>Download text</button></div>
       <p role="status" data-review-planner-target="copyStatus"></p>
       <label for="planner-export">Plain-text estimate</label><textarea id="planner-export" rows="10" readonly data-review-planner-target="export"></textarea>
+      {% if content_review_guide %}
+      <div class="sa-tool-example mt-6" aria-labelledby="planner-review-log-heading">
+        <h4 id="planner-review-log-heading" class="font-bold">Keep a record of the batch you review</h4>
+        <p>The estimate helps you plan time; it does not record completed reviews. <a class="font-medium underline underline-offset-4" href="{{ content_review_guide.get_absolute_url }}#download-review-log">Start with the blank review log or its fictional example</a> to record each finding, its evidence, the next action and who owns unfinished work.</p>
+        <p>The CSV files are optional, work without an account and stay separate from Staleaway. Keep private review links and restricted details out of shared notes.</p>
+      </div>
+      {% endif %}
     </section>
   </section>
   {% include 'tools/review_planner_content.html' %}
 </div>
 {% endblock %}
 {% block schema %}
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Review Workload Planner","description":"Estimate whole-page batches, review time and capacity for a website content review plan.","url":"{{ site_url|escapejs }}{% url 'content_review_planner' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-10-21","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Review Workload Planner","description":"Estimate whole-page batches, review time and capacity for a website content review plan.","url":"{{ site_url|escapejs }}{% url 'content_review_planner' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-10-30","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"},{"@type":"ListItem","position":3,"name":"Content review planner","item":"{{ site_url|escapejs }}{% url 'content_review_planner' %}"}]}</script>
 {% endblock %}
