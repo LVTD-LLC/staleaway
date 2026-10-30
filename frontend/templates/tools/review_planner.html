@@ -53,9 +53,9 @@
       <p role="status" data-review-planner-target="copyStatus"></p>
       <label for="planner-export">Plain-text estimate</label><textarea id="planner-export" rows="10" readonly data-review-planner-target="export"></textarea>
       {% if content_review_guide %}
-      <div class="sa-tool-example" aria-labelledby="planner-review-log-heading">
-        <h4 id="planner-review-log-heading">Keep a record of the batch you review</h4>
-        <p>The estimate helps you plan time; it does not record completed reviews. <a href="{{ content_review_guide.get_absolute_url }}#download-review-log">Start with the blank review log or its fictional example</a> to record each finding, its evidence, the next action and who owns unfinished work.</p>
+      <div class="sa-tool-example mt-6" aria-labelledby="planner-review-log-heading">
+        <h4 id="planner-review-log-heading" class="font-bold">Keep a record of the batch you review</h4>
+        <p>The estimate helps you plan time; it does not record completed reviews. <a class="font-medium underline underline-offset-4" href="{{ content_review_guide.get_absolute_url }}#download-review-log">Start with the blank review log or its fictional example</a> to record each finding, its evidence, the next action and who owns unfinished work.</p>
         <p>The CSV files are optional, work without an account and stay separate from Staleaway. Keep private review links and restricted details out of shared notes.</p>
       </div>
       {% endif %}
