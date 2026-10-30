@@ -1,3 +1,8 @@
+# 2026-10-30 — Take a planned batch into the review log
+
+- Add a contextual, published-only link from the workload planner's calculated result to the existing blank and fictional-example review log. Explain that estimates are not completed reviews and that the optional manual CSVs stay separate from Staleaway.
+- Preserve calculations, exports, analytics, reminder behavior and the checklist's publication history. Update only the planner's actual content date, schema date and sitemap lastmod; cover missing, draft and published guide states.
+
 # 2026-10-29 — Choose the next page to review
 
 - Extend the existing content review checklist with a manual page-priority sequence, a clearly fictional backlog example and a section jump link. Distinguish urgent corrections, time-sensitive checks and routine reader tasks.

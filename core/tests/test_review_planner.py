@@ -35,7 +35,7 @@ def test_public_tool_metadata_and_schema(client, settings, name):
         assert data[0]["@type"] == "WebApplication"
         assert data[0]["offers"] == {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
         assert data[0]["isAccessibleForFree"] is True
-        assert data[0]["dateModified"] == "2026-10-21"
+        assert data[0]["dateModified"] == "2026-10-30"
         assert "Content review workload planner" in html
         assert 'data-controller="review-planner"' in html
         assert '<fieldset disabled data-review-planner-target="fields">' in html
@@ -73,7 +73,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     for entry in root.findall("sm:url", namespace):
         if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, "/")):
             expected = (
-                "2026-10-21"
+                "2026-10-30"
                 if entry.findtext("sm:loc", namespaces=namespace).endswith(planner)
                 else "2026-10-28"
                 if entry.findtext("sm:loc", namespaces=namespace).endswith("/tools")
@@ -123,3 +123,25 @@ def test_workflow_handoff_only_links_published_comparison(client, status, name):
         assert "cannot guarantee that a particular page appears before its deadline" in html
     else:
         assert "does not monitor changes or guarantee a page will appear before a deadline" in html
+
+
+@pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
+def test_result_handoff_only_links_published_review_log(client, status):
+    if status is not None:
+        BlogPost.objects.create(
+            title="Synthetic private title",
+            slug="website-content-review-checklist",
+            content="Synthetic private body",
+            tags="",
+            status=status,
+        )
+    html = client.get(reverse("content_review_planner")).content.decode()
+    handoff = "/blog/website-content-review-checklist#download-review-log"
+    assert (f'href="{handoff}"' in html) == (status == BlogPostStatus.PUBLISHED)
+    assert "Synthetic private title" not in html
+    assert "Synthetic private body" not in html
+    if status == BlogPostStatus.PUBLISHED:
+        result = html.split('data-review-planner-target="result" hidden>', 1)[1].split("</section>", 1)[0]
+        assert f'href="{handoff}"' in result
+        assert "optional, work without an account" in result
+        assert "private review links" in result

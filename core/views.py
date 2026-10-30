@@ -95,6 +95,9 @@ class ContentReviewPlannerView(TemplateView):
         context["review_monitoring_guide"] = BlogPost.objects.filter(
             slug="content-review-vs-change-monitoring", status=BlogPostStatus.PUBLISHED
         ).first()
+        context["content_review_guide"] = BlogPost.objects.filter(
+            slug="website-content-review-checklist", status=BlogPostStatus.PUBLISHED
+        ).first()
         return context
 
 
