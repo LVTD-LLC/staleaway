@@ -10,7 +10,7 @@ You can follow these steps without a Staleaway account. You need a browser and a
 4. Check import readiness with the worksheet below.
 5. Import and verify listed pages.
 
-**Jump to:** [Find the address](#find-sitemap-address) · [Read the XML](#read-sitemap-xml) · [Choose the scope](#choose-review-scope) · [Reconcile your inventory](#reconcile-review-inventory) · [Check readiness](#check-import-readiness) · [Verify the import](#verify-imported-pages)
+**Jump to:** [Find the address](#find-sitemap-address) · [Read the XML](#read-sitemap-xml) · [Choose the scope](#choose-review-scope) · [Reconcile your inventory](#reconcile-review-inventory) · [Check readiness](#check-import-readiness) · [Verify the import](#verify-imported-pages) · [Prepare for your first reminder](#first-review-reminder)
 
 <h2 id="find-sitemap-address">1. Find the sitemap address</h2>
 
@@ -159,6 +159,19 @@ Then choose the pages per review email and a daily, weekly or monthly cadence. T
 Not sure how much review time to set aside? Use the free [content review workload planner](/tools/content-review-planner) with the number of pages you intend to check. You can compare a smaller batch with more review sessions before choosing your own plan. The estimate stays separate from your reminder settings.
 
 When a reminder arrives, opening **Review This Page** marks the page reviewed before redirecting you to it. That recorded action is not proof that you checked its claims or finished an edit. Use the [website content review checklist](/blog/website-content-review-checklist) to inspect the content, record a decision and verify any fix in your own publishing system.
+
+<h3 id="first-review-reminder">Prepare for your first review reminder</h3>
+
+After checking the imported pages, save your reminder settings and confirm who should receive the email. An imported list, a saved schedule, an email arriving and a completed content review are four different checkpoints. Use this short check before you leave setup:
+
+1. **Save a manageable batch.** In the dashboard or sitemap detail, choose **Edit reminder settings**. Under **Sitemap Review Settings**, set **Pages per review email** and **Review cadence**, then choose **Save**. Return to the sitemap and check its displayed saved cadence and batch size. These settings do not promise a deadline for every page.
+2. **Check your local time.** In **Settings → Email Preferences**, choose **Preferred time** and **Timezone**, then **Save**. Choose a time when someone can act on a reminder. Saving does not send an immediate email or prove inbox delivery.
+3. **Check the recipient list.** Under **Email Addresses**, enabled addresses receive the review email. When at least one address is enabled, that list is used instead of automatically including your account email. With none enabled, Staleaway falls back to your account email; disabling every listed address is not a pause control. Include only people who should receive the pages and their review links.
+4. **Keep review work separate from opening a link.** When the email arrives, check that its pages belong in your review scope. Open **Review This Page** when you are ready to review, not just to test delivery: opening it records the page as reviewed. Record unfinished edits in your own review log, and keep account-owned review links out of public documents.
+
+**Fictional setup check:** a website editor sees the intended help pages after import, saves a small weekly batch and checks the timezone. They enable a shared editorial inbox and also add their own address if both should receive reminders. They still wait to confirm actual receipt; none of those saved settings proves that a review happened.
+
+If a reminder does not arrive, revisit these saved settings, the intended inbox and its spam folder, and whether imported pages still need review. Do not keep adding the same sitemap or open old review links as a delivery test. A missing email alone does not identify the cause. Keep the public sitemap address and a description of the problem separate from private review links when asking for help.
 
 ### Common mistakes to avoid
 

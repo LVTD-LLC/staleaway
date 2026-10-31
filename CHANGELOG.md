@@ -1,3 +1,8 @@
+# 2026-10-31 — Prepare for the first review reminder
+
+- Extend the existing sitemap guide with a first-reminder readiness check: save and recheck the batch, local time and recipients, including the account-email fallback. Distinguish setup, inbox receipt and actual review work with a fictional example.
+- Preserve the guide's title, description, original publication and guarded publishing; no reminder logic, analytics, account, pricing or storage changes.
+
 # 2026-10-30 — Take a planned batch into the review log
 
 - Add a contextual, published-only link from the workload planner's calculated result to the existing blank and fictional-example review log. Explain that estimates are not completed reviews and that the optional manual CSVs stay separate from Staleaway.
