@@ -1,3 +1,9 @@
+# 2026-11-01 — Compare content inventory with sitemap and import scope
+
+- Add a free browser-only three-list URL comparison with exact membership groups, neutral manual follow-up and a complete local CSV download. Inputs stay out of network requests, storage and analytics; no account or import state changes.
+- Publish the tool through the homepage, tools hub and sitemap with explicit limits, a fictional worked example and a manual worksheet. Preserve content-review reminders, free feature access and customer data.
+- Extend targeted parsing, route and privacy checks and the existing CI preview/test pipeline.
+
 # 2026-10-31 — Prepare for the first review reminder
 
 - Extend the existing sitemap guide with a first-reminder readiness check: save and recheck the batch, local time and recipients, including the account-email fallback. Distinguish setup, inbox receipt and actual review work with a fictional example.

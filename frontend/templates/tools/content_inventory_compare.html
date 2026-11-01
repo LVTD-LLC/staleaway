@@ -1,0 +1,67 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>Content Inventory Comparison Tool — Free | Staleaway</title>
+<meta name="description" content="Compare your intended content inventory, sitemap page URLs and imported records. Find exact-list differences in your browser and download a complete CSV." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'content_inventory_compare' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Content Inventory Comparison Tool — Free | Staleaway" />
+<meta property="og:description" content="Compare three pasted public URL lists and take neutral next steps. Exact matching, browser-only processing and a complete CSV download." />
+<meta property="og:url" content="{{ site_url }}{% url 'content_inventory_compare' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Content Inventory Comparison Tool — Free | Staleaway" />
+<meta name="twitter:description" content="Compare intended inventory, selected sitemap page URLs and actual imported records without uploading the lists." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'tools' %}">Free tools</a> / <span aria-current="page">Content inventory comparison</span></nav>
+  <header class="sa-tool-heading"><p class="sa-eyebrow">Three lists. One review scope.</p><h1>Content inventory comparison tool</h1>
+    <p>Compare your intended content inventory, selected sitemap page URLs and actual imported records to see which exact URLs appear in each list. Paste three public URL lists, inspect their membership differences and download a CSV for manual follow-up. This browser-only tool does not fetch pages, check indexing or change your account.</p>
+    <p class="sa-tool-note">Updated <time datetime="2026-11-01">November 1, 2026</time> · All Staleaway features are free.</p>
+  </header>
+  <section class="sa-planner" aria-labelledby="inventory-tool-heading" data-controller="content-inventory-compare">
+    <h2 id="inventory-tool-heading">Compare your three URL lists</h2>
+    <p>Start with the clearly fictional example.com lists, or replace all three. Paste one URL per line, not CSV or XML. Use public page URLs only: never paste private URLs, review-link tokens or credentials. No inputs or results are uploaded, saved, added to the address bar or included in analytics.</p>
+    <p id="inventory-limits">Each list requires 1–2,000 nonblank lines, at most 250,000 bytes and 2,048 characters per URL. Only http/https URLs without queries or fragments are supported. Local/private hosts and IPv6 literals are not supported. No network fetch verifies whether a hostname is public or a page exists.</p>
+    <p class="sa-tool-notice" data-content-inventory-compare-target="unavailable">Interactive comparison is unavailable until JavaScript loads. No comparison has run. Use the <a href="#manual-inventory-worksheet">manual worksheet below</a>.</p>
+    <noscript><p>JavaScript is disabled. Follow the <a href="#manual-inventory-worksheet">manual comparison worksheet</a>; the example lists below are not a result.</p></noscript>
+    <div class="sa-tool-errors" data-content-inventory-compare-target="summary" role="alert" tabindex="-1" hidden></div>
+    <fieldset disabled data-content-inventory-compare-target="fields">
+      <legend class="sr-only">Three required public URL lists</legend>
+      <div class="sa-inventory-inputs">
+        {% for field in inventory_fields %}
+        <div class="sa-planner-field">
+          <label for="inventory-{{ field.key }}">{{ field.label }} (required)</label>
+          <p class="sa-tool-note" id="inventory-{{ field.key }}-hint">{{ field.hint }}</p>
+          <textarea id="inventory-{{ field.key }}" rows="7" spellcheck="false" autocomplete="off" autocapitalize="off" aria-required="true" aria-describedby="inventory-{{ field.key }}-hint inventory-limits inventory-{{ field.key }}-error" data-field="{{ field.key }}" data-content-inventory-compare-target="input" data-action="input->content-inventory-compare#invalidate">{{ field.example }}</textarea>
+          <p id="inventory-{{ field.key }}-error" class="sa-tool-field-error" data-field="{{ field.key }}" data-content-inventory-compare-target="error"></p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="sa-tool-actions">
+        <button type="button" class="sa-button" data-action="content-inventory-compare#calculate">Compare lists</button>
+        <button type="button" class="sa-tool-secondary" data-action="content-inventory-compare#example">Load fictional example</button>
+        <button type="button" class="sa-tool-secondary" data-action="content-inventory-compare#clear">Clear all lists</button>
+      </div>
+    </fieldset>
+    <p class="sa-tool-status" role="status" aria-live="polite" data-content-inventory-compare-target="status">No comparison has run.</p>
+    <section class="sa-planner-result" data-content-inventory-compare-target="result" hidden aria-labelledby="inventory-result-heading">
+      <h3 id="inventory-result-heading">URL membership, not an audit score</h3>
+      <p>Presence means only that the exact pasted URL appears in that list. A missing entry is not proof of an import defect or indexing failure. Even three matching lists can share omissions.</p>
+      <ul class="sa-inventory-list-stats" data-content-inventory-compare-target="listStats"></ul>
+      <dl class="sa-planner-breakdown" data-content-inventory-compare-target="counts"></dl>
+      <p data-content-inventory-compare-target="displayed"></p>
+      <button type="button" class="sa-tool-secondary" data-content-inventory-compare-target="download" data-action="content-inventory-compare#download" disabled>Download complete comparison CSV</button>
+      <ol class="sa-inventory-rows" data-content-inventory-compare-target="rows"></ol>
+    </section>
+  </section>
+  {% include 'tools/content_inventory_compare_content.html' %}
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Inventory Comparison Tool","description":"Compare exact URL membership across intended inventory, selected sitemap page URLs and actual imported records.","url":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-11-01","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"},{"@type":"ListItem","position":3,"name":"Content inventory comparison","item":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}"}]}</script>
+{% endblock %}
