@@ -14,3 +14,10 @@ The initial sitemap contains three URLs. The public footer repair links the blog
 - Outbound owners: `/blog/website-content-review-checklist` (general check/follow-up), `/blog/find-your-website-sitemap` (setup/coverage), `/tools/content-review-planner` (manual workload), `/blog/content-review-vs-change-monitoring` (workflow comparison), `/tools` (tool hub).
 - Anchor variants: nonprofit website content reviews; nonprofit website content review workflow; content review reminders for nonprofits.
 - No sibling audience page currently exists; link only after a separately evidenced page ships. The October 9 list above is a historical starting inventory, not today's full public census.
+
+## November 1, 2026 — browser-only inventory comparison
+
+- `/tools/content-inventory-compare`: exact URL membership across intended inventory, selected sitemap page URLs and actual imported records; sole three-list comparison-tool intent owner.
+- Contextual inbound links from `/` and `/tools`; outbound to the published sitemap guide, review checklist and workload planner. Missing/draft guide rows never become public links.
+- Anchor variants: content inventory comparison; compare three public URL lists; compare inventory, sitemap and imported records; exact URL membership; three-list content inventory tool.
+- No automatic fetching, indexing diagnosis, import synchronization or customer-record changes. Sitemap finding and manual setup remain the existing guide's intent.

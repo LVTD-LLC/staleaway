@@ -72,11 +72,10 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     for entry in root.findall("sm:url", namespace):
         if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, "/")):
+            location = entry.findtext("sm:loc", namespaces=namespace)
             expected = (
-                "2026-10-30"
-                if entry.findtext("sm:loc", namespaces=namespace).endswith(planner)
-                else "2026-10-28"
-                if entry.findtext("sm:loc", namespaces=namespace).endswith("/tools")
+                "2026-10-30" if location.endswith(planner)
+                else "2026-11-01" if location.endswith(("/tools", "/"))
                 else "2026-10-23"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected

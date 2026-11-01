@@ -101,6 +101,38 @@ class ContentReviewPlannerView(TemplateView):
         return context
 
 
+class ContentInventoryCompareView(TemplateView):
+    template_name = "tools/content_inventory_compare.html"
+    extra_context = {
+        "inventory_fields": [
+            {
+                "key": "inventory", "label": "Intended inventory",
+                "hint": "Public pages you intend to include in this review scope.",
+                "example": "https://example.com/about\nhttps://example.com/services\nhttps://example.com/contact",
+            },
+            {
+                "key": "sitemap", "label": "Selected sitemap page URLs",
+                "hint": "Page URL entries extracted from the selected sitemap, not XML or the sitemap address.",
+                "example": "https://example.com/about\nhttps://example.com/services\nhttps://example.com/news",
+            },
+            {
+                "key": "imported", "label": "Actual imported records",
+                "hint": "Public page URLs currently listed in your chosen reminder system's import.",
+                "example": "https://example.com/about\nhttps://example.com/news\nhttps://example.com/archive",
+            },
+        ],
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for key, slug in {
+            "sitemap_guide": "find-your-website-sitemap",
+            "content_review_guide": "website-content-review-checklist",
+        }.items():
+            context[key] = BlogPost.objects.filter(slug=slug, status=BlogPostStatus.PUBLISHED).first()
+        return context
+
+
 class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     login_url = "account_login"
     template_name = "pages/home.html"

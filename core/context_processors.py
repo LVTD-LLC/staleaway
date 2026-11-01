@@ -35,6 +35,7 @@ def posthog_api_key(request):
             "uses",
             "tools",
             "content_review_planner",
+            "content_inventory_compare",
             "for_nonprofits",
         }:
             path = reverse(name)
