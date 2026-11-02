@@ -34,7 +34,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
         if item in {"tools", "landing_page", "content_inventory_compare"}:
             return date(2026, 11, 1)
         if item == "for_nonprofits":
-            return date(2026, 10, 23)
+            return date(2026, 11, 2)
         if item == "content_review_planner":
             return date(2026, 10, 30)
         return None

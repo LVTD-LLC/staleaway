@@ -1,3 +1,8 @@
+# 2026-11-02 — Carry nonprofit page checks through a volunteer handover
+
+- Extend the existing nonprofit fit page with a source-backed, fictional pending program-hours check, responsible and backup roles, and a manual follow-up that stays open across editor changes.
+- Link to the existing review log and first-reminder setup guide; distinguish editorial continuity from account access and separate review lists. Preserve product behavior, original publication, metadata, customer data and free access.
+
 # 2026-11-01 — Compare content inventory with sitemap and import scope
 
 - Add a free browser-only three-list URL comparison with exact membership groups, neutral manual follow-up and a complete local CSV download. Inputs stay out of network requests, storage and analytics; no account or import state changes.

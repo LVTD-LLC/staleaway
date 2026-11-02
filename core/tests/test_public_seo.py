@@ -38,7 +38,7 @@ def test_public_discovery_uses_configured_origin(client, settings):
             assert data[0]["@type"] == "WebPage"
             assert data[0]["url"] == "https://canonical-site.example/for/nonprofits"
             assert data[0]["datePublished"] == "2026-10-23"
-            assert data[0]["dateModified"] == "2026-10-23"
+            assert data[0]["dateModified"] == "2026-11-02"
             breadcrumbs = next(item for item in data if item["@type"] == "BreadcrumbList")
             assert breadcrumbs["itemListElement"][-1]["item"] == data[0]["url"]
     home = client.get("/").content.decode()
