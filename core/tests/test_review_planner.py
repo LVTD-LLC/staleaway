@@ -76,7 +76,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
             expected = (
                 "2026-10-30" if location.endswith(planner)
                 else "2026-11-01" if location.endswith(("/tools", "/"))
-                else "2026-10-23"
+                else "2026-11-02"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
 
