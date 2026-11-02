@@ -24,3 +24,9 @@ New owner: /for/nonprofits. Existing general checklist, sitemap guide, workload 
 ## Proof contract
 
 Use existing public Django layout and style tokens. Server-rendered content, self-canonical, indexable, dated sitemap, WebPage/SoftwareApplication/Breadcrumb/visible FAQ parity. Existing Docker-backed CI and synthetic preview; inspect mobile/desktop in both OS color preferences and no-JavaScript content before merge. Check exact production revision, public rendering and deployment after merge. Acquisition/activation outcomes remain unmeasured until observed; no publication-as-growth claim.
+
+## November 2, 2026 — volunteer-editor continuity
+
+Extend this existing intent owner, not a new generic handover article. Apply the Junior League's primary guidance on role distinctions, backup contacts and outstanding work at leadership transitions: https://support.jl.org/support/solutions/articles/61000319272-website-governance-best-practices-for-your-public-website (modified August 26, 2026; checked November 2).
+
+The original contribution is a clearly fictional program-hours question that remains pending after a reminder link was opened and a volunteer leaves. Show the missing fact source, confirming/publishing/backup roles, a replaceable example follow-up date and live-page completion evidence. Reuse the existing manual log and setup guide. Do not promise account transfer, migrated review history, team permissions or automatic approval. Recheck ownership and import boundaries against core/views.py, core/models.py, core/tasks.py and core/signals.py. No customer story or first-party aggregate is published. Preserve the October 23 publication date and existing metadata; update only the actual modification date and sitemap lastmod.
