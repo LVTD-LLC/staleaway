@@ -96,6 +96,8 @@ A **content inventory** is your own record of content you intend to maintain. It
 
 Keep three lists distinct: your intended review inventory, the page addresses in the XML you selected, and the records that actually appear after import. Compare addresses, not just totals. Equal counts can hide different pages. Start with a manageable section; a sample check is not evidence that the whole inventory matches.
 
+Once all three public-URL lists are ready, the free [content inventory comparison tool](/tools/content-inventory-compare) can compare their exact addresses in your browser and export a membership CSV. It does not fetch pages, import records or decide which list is correct. Keep drafts, private addresses and sensitive paths out of the tool. Use the mismatch record below to assign follow-up; a membership difference is a question to investigate, not a repair instruction.
+
 **Use the difference to choose the next action:**
 
 - An intended public page is missing from the selected XML: check another relevant child sitemap, then ask the maintainer whether the omission is intentional. Absence alone does not mean the page is broken or unindexed.

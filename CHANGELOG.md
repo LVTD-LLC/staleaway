@@ -1,3 +1,8 @@
+# 2026-11-03 — Reconciliation guide to comparison tool
+
+- Link the sitemap guide's three-list reconciliation step to the existing free content inventory comparison tool, with public-input, exact-match and manual-follow-up boundaries.
+- Preserve the guide's original title, description and publication date; use the existing digest-guarded publishing workflow for the content update.
+
 # 2026-11-02 — Carry nonprofit page checks through a volunteer handover
 
 - Extend the existing nonprofit fit page with a source-backed, fictional pending program-hours check, responsible and backup roles, and a manual follow-up that stays open across editor changes.
