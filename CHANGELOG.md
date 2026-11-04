@@ -1,3 +1,8 @@
+# 2026-11-04 — Clarify who receives review reminders
+
+- Explain the existing enabled-address selection and account-email fallback beside the recipient controls in Settings. Disabling or removing all listed addresses is not a pause control.
+- Distinguish recipient setup from inbox delivery and completed review; preserve reminder behavior, private-page analytics exclusions and customer data.
+
 # 2026-11-03 — Reconciliation guide to comparison tool
 
 - Link the sitemap guide's three-list reconciliation step to the existing free content inventory comparison tool, with public-input, exact-match and manual-follow-up boundaries.

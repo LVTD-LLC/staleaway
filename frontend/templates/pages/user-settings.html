@@ -53,7 +53,11 @@
       <div id="reminder-settings" class="px-6 py-4" data-controller="email">
         <div class="flex flex-col">
           <h3 class="mb-6 text-lg font-medium leading-6 text-gray-900">Email Addresses</h3>
-          <p class="mb-4 text-sm text-gray-600">Manage email addresses that will receive notifications. Toggle the checkbox to enable/disable notifications for each address.</p>
+          <div class="mb-4 space-y-2 text-sm text-gray-600" id="review-email-recipients-help">
+            <p>Review emails go to the enabled addresses below. When at least one is enabled, your account email is not automatically included. Add it here too if you want both inboxes to receive reminders.</p>
+            <p><strong>If none are enabled, review emails go to your account email.</strong> Disabling or removing every listed address does not pause reminders.</p>
+            <p>Only include people who should receive the pages and their account-owned review links. A saved address does not confirm inbox delivery or a completed review.</p>
+          </div>
 
           <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-700">Add new email address</label>
