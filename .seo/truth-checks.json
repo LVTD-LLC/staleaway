@@ -11,5 +11,17 @@
       "process all your pages in under a minute"
     ],
     "flags": "i"
+  },
+  {
+    "claim": "Settings explains enabled recipient replacement and the account-email fallback, not a pause control",
+    "paths": ["frontend/templates/pages/user-settings.html"],
+    "urls": ["/settings"],
+    "must_match": [
+      "your account email is not automatically included",
+      "If none are enabled, review emails go to your account email",
+      "Disabling or removing every listed address does not pause reminders"
+    ],
+    "must_not_match": ["disable all notifications", "uncheck all.*pause"],
+    "flags": "i"
   }
 ]

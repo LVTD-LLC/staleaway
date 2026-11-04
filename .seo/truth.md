@@ -9,6 +9,11 @@
 - Legacy cleanapp database, queue, storage and migration names are compatibility identifiers, not stale public branding. Preserve them.
 - Reminder delivery success was not end-to-end tested during this SEO run.
 
+## Review email recipients — checked 2026-11-04
+
+- Review emails use the owning profile's enabled `EmailPreference` addresses. When at least one is enabled, the account address is not automatically added; with none enabled, delivery falls back to `profile.user.email`. Disabling or removing every listed address is not a pause control. Source: `core/tasks.py:send_page_email_to_profile`.
+- Recipient choices remain separate from inbox receipt or completed human review. The settings clarification changes no recipient selection, scheduling, PR8 review behavior or analytics. Verify the protected template using isolated synthetic fixtures, never a customer account or a real email send.
+
 ## Sitemap-start guidance — checked 2026-10-13
 
 - The initial importer fetches the supplied XML URL and follows sitemap indexes with bounded recursion; it does not discover sitemap URLs from a homepage or robots.txt. Source: core/tasks.py process_sitemap_pages.
