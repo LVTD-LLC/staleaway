@@ -91,6 +91,9 @@ with patch('core.models.async_task'), patch('core.signals.async_task'), patch('c
     Page.objects.create(profile=preview_user.profile, sitemap=preview_sitemap, url='https://example.com/about')
     setup_cases.extend([('setup-pages-imported', client.get(f'/sitemap/{preview_sitemap.pk}')),
                         ('setup-settings', client.get('/settings'))])
+    # Signup creates an enabled account-address preference; disable it as well
+    # so this fixture actually exercises the no-enabled-address fallback.
+    EmailPreference.objects.filter(profile=preview_user.profile).update(enabled=False)
     preview_recipient = EmailPreference.objects.create(
         profile=preview_user.profile, email_address='editor@example.com', enabled=False
     )
@@ -98,6 +101,8 @@ with patch('core.models.async_task'), patch('core.signals.async_task'), patch('c
     preview_recipient.enabled = True
     preview_recipient.save(update_fields=['enabled'])
     setup_cases.append(('setup-settings-enabled', client.get('/settings')))
+    EmailPreference.objects.filter(profile=preview_user.profile).delete()
+    setup_cases.append(('setup-settings-empty', client.get('/settings')))
     for name, response in setup_cases:
         if response.status_code != 200:
             raise RuntimeError(f'Setup preview failed: {name}: HTTP {response.status_code}')
