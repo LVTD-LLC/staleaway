@@ -35,7 +35,7 @@ def test_public_tool_metadata_and_schema(client, settings, name):
         assert data[0]["@type"] == "WebApplication"
         assert data[0]["offers"] == {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
         assert data[0]["isAccessibleForFree"] is True
-        assert data[0]["dateModified"] == "2026-10-30"
+        assert data[0]["dateModified"] == "2026-11-05"
         assert "Content review workload planner" in html
         assert 'data-controller="review-planner"' in html
         assert '<fieldset disabled data-review-planner-target="fields">' in html
@@ -74,7 +74,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
         if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, "/")):
             location = entry.findtext("sm:loc", namespaces=namespace)
             expected = (
-                "2026-10-30" if location.endswith(planner)
+                "2026-11-05" if location.endswith(planner)
                 else "2026-11-01" if location.endswith(("/tools", "/"))
                 else "2026-11-02"
             )
