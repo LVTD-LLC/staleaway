@@ -1,3 +1,8 @@
+# 2026-11-05 — Choose a review scope before estimating workload
+
+- Link the planner's page-count step to the existing inventory comparison tool. Explain that the chosen review list, not the three-list combined total, supplies the workload count.
+- Keep comparison inputs, calculations, exports and analytics unchanged; no automatic count transfer. Update only the planner's actual content date, schema date and sitemap lastmod.
+
 # 2026-11-04 — Clarify who receives review reminders
 
 - Explain the existing enabled-address selection and account-email fallback beside the recipient controls in Settings. Disabling or removing all listed addresses is not a pause control.

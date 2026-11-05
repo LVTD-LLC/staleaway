@@ -65,7 +65,7 @@ def test_inventory_discovery_and_precise_sitemap_dates(client):
     assert sum(url.endswith(path) for url in entries) == 1
     for suffix in [path, "/tools", "/"]:
         assert next(value for url, value in entries.items() if url.endswith(suffix)) == "2026-11-01"
-    assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-10-30"
+    assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-11-05"
 
 
 def test_inventory_never_receives_or_persists_comparison_values(client, settings):

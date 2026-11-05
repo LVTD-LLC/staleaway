@@ -36,7 +36,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
         if item == "for_nonprofits":
             return date(2026, 11, 2)
         if item == "content_review_planner":
-            return date(2026, 10, 30)
+            return date(2026, 11, 5)
         return None
 
     def location(self, item):
