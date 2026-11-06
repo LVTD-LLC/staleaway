@@ -22,7 +22,7 @@ def schemas(response):
 
 def test_public_discovery_uses_configured_origin(client, settings):
     settings.SITE_URL = "https://canonical-site.example/"
-    for path in ("/", "/blog", "/uses", "/for/nonprofits"):
+    for path in ("/", "/blog", "/uses", "/for/nonprofits", "/for/documentation"):
         response = client.get(path)
         assert response.status_code == 200
         html = response.content.decode()
@@ -33,12 +33,15 @@ def test_public_discovery_uses_configured_origin(client, settings):
         assert "noindex" not in html
         data = schemas(response)
         assert data
-        if path == "/for/nonprofits":
+        if path.startswith("/for/"):
             assert len(re.findall(r'<link rel="canonical"', html)) == 1
             assert data[0]["@type"] == "WebPage"
-            assert data[0]["url"] == "https://canonical-site.example/for/nonprofits"
-            assert data[0]["datePublished"] == "2026-10-23"
-            assert data[0]["dateModified"] == "2026-11-02"
+            assert data[0]["url"] == "https://canonical-site.example" + path
+            assert data[0]["datePublished"] == ("2026-10-23" if path == "/for/nonprofits" else "2026-11-06")
+            assert data[0]["dateModified"] == ("2026-11-02" if path == "/for/nonprofits" else "2026-11-06")
+            assert len(re.findall(r"<h1[ >]", html)) == 1
+            assert len(re.search(r"<title>(.*?)</title>", html).group(1)) <= 60
+            assert len(re.search(r'<meta name="description" content="(.*?)"', html).group(1)) <= 155
             breadcrumbs = next(item for item in data if item["@type"] == "BreadcrumbList")
             assert breadcrumbs["itemListElement"][-1]["item"] == data[0]["url"]
     home = client.get("/").content.decode()

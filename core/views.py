@@ -53,6 +53,21 @@ class NonprofitsView(TemplateView):
     template_name = "pages/for_nonprofits.html"
 
 
+class DocumentationView(TemplateView):
+    template_name = "pages/for_documentation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for key, slug in {
+            "content_review_guide": "website-content-review-checklist",
+            "sitemap_guide": "find-your-website-sitemap",
+        }.items():
+            context[key] = BlogPost.objects.filter(
+                slug=slug, status=BlogPostStatus.PUBLISHED
+            ).first()
+        return context
+
+
 class ContentReviewPlannerView(TemplateView):
     template_name = "tools/review_planner.html"
     extra_context = {

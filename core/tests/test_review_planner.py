@@ -54,6 +54,7 @@ def test_public_tool_metadata_and_schema(client, settings, name):
 def test_tools_are_discoverable_without_blog_fixtures(client):
     planner = reverse("content_review_planner")
     nonprofit = reverse("for_nonprofits")
+    documentation = reverse("for_documentation")
     for path in ["/", "/blog", "/tools"]:
         response = client.get(path)
         assert response.status_code == 200
@@ -62,6 +63,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
         assert 'href="/tools"' in html
         if path in {"/", "/tools"}:
             assert f'href="{nonprofit}"' in html
+            assert f'href="{documentation}"' in html
     sitemap = client.get("/sitemap.xml")
     assert sitemap.status_code == 200
     root = ElementTree.fromstring(sitemap.content)
@@ -69,19 +71,20 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     assert sum(url.endswith(planner) for url in locations) == 1
     assert sum(url.endswith("/tools") for url in locations) == 1
     assert sum(url.endswith(nonprofit) for url in locations) == 1
+    assert sum(url.endswith(documentation) for url in locations) == 1
     namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     for entry in root.findall("sm:url", namespace):
-        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, "/")):
+        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, documentation, "/")):
             location = entry.findtext("sm:loc", namespaces=namespace)
             expected = (
                 "2026-11-05" if location.endswith(planner)
-                else "2026-11-01" if location.endswith(("/tools", "/"))
+                else "2026-11-06" if location.endswith(("/tools", documentation, "/"))
                 else "2026-11-02"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
 
 
-@pytest.mark.parametrize("name", ["content_review_planner", "for_nonprofits"])
+@pytest.mark.parametrize("name", ["content_review_planner", "for_nonprofits", "for_documentation"])
 def test_public_page_inputs_are_not_server_state_or_analytics(client, settings, name):
     settings.POSTHOG_API_KEY = "synthetic-project-key"
     settings.SITE_URL = "http://testserver"
@@ -125,7 +128,8 @@ def test_workflow_handoff_only_links_published_comparison(client, status, name):
 
 
 @pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
-def test_result_handoff_only_links_published_review_log(client, status):
+@pytest.mark.parametrize("name", ["content_review_planner", "for_documentation"])
+def test_result_handoff_only_links_published_review_log(client, status, name):
     if status is not None:
         BlogPost.objects.create(
             title="Synthetic private title",
@@ -134,12 +138,12 @@ def test_result_handoff_only_links_published_review_log(client, status):
             tags="",
             status=status,
         )
-    html = client.get(reverse("content_review_planner")).content.decode()
+    html = client.get(reverse(name)).content.decode()
     handoff = "/blog/website-content-review-checklist#download-review-log"
     assert (f'href="{handoff}"' in html) == (status == BlogPostStatus.PUBLISHED)
     assert "Synthetic private title" not in html
     assert "Synthetic private body" not in html
-    if status == BlogPostStatus.PUBLISHED:
+    if status == BlogPostStatus.PUBLISHED and name == "content_review_planner":
         result = html.split('data-review-planner-target="result" hidden>', 1)[1].split("</section>", 1)[0]
         assert f'href="{handoff}"' in result
         assert "optional, work without an account" in result
