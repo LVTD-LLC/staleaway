@@ -59,5 +59,11 @@
   <p>Build a manageable review habit for program details, volunteer information and other public website content.</p>
   <a class="sa-button" href="{% url 'for_nonprofits' %}">Explore nonprofit website content reviews ↗</a>
 </section>
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">For public documentation maintainers</p>
+  <h2>Revisit the instructions<br>people still depend on.</h2>
+  <p>Keep your documentation where it is. Use routine reminders alongside version checks, release work and your own evidence record.</p>
+  <a class="sa-button" href="{% url 'for_documentation' %}">Explore documentation review reminders ↗</a>
+</section>
 <section class="sa-final"><span aria-hidden="true">✳</span><h2>Give your website<br>a little ongoing love.</h2><a class="sa-button sa-button-large" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Get started for free ↗</a></section>
 {% endblock %}

@@ -12,6 +12,7 @@ urlpatterns = [
     path("admin-panel", views.AdminPanelView.as_view(), name="admin_panel"),
     # Public audience workflow
     path("for/nonprofits", views.NonprofitsView.as_view(), name="for_nonprofits"),
+    path("for/documentation", views.DocumentationView.as_view(), name="for_documentation"),
     # Public, client-only planning tools
     path("tools", views.ToolsView.as_view(), name="tools"),
     path(

@@ -42,7 +42,7 @@ def test_sitemap_public_pages_and_full_blog_modification_timestamp(client, setti
     urls = {node.findtext("s:loc", namespaces=ns): node for node in root}
     paths = [url.removeprefix("https://testserver") for url in urls]
     assert sorted(paths) == [
-        "/", "/blog", "/blog/public", "/for/nonprofits", "/tools",
+        "/", "/blog", "/blog/public", "/for/documentation", "/for/nonprofits", "/tools",
         "/tools/content-inventory-compare", "/tools/content-review-planner", "/uses"
     ]
     stamp = urls["https://testserver/blog/public"].findtext("s:lastmod", namespaces=ns)

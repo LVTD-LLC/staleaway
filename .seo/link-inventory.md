@@ -1,5 +1,11 @@
 # Public link inventory
 
+## November 6, 2026 — public documentation fit
+
+- `/for/documentation`: documentation review reminders for existing public help sites; fit/non-fit and a manual version-and-evidence card, not general checklist or release automation.
+- Inbound from `/` and `/tools`; outbound to the published-only checklist/log and sitemap guide, both existing free tools and the real homepage setup workflow.
+- Anchor variants: documentation review reminders; public documentation review workflow. No relevant sibling audience or standalone feature route exists; do not fabricate either.
+
 - `/`: free website content review reminders; product/activation owner.
 - `/blog`: publication hub; no published articles in the 2026-10-09 sitemap.
 - `/uses`: technology transparency and trust, not an acquisition keyword target.

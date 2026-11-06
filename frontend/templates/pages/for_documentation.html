@@ -1,0 +1,110 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>Documentation Review Reminders | Staleaway</title>
+<meta name="description" content="Free documentation review reminders for public help pages. Keep your docs where they are; check product versions and record evidence in your own workflow." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'for_documentation' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Documentation Review Reminders | Staleaway" />
+<meta property="og:description" content="A routine nudge for public documentation, not a release check or a per-page deadline." />
+<meta property="og:url" content="{{ site_url }}{% url 'for_documentation' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Documentation Review Reminders | Staleaway" />
+<meta name="twitter:description" content="A routine nudge for public documentation, not a release check or a per-page deadline." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <span aria-current="page">Public documentation</span></nav>
+  <header class="sa-tool-heading">
+    <p class="sa-eyebrow">Keep your docs. Make time to revisit them.</p>
+    <h1>Documentation review reminders for public help pages</h1>
+    <p>Staleaway sends free email reminders to revisit a few website pages. Use it as a routine nudge for public documentation you already host: add an XML sitemap and choose a daily, weekly or monthly email cadence. Keep release checks, named reviewers and page-specific deadlines in your existing documentation workflow. Staleaway does not detect outdated instructions or verify that a review happened.</p>
+    <p><a href="#docs-fit">Fit</a> · <a href="#docs-review-card">Version-and-evidence card</a> · <a href="#docs-start">Setup</a> · <a href="#docs-limits">Limits</a></p>
+    <p>By Staleaway · Published <time datetime="2026-11-06">November 6, 2026</time></p>
+    <a class="sa-button" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Start free review reminders ↗</a>
+  </header>
+  <article class="sa-tool-copy sa-docs-guide" aria-label="Public documentation reminder fit and setup">
+    <section aria-labelledby="docs-fit">
+      <h2 id="docs-fit">For the maintainer of an existing public docs site</h2>
+      <p>This fits a small team with public tutorials, setup instructions or help articles, someone able to check them, and a working XML sitemap. You do not move the documentation into Staleaway or give it repository access. You still edit, test and publish in your current system. Choose a different workflow for private knowledge bases, mandatory review dates or release approval.</p>
+      <h3>A tutorial still loads, but its instructions no longer work</h3>
+      <p>A reader reaches the end of a setup guide and cannot find the control shown in its screenshot. Opening the page and checking its links would miss the problem. During a manual review, follow the reader's task in an appropriate test environment and compare the interface with the instructions. A reminder brings the page back to your attention; it does not run the tutorial.</p>
+      <h3>The same feature has different answers in supported versions</h3>
+      <p>An older guide can be correct for an older supported release and wrong for today's default. Before changing it, identify the version and audience the page serves. Keep the intended version in your review notes rather than declaring every older page stale. Staleaway does not classify versions, choose the right reference or decide whether to retire a page.</p>
+      <h3>A small wording change looks like a completed review</h3>
+      <p>Fixing a typo updates the document without proving its instructions were checked. Keep a separate record of what you actually verified and what remains uncertain. <a href="https://www.mediawiki.org/wiki/Documentation/Toolkit/Collection_audit/Assess">MediaWiki's documentation-audit toolkit</a> distinguishes edit history from freshness and asks reviewers to examine changed technology names and dependencies. That is a human judgment, not an age-based verdict.</p>
+    </section>
+    <section aria-labelledby="docs-review-card">
+      <h2 id="docs-review-card">Add a version-and-evidence card to your existing review log</h2>
+      <p>Keep one review record, not a second tracker. Staleaway's suggested documentation fields extend your existing review log with a reproducible version reference, test conditions and expected versus observed results. For a continuously deployed product, record the environment, check date and available build identifier; “current” alone will not explain which product you tested later. This is a manual method, not a Staleaway feature, automatic test or compliance record.</p>
+      <p>The complete example below is fictional: URLs, build labels, references and results are teaching details, not a real product test. Replace them and choose safe test conditions before using the fields.</p>
+      <figure>
+        <svg viewBox="0 0 400 318" width="100%" role="img" aria-labelledby="docs-card-title docs-card-desc" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;height:auto;display:block;margin:auto">
+          <title id="docs-card-title">A reminder starts the review, not the evidence record</title>
+          <desc id="docs-card-desc">Choose the intended version and reader task, check the instructions, then record evidence or unresolved work in your own system. Staleaway's proposed manual workflow.</desc>
+          <rect x="4" y="4" width="392" height="306" rx="22" fill="var(--sa-lavender)" />
+          <g fill="currentColor" text-anchor="middle">
+            <text x="200" y="38" font-size="19" font-weight="bold">Routine reminder</text>
+            <text x="200" y="67" font-size="17">Return to a public docs page</text>
+            <text x="200" y="119" font-size="19" font-weight="bold">Version + reader task</text>
+            <text x="200" y="148" font-size="17">Check against the intended product</text>
+            <text x="200" y="200" font-size="19" font-weight="bold">Evidence + next action</text>
+            <text x="200" y="229" font-size="17">Record checked facts or pending work</text>
+            <text x="200" y="286" font-size="14">Staleaway · Manual method · November 2026</text>
+          </g>
+          <g fill="none" stroke="var(--sa-purple)" stroke-width="2"><path d="M200 77v19m-5-5 5 5 5-5"/><path d="M200 158v19m-5-5 5 5 5-5"/></g>
+        </svg>
+        <figcaption>A reminder is a starting signal. Version checks and evidence stay in your own workflow.</figcaption>
+      </figure>
+      <dl>
+        <dt><strong>Public page and intended reader</strong></dt><dd><code>https://docs.example.org/current/export-reports</code>, a fictional “Export a report” guide for a workspace administrator.</dd>
+        <dt><strong>Product reference and test conditions</strong></dt><dd>Demo test environment, build <code>demo-2026-11-04</code>, checked November 6, 2026 with the administrator role. Use one synthetic report containing no customer records. The public guide's “current” URL is not itself a build identifier.</dd>
+        <dt><strong>Task and expected result</strong></dt><dd>From that report, open Actions, choose Export, then choose CSV. Fictional release note RN-24 specifies the columns <code>date,total,currency</code>; expect those three headings followed by the synthetic row <code>2026-11-06,12.34,USD</code>.</dd>
+        <dt><strong>Observed result and evidence reference</strong></dt><dd>Test record TR-17 records a local CSV with those three headings and the row <code>2026-11-06,12.34,USD</code>. The task works, but the guide still says to open the old toolbar and promises <code>total_cents</code>. Keep the test result and release-note reference with the review record; a check mark alone would hide the mismatch.</dd>
+        <dt><strong>Decision and unfinished work</strong></dt><dd>Correct the menu instruction and output description. The replacement screenshot is still awaiting confirmation, so the guide is not fully verified. In the fictional tracker, editor Alex accepts the correction and a November 9 follow-up. Keep that date in your own task system, not in the reminder cadence.</dd>
+        <dt><strong>Next trigger</strong></dt><dd>Check this guide again when export permissions or the output format changes. A known release change needs a direct check; a random reminder cannot enforce it.</dd>
+      </dl>
+      <p>Now consider the fictional <code>/v2/export-reports</code> guide. If supported version 2 still uses the old toolbar and exports <code>total_cents</code>, those instructions can remain correct. Check that version before deciding, and label the guide's audience clearly. Copying the current-version correction into both guides would introduce an error. If you cannot access version 2, record its check as unresolved; no test is not a pass.</p>
+      <p>Use {% if content_review_guide %}the <a href="{{ content_review_guide.get_absolute_url }}#download-review-log">content review log</a>{% else %}your own review log{% endif %} as the starting record, adding the version, environment and expected/observed fields there. Do not maintain two competing completion statuses. These documentation-specific fields extend the general checklist; they do not replace your release process.</p>
+    </section>
+    <section aria-labelledby="docs-start">
+      <h2 id="docs-start">Set up a routine prompt without moving your documentation</h2>
+      <h3>1. Choose a public review scope</h3>
+      <p>{% if sitemap_guide %}<a href="{{ sitemap_guide.get_absolute_url }}">Find the XML sitemap</a>{% else %}Find the XML sitemap{% endif %} for the public documentation you intend to revisit. Inspect its page URLs: a site-wide sitemap may include marketing pages, translations or old-version guides you did not mean to review. Staleaway does not filter those by version. Do not add private workspace links, preview tokens, credentials or internal runbooks.</p>
+      <h3>2. Check what was actually imported</h3>
+      <p>Adding a sitemap starts background import; it does not prove that every intended page arrived. Compare the resulting list with your chosen public scope. The browser-only <a href="{% url 'content_inventory_compare' %}">content inventory comparison tool</a> can compare three lists you paste manually. It compares exact URL strings, not product versions, page accuracy or indexing status.</p>
+      <h3>3. Reserve time for a real check</h3>
+      <p>Use the <a href="{% url 'content_review_planner' %}">content review workload planner</a> with your own time estimate. A short FAQ and a tutorial that needs a test environment are different workloads. Plan them separately and allow additional time for corrections. The estimate assumes you choose distinct pages; it does not predict the random pages a reminder will select.</p>
+      <h3>4. Keep release work on its own path</h3>
+      <p>Choose the email cadence and pages per email for a manageable routine nudge using Staleaway's <a href="{% url 'landing_page' %}#how-it-works">sitemap-to-email workflow</a>. Selection is random among eligible unreviewed pages, not a release-impact analysis or a guarantee of repeated coverage. When you know a feature changed, check affected docs directly and track the work where your team handles releases.</p>
+    </section>
+    <section aria-labelledby="docs-limits">
+      <h2 id="docs-limits">Choose a docs-platform workflow when you need more than a nudge</h2>
+      <p>If your current platform already supports assigned reviewers, due dates or stale-article queues, evaluate that workflow before adding a separate reminder. For example, <a href="https://docs.document360.com/docs/review-reminders">Document360 documents article review reminders</a> with scheduled intervals and assigned reviewers. This is a vendor-documented capability checked on November 6, 2026, not a feature or performance comparison we tested.</p>
+      <p>Staleaway does not host documentation, read Git changes, inspect release notes, test commands, assign reviewers, approve edits or certify content as current. It is not a Confluence, GitHub or docs-platform integration. Use it only when a separate prompt to revisit public pages is useful alongside the workflow you already trust.</p>
+      <h3>Can Staleaway review private documentation?</h3>
+      <p>This workflow is for public website pages. Do not provide private wiki links, credentials or signed preview URLs. Staleaway does not connect to a private documentation workspace or inherit its access controls.</p>
+      <h3>Will each guide be reviewed before our release?</h3>
+      <p>No. A reminder cadence is not a deadline for a particular page. Keep the release checklist, affected-page list, responsible reviewers and required dates in your release or task system.</p>
+      <h3>Does opening the review link mean the instructions passed?</h3>
+      <p>No. Opening the owning account's review link marks the page reviewed and redirects to it. That records a product action, not a reproduced task, verified version, published correction or completed human review. Keep this evidence in your existing review log, separate from Staleaway’s reviewed status.</p>
+      <h3>Can teammates independently approve a guide?</h3>
+      <p>No. Staleaway has no team assignment or approval workflow. Review links belong to the owning account. Teammates can check facts and record their decisions in your existing system; receiving an email does not grant account access.</p>
+    </section>
+    <section aria-labelledby="docs-basis">
+      <h2 id="docs-basis">What this approach is based on</h2>
+      <p>The documentation-specific checks above build on <a href="https://www.mediawiki.org/wiki/Documentation/Toolkit/Collection_audit/Assess">MediaWiki's public audit guidance</a> about freshness, audience and technology dependencies. The version-and-evidence card is Staleaway's proposed working method, not research about customer outcomes. Product boundaries were checked against the <a href="https://github.com/LVTD-LLC/staleaway/tree/7d936206c049871e7eca5c666a02c97fc349b332">Staleaway source</a> on November 6, 2026; no customer account, import or reminder delivery was tested for this page.</p>
+      <p>Want a routine prompt, with those limits understood? <a href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Set up free review reminders</a>. All features are currently free. Keep editing and verifying your documentation in the system you already use.</p>
+    </section>
+  </article>
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Documentation review reminders for public help pages","url":"{{ site_url|escapejs }}{% url 'for_documentation' %}","description":"Free documentation review reminders for public help pages. Keep your docs where they are; check product versions and record evidence in your own workflow.","datePublished":"2026-11-06","dateModified":"2026-11-06","author":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Public documentation","item":"{{ site_url|escapejs }}{% url 'for_documentation' %}"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Staleaway","url":"{{ site_url|escapejs }}/","applicationCategory":"ProductivityApplication","operatingSystem":"Web","description":"Scheduled email reminders for human website content reviews.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Staleaway review private documentation?","acceptedAnswer":{"@type":"Answer","text":"This workflow is for public website pages. Do not provide private wiki links, credentials or signed preview URLs. Staleaway does not connect to a private documentation workspace or inherit its access controls."}},{"@type":"Question","name":"Will each guide be reviewed before our release?","acceptedAnswer":{"@type":"Answer","text":"No. A reminder cadence is not a deadline for a particular page. Keep the release checklist, affected-page list, responsible reviewers and required dates in your release or task system."}},{"@type":"Question","name":"Does opening the review link mean the instructions passed?","acceptedAnswer":{"@type":"Answer","text":"No. Opening the owning account's review link marks the page reviewed and redirects to it. That records a product action, not a reproduced task, verified version, published correction or completed human review. Keep this evidence in your existing review log, separate from Staleaway’s reviewed status."}},{"@type":"Question","name":"Can teammates independently approve a guide?","acceptedAnswer":{"@type":"Answer","text":"No. Staleaway has no team assignment or approval workflow. Review links belong to the owning account. Teammates can check facts and record their decisions in your existing system; receiving an email does not grant account access."}}]}</script>
+{% endblock %}

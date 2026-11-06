@@ -1,3 +1,9 @@
+# 2026-11-06 — Public documentation review reminder fit
+
+- Add a source-backed documentation fit page with a fictional version-and-evidence card, public-only setup, and explicit release-review, approval and per-page deadline limits.
+- Link it from the homepage and tools hub, include its content date in the sitemap, and retain canonical-only anonymous measurement with private-route exclusions.
+- Preserve reminder behavior, customer records, free access, existing tool calculations and all earlier content publication dates.
+
 # 2026-11-05 — Choose a review scope before estimating workload
 
 - Link the planner's page-count step to the existing inventory comparison tool. Explain that the chosen review list, not the three-list combined total, supplies the workload count.

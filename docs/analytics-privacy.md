@@ -3,7 +3,8 @@
 As of 2026-10-10, browser measurement includes an explicit PostHog `$pageview` on
 successful anonymous public pages only: homepage, blog index, technology page,
 published articles, and (from 2026-10-15) the free tools hub and content review
-planner. From 2026-11-01, the canonical content inventory comparison page is also
+planner. From 2026-11-06, the public documentation fit page is also allowlisted, with the
+same canonical-only pageview and signup-intent boundaries. From 2026-11-01, the canonical content inventory comparison page is also
 allowlisted. Its pasted lists, membership flags, counts, result rows and exports
 never enter analytics; it adds no tool-use event. Comparison code makes no
 network or storage calls and never reads URL parameters. Planner inputs and outputs stay in the browser; no tool-use events or
