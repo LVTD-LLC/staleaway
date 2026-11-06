@@ -4,7 +4,7 @@ Intent owner: `/for/documentation` — documentation review reminders for an exi
 
 ## Contribution
 
-Give maintainers a concrete fit/non-fit decision and a fictional version-and-evidence card: identify the supported version and reader task, reproduce it safely, then record evidence or pending work in the existing tracker. An unchanged older-version page can be correct; a recent edit or opened review link is not verification. This is a proposed manual method, not customer research or a product feature.
+Give maintainers a concrete fit/non-fit decision and documentation-specific fields for the existing review log, not a second tracker. The fictional worked example names a docs-version URL, test build/environment/date/role, exact task, expected/observed CSV headings and synthetic row, evidence references, accepted editing action and unresolved screenshot. The current-version correction would make its supported-version-2 sibling wrong. Generic safe reproduction and the fact that old pages can be correct already appear in the checklist; the new contribution is this reproducible paired-version decision, not renaming those ideas. This is a proposed manual method, not customer research or a product feature.
 
 ## Public sources checked November 6, 2026
 
