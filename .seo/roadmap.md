@@ -8,4 +8,4 @@
 
 ## November 6, 2026 — public documentation fit
 
-One `/for/documentation` page, separate from general checklist/cadence and nonprofit continuity. Proposed manual version-and-evidence card; explicit public-only, random-selection, no release deadline or approval/integration guarantees. Homepage and tools-hub inbound links. Implementation prepared; CI, critic review and live verification required before treating this phase as shipped. Private run: `staleaway:daily-seo:2026-11-06` in the configured Rowset dataset.
+One `/for/documentation` page, separate from general checklist/cadence and nonprofit continuity. Proposed manual version-and-evidence fields extend the existing review log; explicit public-only, random-selection, no release deadline or approval/integration guarantees. Homepage and tools-hub inbound links. Implementation: PR53. Content/code verification is recorded in `runs/2026-11-06-documentation-fit.md`; read the publication/deployment lifecycle from private run `staleaway:daily-seo:2026-11-06` in the configured Rowset dataset, rather than inferring live status from this plan or a merged PR.
