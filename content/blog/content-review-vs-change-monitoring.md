@@ -110,6 +110,8 @@ Use one external document or task record for the resulting decision. Copy this r
 
 This record is a suggested method for your own document, not a feature that Staleaway fills in. Use the [free workload planner](/tools/content-review-planner) to choose a manual review batch that fits your available time. Its estimate is not a promise of reminder coverage or completion.
 
+Reviewing public software docs? Use the [version-and-task review example](/for/documentation#docs-review-card) to extend that same record, not start a second log. It separates expected and observed results for each supported version; a correction for the current release may be wrong for an older one.
+
 <h2 id="review-date-vs-expiry">Review date vs expiry date: choose the action first</h2>
 
 A content review date asks for an editorial check. An expiry date can change what is published, depending on the CMS and its configuration. Before setting either, decide whether you want someone to inspect the content or whether you have already agreed what must happen to it. Read your CMS’s field description; the label alone is not enough.

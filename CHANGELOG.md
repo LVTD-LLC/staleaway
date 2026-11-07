@@ -1,3 +1,8 @@
+# 2026-11-07 — Documentation example from the workflow guide
+
+- Link the review-versus-monitoring guide's existing decision record to the public documentation version-and-task example, so readers can record checks for supported versions without starting a second log.
+- Preserve the article's title, description and original publication date, the documentation page's content date, and all reminder, analytics and free-access behavior. Publish the article update through the existing guarded manifest transition.
+
 # 2026-11-06 — Public documentation review reminder fit
 
 - Add a source-backed documentation fit page with a fictional version-and-evidence card, public-only setup, and explicit release-review, approval and per-page deadline limits.

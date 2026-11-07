@@ -5,6 +5,6 @@
   "description": "Choose content review reminders, website change monitoring or both. Includes a decision framework, honest tradeoffs and a copyable review record.",
   "tags": "content review, website monitoring, website maintenance",
   "author": "Staleaway",
-  "content_sha256": "3d525bd0df38dcf30b5d808f9306674c14ba130a4e48ebe502e91310bb53647e",
-  "expected_previous_sha256": "49d2653bce100af71a65fbe2b48f38bd321c696ae2744a1072c894f768eaefe8"
+  "content_sha256": "b1ce68cc30f9a1833e52e35adf80005da24dc01614e623072d0bc03a066ef406",
+  "expected_previous_sha256": "52e614eac4247b94c9051a007ce39fc7feaa2b29f3c81fbbf6146bfb8b72b6a7"
 }
