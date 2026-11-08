@@ -1,0 +1,105 @@
+{% extends 'base_landing.html' %}
+{% load static %}
+{% block meta %}
+<title>WordPress Content Review Reminders | Staleaway</title>
+<meta name="description" content="Use external WordPress content review reminders for public pages. Check sitemap scope, make corrections in WordPress and verify the live result." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{ site_url }}{% url 'for_wordpress' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="WordPress Content Review Reminders | Staleaway" />
+<meta property="og:description" content="A public-page review habit without another WordPress plugin. Keep editing, approvals and page-specific deadlines in your own workflow." />
+<meta property="og:url" content="{{ site_url }}{% url 'for_wordpress' %}" />
+<meta property="og:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="WordPress Content Review Reminders | Staleaway" />
+<meta name="twitter:description" content="A public-page review habit without another WordPress plugin. Keep editing, approvals and page-specific deadlines in your own workflow." />
+<meta name="twitter:image" content="{{ site_url }}{% static 'vendors/images/logo.png' %}" />
+{% endblock %}
+{% block content %}
+<div class="sa-tool-page sa-shell">
+  <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <span aria-current="page">For WordPress editors</span></nav>
+  <header class="sa-tool-heading">
+    <p class="sa-eyebrow">Keep editing in WordPress</p>
+    <h1>WordPress content review reminders, without another plugin</h1>
+    <p>Staleaway can email you a few public WordPress pages to revisit. Add an XML sitemap and choose a reminder cadence; you do not install a WordPress plugin or connect an administrator account. Use it for a routine human review habit. If each page needs its own reviewer, deadline or approval record, evaluate a WordPress editorial workflow instead.</p>
+    <p><a href="#wordpress-fit">Choose the workflow</a> · <a href="#wordpress-scope">Check public scope</a> · <a href="#wordpress-correction">Work through a correction</a> · <a href="#wordpress-questions">Questions and limits</a></p>
+    <p>By Staleaway · Published and checked <time datetime="2026-11-08">November 8, 2026</time></p>
+    <a class="sa-button" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Start free review reminders ↗</a>
+  </header>
+  <article class="sa-tool-copy" aria-label="WordPress reminder fit and published-page correction">
+    <section aria-labelledby="wordpress-fit">
+      <h2 id="wordpress-fit">Choose the reminder layer before adding a tool</h2>
+      <p>This approach fits an editor who can already update a small WordPress site but forgets to return to older service pages or posts. A page can still say “Published” while describing an offer that has changed. The useful prompt is to check that claim against a current source, not to republish the page merely to give it a newer date.</p>
+      <p>Staleaway supplies the external email prompt. It does not connect to your WordPress database, inspect revisions or write changes. You still need permission and your normal WordPress access to edit. Keep any required approvals in the site's existing publishing process.</p>
+      <h3 id="native-wordpress-review">When a native WordPress review workflow is the better fit</h3>
+      <p>WordPress content-review plugins already exist. <a href="https://wordpress.org/plugins/evosolve-content-review/">Evosolve Content Review's directory documentation</a>, for example, describes owners, per-item due dates, review notes and an activity log. <a href="https://wordpress.org/plugins/content-reminder/">Content Reminder documents</a> review intervals and editor-side review actions. These are publisher-described capabilities checked November 8, 2026, not plugins Staleaway has installed or tested.</p>
+      <ul>
+        <li><strong>Choose an in-CMS workflow for named responsibility.</strong> If a subject expert must accept a particular page and an editor must approve its correction, evaluate tools that keep those roles and records together. Adding an email recipient in Staleaway does not assign ownership or grant WordPress access.</li>
+        <li><strong>Keep page-specific dates in a system that enforces them.</strong> A required annual check or an appointment-policy launch needs an explicit page list and follow-up. Staleaway randomly selects eligible unreviewed pages; a weekly email does not guarantee that a particular page appears next week.</li>
+        <li><strong>Keep evidence with the work.</strong> If reviewers need searchable notes, decisions and approval history beside WordPress content, check a native tool against those requirements. Staleaway's reviewed status is not a substitute for that record. A separate email habit is useful only if it reduces forgetting without creating competing completion records.</li>
+      </ul>
+    </section>
+    <section aria-labelledby="wordpress-scope">
+      <h2 id="wordpress-scope">Start with the public pages you intend to revisit</h2>
+      <p><a href="https://make.wordpress.org/core/2020/07/22/new-xml-sitemaps-functionality-in-wordpress-5-5/">WordPress core documents a default sitemap index at <code>/wp-sitemap.xml</code></a>. Its scope can include posts, pages, taxonomy archives and author archives. Site settings, filters or SEO plugins can change what is available. Do not assume every entry is an individual page you meant to review.</p>
+      <ol>
+        <li><strong>Inspect the sitemap's page entries.</strong> Choose the relevant public Posts or Pages child sitemap when appropriate, and check its URLs. {% if sitemap_guide %}Use the <a href="{{ sitemap_guide.get_absolute_url }}">sitemap-finding guide</a> for addresses, index handling and import preparation.{% else %}Use your site's existing sitemap guidance to find its XML address.{% endif %} Do not send WordPress credentials, draft previews or private links.</li>
+        <li><strong>Compare the imported list with your intended scope.</strong> Adding the sitemap starts background import, not proof that every page arrived. Use the <a href="{% url 'content_inventory_compare' %}">three-list inventory comparison</a> for public URLs you collect manually. It checks exact membership, not whether a WordPress page is accurate or should be indexed.</li>
+        <li><strong>Reserve time for a real check.</strong> Estimate a manageable batch with the <a href="{% url 'content_review_planner' %}">content review workload planner</a>, then choose Staleaway's daily, weekly or monthly email settings and pages per email. The estimate is your manual plan, not a forecast of reminder selection.</li>
+      </ol>
+      <p>A public sitemap is not your complete WordPress editorial inventory. Drafts, private material or excluded pages may not be represented. Keep their reviews in an appropriate protected workflow. Known errors need direct action now, without waiting for a routine reminder.</p>
+    </section>
+    <section aria-labelledby="wordpress-correction">
+      <h2 id="wordpress-correction">From a public finding to a checked WordPress correction</h2>
+      <p>The following example is fictional, including the business, URL, source reference and result. It demonstrates Staleaway's suggested manual method, not an automated check or a customer outcome. Extend {% if content_review_guide %}the existing <a href="{{ content_review_guide.get_absolute_url }}#download-review-log">content review log</a>{% else %}your existing review log{% endif %}; do not start a second status record.</p>
+      <figure>
+        <svg viewBox="0 0 400 320" width="100%" role="img" aria-labelledby="wordpress-correction-title wordpress-correction-desc" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;height:auto;display:block;margin:auto">
+          <title id="wordpress-correction-title">A correction ends with a public-page check</title>
+          <desc id="wordpress-correction-desc">Read the public page and confirm the finding, update the matching published WordPress item through its approved workflow, then verify the public result while logged out. A Staleaway review-link opening alone does not complete these checks.</desc>
+          <rect x="4" y="4" width="392" height="308" rx="22" fill="var(--sa-lavender)" />
+          <g fill="currentColor" text-anchor="middle">
+            <text x="200" y="38" font-size="22" font-weight="bold">Read the public page</text>
+            <text x="200" y="66" font-size="18">Confirm the claim and source</text>
+            <text x="200" y="121" font-size="22" font-weight="bold">Update the matching item</text>
+            <text x="200" y="149" font-size="18">Keep WordPress approvals in place</text>
+            <text x="200" y="204" font-size="22" font-weight="bold">Check the public result</text>
+            <text x="200" y="232" font-size="18">Logged out, not only in preview</text>
+            <text x="200" y="286" font-size="16">Staleaway · Manual method · November 2026</text>
+          </g>
+          <g fill="none" stroke="var(--sa-purple)" stroke-width="2"><path d="M200 77v20m-5-5 5 5 5-5"/><path d="M200 160v20m-5-5 5 5 5-5"/></g>
+        </svg>
+        <figcaption>The review record stays open until the correction is visible and checked on the public page.</figcaption>
+      </figure>
+      <h3>1. Find the disagreement on the published page</h3>
+      <p>A reminder opens <code>https://example.org/services/bike-repair/</code>, a fictional published WordPress Page. It promises walk-in repairs. The approved operating note, reference OPS-12, now says appointments are required. Record the public URL, the conflicting wording and that reference in the same review log. Opening the owning account's Staleaway review link already marks the page reviewed before redirecting; it has not corrected the claim.</p>
+      <h3>2. Correct the matching WordPress item</h3>
+      <p>An authorized editor finds the existing Page in WordPress and confirms that its public permalink matches the recorded URL. The editor replaces the walk-in instruction and points the appointment link to the approved booking page, using the site's normal save, update and approval process. WordPress's <a href="https://wordpress.org/documentation/article/pages-screen/">Pages screen documentation</a> describes editing an existing Page and saving it with Update; the controls available on your site depend on its editor and permissions. Do not change the slug, publication date or status merely to make the content look fresh.</p>
+      <h3>3. Verify what a visitor can see</h3>
+      <p>Reopen the recorded public URL while logged out. Confirm that the appointment requirement is visible and that the visitor-facing link reaches the intended booking page, without making a test booking. An editor preview is not enough. If approval is pending or the public page still shows the old instruction, leave the correction unresolved and follow up through the site's publishing process.</p>
+      <p>In this fictional example, the public wording and destination are confirmed after publication. Only then does the manual log say “correction verified,” with its check date and evidence. Keep any remaining question open. Use {% if content_review_guide %}the <a href="{{ content_review_guide.get_absolute_url }}#owner-handoff">owner-handoff fields</a>{% else %}your existing handoff process{% endif %} if a different editor must finish it. For a WordPress documentation site, the <a href="{% url 'for_documentation' %}#docs-review-card">version-and-task example</a> adds checks for instructions that differ between supported product versions.</p>
+    </section>
+    <section aria-labelledby="wordpress-questions">
+      <h2 id="wordpress-questions">Questions and limits</h2>
+      <h3>Is Staleaway a WordPress plugin?</h3>
+      <p>No. Staleaway is a separate web app that accepts a public XML sitemap and sends review reminders. It does not log in to WordPress, edit posts or install code on your site. You still need your normal authorized access to make corrections.</p>
+      <h3>Will every WordPress page be reviewed each month?</h3>
+      <p>No. Sitemap scope and the actual import determine which pages are available. Reminder selection is random among eligible unreviewed pages; a monthly cadence is not a full-site review cycle or a per-page deadline.</p>
+      <h3>Does opening a reminder confirm that the page is accurate?</h3>
+      <p>No. Opening the owning account's review link marks the page reviewed and redirects to it. That action does not verify the facts, publish a WordPress correction or establish a completed human review. Keep evidence and unresolved work in your own review record.</p>
+      <h3>Does this replace WordPress updates, backups or security checks?</h3>
+      <p>No. This is a content-review reminder workflow, not WordPress maintenance or security monitoring. Keep software updates, backups, access management and other technical checks in your existing maintenance process.</p>
+    </section>
+    <section aria-labelledby="wordpress-basis">
+      <h2 id="wordpress-basis">What was checked for this approach</h2>
+      <p>WordPress and plugin documentation linked above was checked November 8, 2026. Product boundaries were checked against the <a href="https://github.com/LVTD-LLC/staleaway/tree/c4042ffd3f48c77b8a666b8ab7471ecf058b0f00">Staleaway source</a>. The correction example is a proposed method, not a tested WordPress integration. No customer account, WordPress installation, import or reminder delivery was tested for this page.</p>
+      <p>If a separate prompt to revisit public pages fits, <a href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">set up free review reminders</a>. All features are currently free. Keep page-specific commitments and publishing decisions in the workflow that already owns them.</p>
+    </section>
+  </article>
+</div>
+{% endblock %}
+{% block schema %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"WordPress content review reminders, without another plugin","url":"{{ site_url|escapejs }}{% url 'for_wordpress' %}","description":"Use external WordPress content review reminders for public pages. Check sitemap scope, make corrections in WordPress and verify the live result.","datePublished":"2026-11-08","dateModified":"2026-11-08","author":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"For WordPress editors","item":"{{ site_url|escapejs }}{% url 'for_wordpress' %}"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Staleaway","url":"{{ site_url|escapejs }}/","applicationCategory":"ProductivityApplication","operatingSystem":"Web","description":"Scheduled email reminders for human website content reviews.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Staleaway a WordPress plugin?","acceptedAnswer":{"@type":"Answer","text":"No. Staleaway is a separate web app that accepts a public XML sitemap and sends review reminders. It does not log in to WordPress, edit posts or install code on your site. You still need your normal authorized access to make corrections."}},{"@type":"Question","name":"Will every WordPress page be reviewed each month?","acceptedAnswer":{"@type":"Answer","text":"No. Sitemap scope and the actual import determine which pages are available. Reminder selection is random among eligible unreviewed pages; a monthly cadence is not a full-site review cycle or a per-page deadline."}},{"@type":"Question","name":"Does opening a reminder confirm that the page is accurate?","acceptedAnswer":{"@type":"Answer","text":"No. Opening the owning account's review link marks the page reviewed and redirects to it. That action does not verify the facts, publish a WordPress correction or establish a completed human review. Keep evidence and unresolved work in your own review record."}},{"@type":"Question","name":"Does this replace WordPress updates, backups or security checks?","acceptedAnswer":{"@type":"Answer","text":"No. This is a content-review reminder workflow, not WordPress maintenance or security monitoring. Keep software updates, backups, access management and other technical checks in your existing maintenance process."}}]}</script>
+{% endblock %}

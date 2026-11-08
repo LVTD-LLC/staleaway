@@ -22,7 +22,7 @@ def schemas(response):
 
 def test_public_discovery_uses_configured_origin(client, settings):
     settings.SITE_URL = "https://canonical-site.example/"
-    for path in ("/", "/blog", "/uses", "/for/nonprofits", "/for/documentation"):
+    for path in ("/", "/blog", "/uses", "/for/nonprofits", "/for/documentation", "/for/wordpress"):
         response = client.get(path)
         assert response.status_code == 200
         html = response.content.decode()
@@ -37,8 +37,13 @@ def test_public_discovery_uses_configured_origin(client, settings):
             assert len(re.findall(r'<link rel="canonical"', html)) == 1
             assert data[0]["@type"] == "WebPage"
             assert data[0]["url"] == "https://canonical-site.example" + path
-            assert data[0]["datePublished"] == ("2026-10-23" if path == "/for/nonprofits" else "2026-11-06")
-            assert data[0]["dateModified"] == ("2026-11-02" if path == "/for/nonprofits" else "2026-11-06")
+            published, modified = {
+                "/for/nonprofits": ("2026-10-23", "2026-11-02"),
+                "/for/documentation": ("2026-11-06", "2026-11-06"),
+                "/for/wordpress": ("2026-11-08", "2026-11-08"),
+            }[path]
+            assert data[0]["datePublished"] == published
+            assert data[0]["dateModified"] == modified
             assert len(re.findall(r"<h1[ >]", html)) == 1
             assert len(re.search(r"<title>(.*?)</title>", html).group(1)) <= 60
             assert len(re.search(r'<meta name="description" content="(.*?)"', html).group(1)) <= 155

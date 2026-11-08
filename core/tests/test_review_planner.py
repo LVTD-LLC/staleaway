@@ -55,6 +55,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     planner = reverse("content_review_planner")
     nonprofit = reverse("for_nonprofits")
     documentation = reverse("for_documentation")
+    wordpress = reverse("for_wordpress")
     for path in ["/", "/blog", "/tools"]:
         response = client.get(path)
         assert response.status_code == 200
@@ -64,6 +65,7 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
         if path in {"/", "/tools"}:
             assert f'href="{nonprofit}"' in html
             assert f'href="{documentation}"' in html
+            assert f'href="{wordpress}"' in html
     sitemap = client.get("/sitemap.xml")
     assert sitemap.status_code == 200
     root = ElementTree.fromstring(sitemap.content)
@@ -72,19 +74,21 @@ def test_tools_are_discoverable_without_blog_fixtures(client):
     assert sum(url.endswith("/tools") for url in locations) == 1
     assert sum(url.endswith(nonprofit) for url in locations) == 1
     assert sum(url.endswith(documentation) for url in locations) == 1
+    assert sum(url.endswith(wordpress) for url in locations) == 1
     namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     for entry in root.findall("sm:url", namespace):
-        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, documentation, "/")):
+        if entry.findtext("sm:loc", namespaces=namespace).endswith((planner, "/tools", nonprofit, documentation, wordpress, "/")):
             location = entry.findtext("sm:loc", namespaces=namespace)
             expected = (
                 "2026-11-05" if location.endswith(planner)
-                else "2026-11-06" if location.endswith(("/tools", documentation, "/"))
+                else "2026-11-08" if location.endswith(("/tools", wordpress, "/"))
+                else "2026-11-06" if location.endswith(documentation)
                 else "2026-11-02"
             )
             assert entry.findtext("sm:lastmod", namespaces=namespace) == expected
 
 
-@pytest.mark.parametrize("name", ["content_review_planner", "for_nonprofits", "for_documentation"])
+@pytest.mark.parametrize("name", ["content_review_planner", "for_nonprofits", "for_documentation", "for_wordpress"])
 def test_public_page_inputs_are_not_server_state_or_analytics(client, settings, name):
     settings.POSTHOG_API_KEY = "synthetic-project-key"
     settings.SITE_URL = "http://testserver"
@@ -128,7 +132,7 @@ def test_workflow_handoff_only_links_published_comparison(client, status, name):
 
 
 @pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
-@pytest.mark.parametrize("name", ["content_review_planner", "for_documentation"])
+@pytest.mark.parametrize("name", ["content_review_planner", "for_documentation", "for_wordpress"])
 def test_result_handoff_only_links_published_review_log(client, status, name):
     if status is not None:
         BlogPost.objects.create(

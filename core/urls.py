@@ -13,6 +13,7 @@ urlpatterns = [
     # Public audience workflow
     path("for/nonprofits", views.NonprofitsView.as_view(), name="for_nonprofits"),
     path("for/documentation", views.DocumentationView.as_view(), name="for_documentation"),
+    path("for/wordpress", views.WordPressView.as_view(), name="for_wordpress"),
     # Public, client-only planning tools
     path("tools", views.ToolsView.as_view(), name="tools"),
     path(

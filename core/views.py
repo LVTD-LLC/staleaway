@@ -68,6 +68,10 @@ class DocumentationView(TemplateView):
         return context
 
 
+class WordPressView(DocumentationView):
+    template_name = "pages/for_wordpress.html"
+
+
 class ContentReviewPlannerView(TemplateView):
     template_name = "tools/review_planner.html"
     extra_context = {

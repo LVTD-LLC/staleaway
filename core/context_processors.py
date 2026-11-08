@@ -38,6 +38,7 @@ def posthog_api_key(request):
             "content_inventory_compare",
             "for_nonprofits",
             "for_documentation",
+            "for_wordpress",
         }:
             path = reverse(name)
         elif name == "blog_post" and BlogPost.objects.filter(
