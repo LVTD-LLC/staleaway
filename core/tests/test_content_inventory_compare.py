@@ -64,7 +64,7 @@ def test_inventory_discovery_and_precise_sitemap_dates(client):
     }
     assert sum(url.endswith(path) for url in entries) == 1
     for suffix in [path, "/tools", "/"]:
-        expected = "2026-11-01" if suffix == path else "2026-11-06"
+        expected = "2026-11-01" if suffix == path else "2026-11-08"
         assert next(value for url, value in entries.items() if url.endswith(suffix)) == expected
     assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-11-05"
 
