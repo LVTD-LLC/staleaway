@@ -65,5 +65,11 @@
   <p>Keep your documentation where it is. Use routine reminders alongside version checks, release work and your own evidence record.</p>
   <a class="sa-button" href="{% url 'for_documentation' %}">Explore documentation review reminders ↗</a>
 </section>
+<section class="sa-editorial sa-shell">
+  <p class="sa-eyebrow">For WordPress editors</p>
+  <h2>Revisit your public posts.<br>Keep editing in WordPress.</h2>
+  <p>Use a selected public sitemap for a routine email nudge. Compare that lightweight habit with in-CMS owners, review dates and notes before adding another workflow.</p>
+  <a class="sa-button" href="{% url 'for_wordpress' %}">Explore WordPress content review reminders ↗</a>
+</section>
 <section class="sa-final"><span aria-hidden="true">✳</span><h2>Give your website<br>a little ongoing love.</h2><a class="sa-button sa-button-large" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'account_signup' %}{% endif %}">Get started for free ↗</a></section>
 {% endblock %}

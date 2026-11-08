@@ -64,7 +64,7 @@ def test_inventory_discovery_and_precise_sitemap_dates(client):
     }
     assert sum(url.endswith(path) for url in entries) == 1
     for suffix in [path, "/tools", "/"]:
-        expected = "2026-11-01" if suffix == path else "2026-11-06"
+        expected = "2026-11-01" if suffix == path else "2026-11-08"
         assert next(value for url, value in entries.items() if url.endswith(suffix)) == expected
     assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-11-05"
 
@@ -93,7 +93,7 @@ def test_inventory_never_receives_or_persists_comparison_values(client, settings
 
 
 @pytest.mark.parametrize("status", [None, BlogPostStatus.DRAFT, BlogPostStatus.PUBLISHED])
-@pytest.mark.parametrize("name", ["content_inventory_compare", "for_documentation"])
+@pytest.mark.parametrize("name", ["content_inventory_compare", "for_documentation", "for_wordpress"])
 def test_inventory_links_only_published_guides(client, status, name):
     slugs = ["find-your-website-sitemap", "website-content-review-checklist"]
     if status is not None:

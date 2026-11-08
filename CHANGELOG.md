@@ -1,3 +1,9 @@
+# 2026-11-08 — WordPress public-page review reminder fit
+
+- Add a source-backed WordPress fit page distinguishing external public-page reminders from native ownership, deadlines and review records.
+- Show a fictional public-permalink → authorized WordPress correction → logged-out live verification path, extending the existing review log rather than adding a second tracker.
+- Link the page from the homepage and tools hub; include content dates, schema and canonical-only anonymous measurement while preserving private boundaries, reminder behavior and free access.
+
 # 2026-11-07 — Documentation example from the workflow guide
 
 - Link the review-versus-monitoring guide's existing decision record to the public documentation version-and-task example, so readers can record checks for supported versions without starting a second log.
