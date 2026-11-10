@@ -1,3 +1,8 @@
+# 2026-11-10 — WordPress review choice from the sitemap guide
+
+- Link the sitemap guide's WordPress section to the existing reminder-fit guide, including the choice between an external email habit and native owners, dates and review records.
+- Preserve the article's title, description and original publication date, the WordPress page's content date, and all reminder, analytics and free-access behavior. Publish through the guarded content-manifest transition.
+
 # 2026-11-08 — WordPress public-page review reminder fit
 
 - Add a source-backed WordPress fit page distinguishing external public-page reminders from native ownership, deadlines and review records.

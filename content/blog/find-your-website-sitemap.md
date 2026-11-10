@@ -26,6 +26,8 @@ Still nothing? Use the CMS or SEO plugin’s own settings. They are a better sou
 
 **WordPress with Yoast SEO:** open Yoast SEO → Settings → Site features. Under Technical SEO, find XML sitemaps and use **View the XML sitemap**. [Yoast’s instructions](https://yoast.com/help/xml-sitemaps-in-the-wordpress-seo-plugin/) show that route. Its usual index is `/sitemap_index.xml`; following the settings link avoids confusion when another address redirects there.
 
+Found your WordPress sitemap and want to revisit its pages regularly? See [WordPress content review reminders](/for/wordpress#wordpress-fit) before choosing a tool. The guide separates a public-page email habit from native WordPress review workflows with owners, due dates and review records. It also shows how to check a correction on the original public page after editing in WordPress.
+
 **Shopify:** open `/sitemap.xml` at your store’s domain. [Shopify generates this file](https://help.shopify.com/en/manual/promoting-marketing/seo/find-site-map) and links separate sitemaps for content such as products, collections, pages and blog posts. A password-protected or private store may prevent access. Do not remove privacy controls merely to make an import work.
 
 **Webflow:** check `/sitemap.xml`. If it is missing, inspect Site settings → SEO → Sitemap. [Webflow’s auto-generation instructions](https://help.webflow.com/hc/en-us/articles/33961355371667-Create-a-sitemap-in-Webflow) require enabling the setting, saving and publishing; a project may instead use a custom sitemap. Check with whoever maintains the site before changing that configuration.
