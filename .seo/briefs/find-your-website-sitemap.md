@@ -11,3 +11,11 @@ Publish via existing reviewed Markdown/manifest workflow. Existing publisher col
 Verification: Docker-backed repository CI, public fixture preview, independent editorial/factual critique, mobile/desktop render in both color preferences, source and link checks, followed by deployment and actual live checks. No production signup/email tests or outreach.
 
 Private evidence and action lifecycle: existing Rowset project `61d254c5-7b76-438c-8771-7262335b2dbc`, dataset `6c132da9-be7d-445b-b85f-0f6e7adceb5c`, run `staleaway:daily-seo:2026-10-13`. No research exports committed.
+
+## November 10 — contextual WordPress decision path
+
+Add one optional link beside the WordPress sitemap instructions to the existing `/for/wordpress#wordpress-fit` section. It helps readers choose between an external public-page email habit and a native WordPress workflow; it is not a second sitemap tutorial or a compatibility test. The destination's public-correction example remains a fictional manual workflow, not an integration claim.
+
+The destination and current product source support the handoff. Native owner/date/record tradeoffs were rechecked against the [Evosolve directory documentation](https://wordpress.org/plugins/evosolve-content-review/) on November 10, 2026; vendor-described, not installed or runtime-tested. Keep article metadata and original publication date unchanged. Only this article's actual modification date changes through publication; the destination's November 8 date is unchanged. Existing postdeploy IndexNow handles changed URLs; no extra healthy-URL submission or external outreach.
+
+Review the changed paragraph independently, use Docker-backed CI and its isolated public fixtures, then check the rendered source, anchor navigation, mobile/desktop layout, publication digest and live sitemap date after deployment. No new analytics event, anonymous/account join, customer-data operation or measured growth claim.
