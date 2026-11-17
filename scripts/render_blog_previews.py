@@ -71,6 +71,20 @@ if sitemap.status_code != 200:
 (output / "sitemap.xml").write_bytes(sitemap.content)
 print(f"Rendered {len(paths)} public previews in build/blog-preview")
 
+# Anonymous signup help and invalid-form rendering; never create an account.
+signup_cases = [
+    ("signup-default", client.get("/accounts/signup/")),
+    ("signup-error", client.post("/accounts/signup/", {
+        "username": "signup-preview", "email": "preview@example.invalid",
+        "password1": "", "password2": "",
+    })),
+]
+for name, response in signup_cases:
+    if response.status_code != 200:
+        raise RuntimeError(f"Signup preview failed: {name}: HTTP {response.status_code}")
+    (output / f"{name}.html").write_bytes(response.content)
+print("Rendered two anonymous signup states; no account creation or sends")
+
 # Exercise account setup templates with synthetic users, no network or real rows.
 from unittest.mock import patch  # noqa: E402
 from django.contrib.auth import get_user_model  # noqa: E402

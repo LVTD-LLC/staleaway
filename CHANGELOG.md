@@ -224,3 +224,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - djstripe
+# 2026-11-17 — Signup readiness and accessible account fields
+
+- Explain the sitemap-to-reminder setup after account creation, with existing published sitemap help and workflow help opening separately so entered form details remain in place.
+- Use visible, correctly named signup labels and new-password autocomplete while preserving account validation, redirects, social sign-in and private analytics exclusions.
+- Add isolated default/error signup previews and regression checks for published-only help and invalid-form retention. No reminder-selection, billing or customer-data changes.

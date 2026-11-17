@@ -6,9 +6,10 @@
 <div class="flex justify-center items-center px-4 py-12 my-4 sm:px-6 lg:px-8">
   <div class="space-y-8 w-full max-w-md">
       <div>
-          <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
+          <h1 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
               Create your account
-          </h2>
+          </h1>
+          <p class="mt-3 text-sm text-center text-gray-600">Start a small website review habit. All features are currently free; no credit card needed.</p>
           <p class="mt-2 text-sm text-center text-gray-600">
             Or
             <a href="{% url 'account_login' %}" class="font-medium text-blue-600 hover:text-blue-500">
@@ -21,26 +22,27 @@
 
         {{ form.non_field_errors | safe }}
         <input type="hidden" name="remember" value="true" />
-        <div class="-space-y-px rounded-md shadow-sm">
+        <div class="space-y-4">
           <div>
-            {{ form.username.errors | safe }}
-            <label for="username" class="sr-only">Username</label>
-            {% render_field form.username placeholder="Username" id="username" name="username" type="text" autocomplete="username" required=True class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-t-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
+            <div id="signup-username-errors"{% if form.username.errors %} role="alert"{% endif %}>{% if form.username.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
+            <label for="username" class="block mb-1 text-sm font-medium text-gray-700">Username</label>
+            {% render_field form.username aria-describedby="signup-username-errors" placeholder="Username" id="username" name="username" type="text" autocomplete="username" required=True class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-t-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
           </div>
           <div>
-            {{ form.email.errors | safe }}
-            <label for="email" class="sr-only">Username</label>
-            {% render_field form.email id="email" name="email" placeholder="Email" type="email" autocomplete="email" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
+            <div id="signup-email-errors"{% if form.email.errors %} role="alert"{% endif %}>{% if form.email.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
+            <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Email</label>
+            {% render_field form.email aria-describedby="signup-email-errors" id="email" name="email" placeholder="Email" type="email" autocomplete="email" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
           </div>
           <div>
-            {{ form.password1.errors | safe }}
-            <label for="password1" class="sr-only">Password</label>
-            {% render_field form.password1 id="password1" name="password1" placeholder="Password" type="password" autocomplete="current-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
+            <div id="signup-password1-errors"{% if form.password1.errors %} role="alert"{% endif %}>{% if form.password1.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
+            <label for="password1" class="block mb-1 text-sm font-medium text-gray-700">Password</label>
+            {% render_field form.password1 aria-describedby="signup-password1-errors signup-password-help" id="password1" name="password1" placeholder="Password" type="password" autocomplete="new-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
+            <div id="signup-password-help" class="mt-2 text-sm text-gray-600">{{ form.password1.help_text|safe }}</div>
           </div>
           <div>
-            {{ form.password2.errors | safe }}
-            <label for="password2" class="sr-only">Password</label>
-            {% render_field form.password2 id="password2" name="password2" type="password" autocomplete="current-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-b-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Cofirm Password" %}
+            <div id="signup-password2-errors"{% if form.password2.errors %} role="alert"{% endif %}>{% if form.password2.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
+            <label for="password2" class="block mb-1 text-sm font-medium text-gray-700">Confirm password</label>
+            {% render_field form.password2 aria-describedby="signup-password2-errors" id="password2" name="password2" type="password" autocomplete="new-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-b-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Confirm password" %}
           </div>
         </div>
 
@@ -94,6 +96,15 @@
         </div>
       </div>
       {% endif %}
+      <section aria-labelledby="signup-next-step" class="p-5 space-y-3 text-sm text-gray-700 bg-purple-50 rounded-lg">
+        <h2 id="signup-next-step" class="text-xl text-gray-900">What happens next?</h2>
+        <p>Add a public XML sitemap, then check which pages imported. Choose your reminder cadence and pages per email, and check your timezone and preferred time in Settings.</p>
+        <p>You can create your account before finding your sitemap. Staleaway sends reminders for human review; it does not automatically audit or rewrite pages.</p>
+        {% if signup_sitemap_guide %}
+        <p><a class="text-purple-700 underline" href="{{ signup_sitemap_guide.get_absolute_url }}" target="_blank" rel="noopener noreferrer">Find your sitemap <span class="text-xs">(opens in a new tab)</span></a></p>
+        {% endif %}
+        <p><a class="text-purple-700 underline" href="{% url 'landing_page' %}#how-it-works" target="_blank" rel="noopener noreferrer">See how the reminder workflow works <span class="text-xs">(opens in a new tab)</span></a></p>
+      </section>
     </div>
   </div>
 {% endblock content %}
