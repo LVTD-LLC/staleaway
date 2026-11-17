@@ -24,23 +24,23 @@
         <input type="hidden" name="remember" value="true" />
         <div class="space-y-4">
           <div>
-            <div id="signup-username-errors"{% if form.username.errors %} role="alert"{% endif %}>{{ form.username.errors }}</div>
+            <div id="signup-username-errors"{% if form.username.errors %} role="alert"{% endif %}>{% if form.username.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
             <label for="username" class="block mb-1 text-sm font-medium text-gray-700">Username</label>
             {% render_field form.username aria-describedby="signup-username-errors" placeholder="Username" id="username" name="username" type="text" autocomplete="username" required=True class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-t-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
           </div>
           <div>
-            <div id="signup-email-errors"{% if form.email.errors %} role="alert"{% endif %}>{{ form.email.errors }}</div>
+            <div id="signup-email-errors"{% if form.email.errors %} role="alert"{% endif %}>{% if form.email.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
             <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Email</label>
             {% render_field form.email aria-describedby="signup-email-errors" id="email" name="email" placeholder="Email" type="email" autocomplete="email" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
           </div>
           <div>
-            <div id="signup-password1-errors"{% if form.password1.errors %} role="alert"{% endif %}>{{ form.password1.errors }}</div>
+            <div id="signup-password1-errors"{% if form.password1.errors %} role="alert"{% endif %}>{% if form.password1.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
             <label for="password1" class="block mb-1 text-sm font-medium text-gray-700">Password</label>
             {% render_field form.password1 aria-describedby="signup-password1-errors signup-password-help" id="password1" name="password1" placeholder="Password" type="password" autocomplete="new-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" %}
             <div id="signup-password-help" class="mt-2 text-sm text-gray-600">{{ form.password1.help_text|safe }}</div>
           </div>
           <div>
-            <div id="signup-password2-errors"{% if form.password2.errors %} role="alert"{% endif %}>{{ form.password2.errors }}</div>
+            <div id="signup-password2-errors"{% if form.password2.errors %} role="alert"{% endif %}>{% if form.password2.errors %}<div class="p-4 my-4 text-sm text-red-700 bg-red-50 rounded-md border border-red-600">{% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}</div>
             <label for="password2" class="block mb-1 text-sm font-medium text-gray-700">Confirm password</label>
             {% render_field form.password2 aria-describedby="signup-password2-errors" id="password2" name="password2" type="password" autocomplete="new-password" required="True" class="block relative px-3 py-2 w-full placeholder-gray-500 text-gray-900 rounded-none rounded-b-md border border-gray-300 appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Confirm password" %}
           </div>

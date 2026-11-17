@@ -52,6 +52,8 @@ def test_signup_help_is_published_only_and_keeps_auth_boundary(
     if invalid_post:
         assert '<div id="signup-password1-errors" role="alert">' in html
         assert '<div id="signup-password2-errors" role="alert">' in html
+        assert '<p>This field is required.</p>' in html
+        assert '&lt;div class=' not in html
 
 
 def test_signup_fields_have_distinct_visible_names_and_creation_autocomplete(client):
