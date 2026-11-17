@@ -44,6 +44,14 @@ def test_signup_help_is_published_only_and_keeps_auth_boundary(
     assert "/#how-it-works" in help_links
     assert ("/blog/find-your-website-sitemap" in help_links) == (status == BlogPostStatus.PUBLISHED)
     assert all("next=" not in link for link in help_links)
+    for field in ["username", "email", "password1", "password2"]:
+        tag = re.search(r'<input[^>]*id="' + field + r'"[^>]*>', html).group()
+        described = re.search(r'aria-describedby="([^"]+)"', tag).group(1).split()
+        for element_id in described:
+            assert 'id="' + element_id + '"' in html
+    if invalid_post:
+        assert '<div id="signup-password1-errors" role="alert">' in html
+        assert '<div id="signup-password2-errors" role="alert">' in html
 
 
 def test_signup_fields_have_distinct_visible_names_and_creation_autocomplete(client):
