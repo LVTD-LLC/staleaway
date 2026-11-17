@@ -122,6 +122,7 @@ TEMPLATES = [
                 "core.context_processors.current_state",
                 "core.context_processors.posthog_api_key",
                 "core.context_processors.seo_site",
+                "core.context_processors.signup_readiness",
                 "core.context_processors.available_social_providers",
             ],
         },

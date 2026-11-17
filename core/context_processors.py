@@ -86,3 +86,17 @@ def available_social_providers(request):
 def seo_site(request):
     """Use the configured origin for public canonical and crawler URLs."""
     return {"site_url": settings.SITE_URL.rstrip("/")}
+
+
+def signup_readiness(request):
+    """Offer existing published help on signup without touching auth behavior."""
+    match = request.resolver_match
+    if not match or match.url_name != "account_signup":
+        return {}
+
+    from core.choices import BlogPostStatus
+    from core.models import BlogPost
+
+    return {"signup_sitemap_guide": BlogPost.objects.filter(
+        slug="find-your-website-sitemap", status=BlogPostStatus.PUBLISHED
+    ).first()}
