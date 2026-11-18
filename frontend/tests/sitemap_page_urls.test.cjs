@@ -11,4 +11,4 @@ assert.equal(parserCalls, 0);
 assert.match(extractPageUrls('<urlset/>', null).error, /unavailable/);
 assert.equal(extractPageUrls('<urlset/>', MustNotParse).status, 'invalid');
 assert.equal(parserCalls, 1);
-console.log('XML preflight: empty/byte-limit/declarations/instructions/no-parser/exception passed; actual DOM cases verified in browser');
+console.log('XML preflight: empty/byte-limit/declarations/instructions/no-parser/exception passed; native DOM cases require separate browser verification');
