@@ -1,8 +1,9 @@
 import { Controller } from "@hotwired/stimulus";
 import { FIELDS, GROUPS, LIMITS, compare, csv } from "../tools/content_inventory_compare";
+import { extractPageUrls } from "../tools/sitemap_page_urls";
 
 export default class extends Controller {
-  static targets = ["fields", "input", "error", "summary", "unavailable", "result", "status", "counts", "rows", "listStats", "displayed", "download"];
+  static targets = ["fields", "input", "error", "summary", "unavailable", "result", "status", "counts", "rows", "listStats", "displayed", "download", "xml", "xmlStatus", "xmlOutput", "xmlUse"];
 
   connect() {
     this.fieldsTarget.disabled = false;
@@ -92,9 +93,42 @@ export default class extends Controller {
 
   clear() {
     this.inputTargets.forEach(input => { input.value = ""; });
+    this.xmlTarget.value = "";
+    this.invalidateXml();
     this.invalidate();
     this.statusTarget.textContent = "Lists cleared. No comparison or download is available.";
     this.inputTargets[0].focus();
+  }
+
+  invalidateXml() {
+    this.extraction = null;
+    this.xmlOutputTarget.value = "";
+    this.xmlUseTarget.disabled = true;
+    this.xmlTarget.removeAttribute("aria-invalid");
+    this.xmlStatusTarget.textContent = "No current extracted list. The three comparison lists are unchanged.";
+  }
+
+  extractXml() {
+    this.invalidateXml();
+    const result = extractPageUrls(this.xmlTarget.value);
+    if (result.status !== "ready") {
+      this.xmlTarget.setAttribute("aria-invalid", "true");
+      this.xmlStatusTarget.textContent = result.error + " The three comparison lists are unchanged.";
+      return;
+    }
+    this.extraction = result;
+    this.xmlOutputTarget.value = result.text;
+    this.xmlUseTarget.disabled = false;
+    this.xmlStatusTarget.textContent = `${result.entries} page entries; ${result.unique} unique URLs; ${result.duplicates} duplicates removed. This is only the pasted file, not a complete website inventory. Review the list before replacing the selected sitemap input.`;
+  }
+
+  useXml() {
+    if (!this.extraction) return;
+    const input = this.inputTargets.find(input => input.dataset.field === "sitemap");
+    input.value = this.extraction.text;
+    this.invalidate();
+    this.statusTarget.textContent = "Selected sitemap list replaced. Intended inventory and imported records are unchanged. Compare again; no current comparison is available.";
+    input.focus();
   }
 
   download() {

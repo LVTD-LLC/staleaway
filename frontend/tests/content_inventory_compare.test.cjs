@@ -64,7 +64,7 @@ vm.createContext(context);
 vm.runInContext(source.replace(/^import .*;\n/gm, "").replace("export default class", "globalThis.Tool = class"), context);
 const tool = new context.Tool();
 function element() {return {hidden: false, disabled: false, textContent: "stale", replaceChildren() {this.textContent = "";}, removeAttribute() {}, focus() {}};}
-for (const key of ["result", "download", "rows", "counts", "listStats", "displayed", "summary", "status"]) tool[key + "Target"] = element();
+for (const key of ["result", "download", "rows", "counts", "listStats", "displayed", "summary", "status", "xml", "xmlStatus", "xmlOutput", "xmlUse"]) tool[key + "Target"] = element();
 tool.inputTargets = FIELDS.map(field => ({...element(), value: field.example, dataset: {field: field.key}}));
 tool.errorTargets = FIELDS.map(field => ({...element(), dataset: {field: field.key}}));
 tool.result = compare(raw);

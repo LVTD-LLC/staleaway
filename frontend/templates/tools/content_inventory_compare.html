@@ -20,7 +20,7 @@
   <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'tools' %}">Free tools</a> / <span aria-current="page">Content inventory comparison</span></nav>
   <header class="sa-tool-heading"><p class="sa-eyebrow">Three lists. One review scope.</p><h1>Content inventory comparison tool</h1>
     <p>Compare your intended content inventory, selected sitemap page URLs and actual imported records to see which exact URLs appear in each list. Paste three public URL lists, inspect their membership differences and download a CSV for manual follow-up. This browser-only tool does not fetch pages, check indexing or change your account.</p>
-    <p class="sa-tool-note">Updated <time datetime="2026-11-01">November 1, 2026</time> · All Staleaway features are free.</p>
+    <p class="sa-tool-note">Updated <time datetime="2026-11-18">November 18, 2026</time> · All Staleaway features are free.</p>
   </header>
   <section class="sa-planner" aria-labelledby="inventory-tool-heading" data-controller="content-inventory-compare">
     <h2 id="inventory-tool-heading">Compare your three URL lists</h2>
@@ -31,6 +31,19 @@
     <div class="sa-tool-errors" data-content-inventory-compare-target="summary" role="alert" tabindex="-1" hidden></div>
     <fieldset disabled data-content-inventory-compare-target="fields">
       <legend class="sr-only">Three required public URL lists</legend>
+      <details class="sa-tool-example">
+        <summary>Have sitemap XML instead of a page-URL list?</summary>
+        <p>Prepare the selected sitemap list here, then compare all three lists below. Open one public page sitemap yourself and copy its XML source. An index links to other sitemap files; this helper does not fetch them. Use public URLs only, never private paths or review links.</p>
+        <label for="inventory-sitemap-xml">Public page-sitemap XML</label>
+        <p id="inventory-xml-hint">Up to 250,000 bytes and 2,000 page entries in Sitemaps 0.9 urlset format. Existing public-URL limits apply. Processing stays in this browser; nothing is fetched or saved.</p>
+        <textarea id="inventory-sitemap-xml" rows="5" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="inventory-xml-hint inventory-xml-status" data-content-inventory-compare-target="xml" data-action="input->content-inventory-compare#invalidateXml"></textarea>
+        <button type="button" class="sa-tool-secondary" data-action="content-inventory-compare#extractXml">Extract page URLs</button>
+        <p id="inventory-xml-status" class="sa-tool-status" role="status" aria-live="polite" data-content-inventory-compare-target="xmlStatus">No XML extraction has run. The three comparison lists are unchanged.</p>
+        <label for="inventory-xml-output">Extracted page URLs (read only)</label>
+        <textarea id="inventory-xml-output" rows="5" readonly spellcheck="false" autocomplete="off" data-content-inventory-compare-target="xmlOutput"></textarea>
+        <p>Replacing the selected sitemap list discards its current contents. Your intended inventory and imported records stay unchanged. It does not import or update anything in your account.</p>
+        <button type="button" class="sa-tool-secondary" disabled data-content-inventory-compare-target="xmlUse" data-action="content-inventory-compare#useXml">Replace selected sitemap list</button>
+      </details>
       <div class="sa-inventory-inputs">
         {% for field in inventory_fields %}
         <div class="sa-planner-field">
@@ -62,6 +75,6 @@
 </div>
 {% endblock %}
 {% block schema %}
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Inventory Comparison Tool","description":"Compare exact URL membership across intended inventory, selected sitemap page URLs and actual imported records.","url":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-11-01","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Inventory Comparison Tool","description":"Compare exact URL membership across intended inventory, selected sitemap page URLs and actual imported records.","url":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-11-18","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"},{"@type":"ListItem","position":3,"name":"Content inventory comparison","item":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}"}]}</script>
 {% endblock %}
