@@ -9,7 +9,9 @@ public WordPress fit page is also allowlisted under those same boundaries; it
 does not collect WordPress site addresses, editor URLs or review evidence.
 From 2026-11-01, the canonical content inventory comparison page is also
 allowlisted. Its pasted lists, membership flags, counts, result rows and exports
-never enter analytics; it adds no tool-use event. Comparison code makes no
+never enter analytics; it adds no tool-use event. The optional page-sitemap XML
+helper (2026-11-18) also keeps raw XML, extracted URLs, errors and replacement
+actions out of analytics; it fetches no child files or external entities. Comparison code makes no
 network or storage calls and never reads URL parameters. Planner inputs and outputs stay in the browser; no tool-use events or
 values are collected, saved or added to URLs. Account, review, dashboard, sitemap,
 authenticated and error pages have no browser analytics configuration. Missing configuration,

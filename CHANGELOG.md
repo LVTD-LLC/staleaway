@@ -1,3 +1,7 @@
+# 2026-11-18
+
+- Add an optional browser-only page-sitemap XML helper to the existing content inventory comparison: bounded, all-or-nothing extraction, explicit list replacement, index guidance and no fetch, storage or account changes.
+
 # 2026-11-10 — WordPress review choice from the sitemap guide
 
 - Link the sitemap guide's WordPress section to the existing reminder-fit guide, including the choice between an external email habit and native owners, dates and review records.

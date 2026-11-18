@@ -43,7 +43,7 @@ def test_inventory_tool_is_public_indexable_and_server_rendered(client, settings
     assert data[0]["@type"] == "WebApplication"
     assert data[0]["url"] == settings.SITE_URL + path
     assert data[0]["offers"] == {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-    assert data[0]["dateModified"] == "2026-11-01"
+    assert data[0]["dateModified"] == "2026-11-18"
     assert data[0]["isAccessibleForFree"] is True
     assert data[1]["@type"] == "BreadcrumbList"
     assert data[1]["itemListElement"][-1]["item"] == settings.SITE_URL + path
@@ -64,7 +64,7 @@ def test_inventory_discovery_and_precise_sitemap_dates(client):
     }
     assert sum(url.endswith(path) for url in entries) == 1
     for suffix in [path, "/tools", "/"]:
-        expected = "2026-11-01" if suffix == path else "2026-11-08"
+        expected = "2026-11-18" if suffix == path else "2026-11-08"
         assert next(value for url, value in entries.items() if url.endswith(suffix)) == expected
     assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-11-05"
 
@@ -88,6 +88,7 @@ def test_inventory_never_receives_or_persists_comparison_values(client, settings
     assert before == (Page.objects.count(), Sitemap.objects.count())
     source = Path("frontend/src/controllers/content_inventory_compare_controller.js").read_text()
     logic = Path("frontend/src/tools/content_inventory_compare.js").read_text()
+    logic += Path("frontend/src/tools/sitemap_page_urls.js").read_text()
     for forbidden in ["innerHTML", "fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "location."]:
         assert forbidden not in source + logic
 
@@ -105,3 +106,15 @@ def test_inventory_links_only_published_guides(client, status, name):
     assert "Synthetic private title" not in html
     assert "Synthetic private body" not in html
     assert 'href="/tools/content-review-planner"' in html
+
+
+def test_xml_preparation_is_optional_disabled_without_js_and_explicit(client):
+    html = client.get(reverse("content_inventory_compare")).content.decode()
+    assert 'for="inventory-sitemap-xml"' in html
+    assert 'aria-describedby="inventory-xml-hint inventory-xml-status"' in html
+    assert 'id="inventory-xml-output" rows="5" readonly' in html
+    assert 'disabled data-content-inventory-compare-target="xmlUse"' in html
+    assert "Replace selected sitemap list" in html
+    assert "No XML extraction has run" in html
+    assert "No child sitemap, page or external entity is fetched" in html
+    assert "no partial list was extracted" not in html  # No error before input.
