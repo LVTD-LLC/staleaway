@@ -6,7 +6,7 @@ Information gain: a working, browser-only three-list membership comparison turns
 
 ## Product and interaction contract
 
-- Three required newline-separated lists; public HTTP/HTTPS page URLs only, no XML/CSV import or file upload.
+- Three required newline-separated comparison lists; public HTTP/HTTPS page URLs only, no CSV import or file upload. Since November18, optional local XML preparation can explicitly replace only the selected sitemap input; account import is unchanged.
 - Exact trimmed strings, no inferred redirect/canonical/encoding/trailing-slash equivalence. Explicit bounded input and displayed/export scope.
 - All seven nonempty membership combinations, duplicates/blank accounting and neutral manual follow-up.
 - Complete local CSV; safe text rendering, no pasted inputs in URLs, storage, analytics or requests. Editing/clearing invalidates prior results and downloads.
@@ -20,3 +20,10 @@ Google's [sitemap overview](https://developers.google.com/search/docs/crawling-i
 Interaction references: the existing Staleaway planner's fictional example/native download; URLsCheck's explicit comparison limits; WordSpinner's categorized differences/CSV. These do not establish market-wide uniqueness or runtime competitor performance. Our exact matching deliberately avoids inferred URL equivalence.
 
 No external constants or paid per-use API. Recheck browser parsing/interaction and explanatory copy when workflow changes. Raw research, measurements and experiment history remain in the existing private Rowset SEO dataset referenced by `.seo/config.json`.
+
+
+## November 18, 2026 — optional XML preparation
+
+The existing comparison URL remains the sole intent owner. An optional local helper reads pasted public Sitemaps 0.9 page-list XML and exposes exact, deduplicated page URLs before explicit replacement of only the selected sitemap field. It does not perform account import, fetch URLs/child files, read browser storage, or emit tool/input analytics. Existing one-URL-per-line comparison remains unchanged.
+
+Sources checked: https://www.sitemaps.org/protocol.html (Sitemaps 0.9 structure), https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString (XML parsing/error contract). Direct page loc only; image/alternate extension links are not pages. All-or-nothing invalid input; bounds250,000bytes/2,000entries use existing public-URL validator, not an assertion that host DNS is public. Index inputs receive manual child-file guidance, never a partial page inventory. No new product capability in the importer, sitemap discovery, ranking promise or acquisition claim.
