@@ -1,3 +1,8 @@
+# 2026-11-19 — Prepare the selected sitemap list from the guide
+
+- Show sitemap-guide readers how to turn a public page sitemap into the selected list in the existing comparison tool, without mistaking an index or the comparison for an import.
+- Preserve the original publication date, title, URL, tool behavior, analytics and reminder workflow.
+
 # 2026-11-18
 
 - Add an optional browser-only page-sitemap XML helper to the existing content inventory comparison: bounded, all-or-nothing extraction, explicit list replacement, index guidance and no fetch, storage or account changes.

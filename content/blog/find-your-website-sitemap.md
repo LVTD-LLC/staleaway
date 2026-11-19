@@ -98,7 +98,14 @@ A **content inventory** is your own record of content you intend to maintain. It
 
 Keep three lists distinct: your intended review inventory, the page addresses in the XML you selected, and the records that actually appear after import. Compare addresses, not just totals. Equal counts can hide different pages. Start with a manageable section; a sample check is not evidence that the whole inventory matches.
 
-Once all three public-URL lists are ready, the free [content inventory comparison tool](/tools/content-inventory-compare) can compare their exact addresses in your browser and export a membership CSV. It does not fetch pages, import records or decide which list is correct. Keep drafts, private addresses and sensitive paths out of the tool. Use the mismatch record below to assign follow-up; a membership difference is a question to investigate, not a repair instruction.
+Use the free [content inventory comparison tool](/tools/content-inventory-compare) to compare exact addresses and download the membership results as a CSV. Choose how to fill the selected sitemap list:
+
+- **Already have the page URLs?** Paste them one per line.
+- **Have XML instead?** If you opened a sitemap index, follow the entry for the section you chose. Open one public page sitemap (`urlset`) and copy its XML source, not the file’s address or the browser’s formatted table. In the comparison tool, open **Have sitemap XML instead of a page-URL list?**, paste the source, and choose **Extract page URLs**. Check the preview before choosing **Replace selected sitemap list**. This overwrites only that list in the tool; it does not add or change any imported pages.
+
+Never paste private addresses, review links or credentials. The helper does not fetch files or check which pages exist. If the XML itself won’t paste or parse, you can copy supported page addresses from the `loc` entries by hand. If the addresses are unsupported (for example, they contain query strings), keep them intact and compare them in your own worksheet.
+
+With your intended inventory and actual imported records in the other two lists, choose **Compare lists**. Use the mismatch record below to assign follow-up; a membership difference is a question to investigate, not a repair instruction.
 
 **Use the difference to choose the next action:**
 
