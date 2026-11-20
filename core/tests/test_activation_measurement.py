@@ -177,7 +177,7 @@ def test_accepted_reminder_queues_after_send_record_commit(
     )
     assert 'private-marker' not in str(queued.call_args)
     logger.info.assert_called_once_with(
-        "Page review email sent", total_sitemaps=1, total_pages=1, recipient_count=1
+        "Page review email sent", total_sitemaps=1, total_pages=1, recipient_count=2
     )
 
 
