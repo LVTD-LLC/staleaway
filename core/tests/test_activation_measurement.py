@@ -7,7 +7,7 @@ from django.db import transaction
 from django.test import RequestFactory
 from django.urls import reverse
 
-from core.models import EmailSent, Page, Sitemap
+from core.models import EmailPreference, EmailSent, Page, Sitemap
 from core.tasks import queue_activation_event, send_page_email_to_profile, track_event
 
 pytestmark = pytest.mark.django_db
@@ -161,8 +161,11 @@ def reminder(profile, monkeypatch):
 
 
 def test_accepted_reminder_queues_after_send_record_commit(
-    profile, reminder, queued, django_capture_on_commit_callbacks
+    profile, reminder, queued, django_capture_on_commit_callbacks, monkeypatch,
 ):
+    EmailPreference.objects.create(profile=profile, email_address="alternate@example.invalid")
+    logger = Mock()
+    monkeypatch.setattr("core.tasks.logger", logger)
     with django_capture_on_commit_callbacks(execute=True):
         assert send_page_email_to_profile(profile.pk).startswith('Successfully sent')
         queued.assert_not_called()
@@ -173,18 +176,31 @@ def test_accepted_reminder_queues_after_send_record_commit(
         group='Track Event',
     )
     assert 'private-marker' not in str(queued.call_args)
+    logger.info.assert_called_once_with(
+        "Page review email sent", total_sitemaps=1, total_pages=1, recipient_count=1
+    )
 
 
-@pytest.mark.parametrize('outcome', [0, RuntimeError('provider failed')])
+@pytest.mark.parametrize('outcome', [0, RuntimeError('Rejected mailbox alternate@example.invalid')])
 def test_unaccepted_email_creates_no_send_record_or_activation(
-    profile, reminder, queued, django_capture_on_commit_callbacks, outcome
+    profile, reminder, queued, django_capture_on_commit_callbacks, outcome, monkeypatch,
 ):
+    logger = Mock()
+    monkeypatch.setattr("core.tasks.logger", logger)
     if isinstance(outcome, Exception):
         reminder.side_effect = outcome
     else:
         reminder.return_value = outcome
     with django_capture_on_commit_callbacks(execute=True):
-        assert not send_page_email_to_profile(profile.pk).startswith('Successfully sent')
+        result = send_page_email_to_profile(profile.pk)
+    if isinstance(outcome, Exception):
+        assert result == "Failed to send or record page review email."
+        logger.error.assert_called_once_with(
+            "Failed to send or record page review email", error_type="RuntimeError"
+        )
+    else:
+        assert result == "Email backend did not accept the page review message."
+        logger.error.assert_not_called()
     assert not EmailSent.objects.filter(profile=profile).exists()
     queued.assert_not_called()
 

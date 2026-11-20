@@ -520,23 +520,15 @@ def send_page_email_to_profile(profile_id: int) -> str:
         queue_activation_event(profile.pk, "first_review_reminder_accepted", sent.pk)
         logger.info(
             "Page review email sent",
-            email=profile.user.email,
-            profile_id=profile_id,
             total_sitemaps=len(sitemaps_with_pages),
             total_pages=total_pages_collected,
             recipient_count=len(recipient_list),
-            recipients=recipient_list,
         )
         return f"Successfully sent page review email to {len(recipient_list)} address(es) with {total_pages_collected} pages from {len(sitemaps_with_pages)} sitemaps"  # noqa: E501
-    except Exception as e:
-        logger.error(
-            "Failed to send page review email",
-            email=profile.user.email,
-            profile_id=profile_id,
-            error=str(e),
-            exc_info=True,
-        )
-        return f"Failed to send email: {str(e)}"
+    except Exception as exc:
+        # Provider exceptions can include addresses or message content.
+        logger.error("Failed to send or record page review email", error_type=type(exc).__name__)
+        return "Failed to send or record page review email."
 
 
 def schedule_review_emails() -> str:
@@ -557,12 +549,7 @@ def schedule_review_emails() -> str:
             user_timezone = zoneinfo.ZoneInfo(profile.timezone)
         except (zoneinfo.ZoneInfoNotFoundError, ValueError):
             user_timezone = zoneinfo.ZoneInfo("UTC")
-            logger.warning(
-                "Invalid timezone for profile, using UTC",
-                email=profile.user.email,
-                profile_id=profile.id,
-                timezone=profile.timezone,
-            )
+            logger.warning("Invalid reminder timezone, using UTC")
 
         current_time_in_user_tz = timezone.now().astimezone(user_timezone)
 
