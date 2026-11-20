@@ -1,3 +1,7 @@
+# 2026-11-20 — Minimize reminder worker diagnostics
+
+- Keep aggregate reminder counts and exception types in worker diagnostics without logging account email addresses, recipient lists, or raw provider errors. Delivery, scheduling, and activation-event behavior are unchanged.
+
 # 2026-11-19 — Prepare the selected sitemap list from the guide
 
 - Show sitemap-guide readers how to turn a public page sitemap into the selected list in the existing comparison tool, without mistaking an index or the comparison for an import.

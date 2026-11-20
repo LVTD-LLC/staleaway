@@ -111,8 +111,10 @@ and [PostHog 5.4.0 capture source](https://github.com/PostHog/posthog-python/blo
 - No server event identifies QA or known bots yet. Report that limitation for
   account cohorts; browser QA/bot flags apply only to public pageviews. A successful
   signup is not proof of a human, a verified email address or a qualified user.
-- General diagnostic logging/error reporting is outside this bounded analytics
-  repair; do not claim all telemetry has been audited.
+- The review-reminder worker keeps send counts and failure types without adding
+  account addresses, recipient lists, or provider exception text to its send
+  diagnostics or failure results. This does not cover other application logs
+  or remove historical records.
 
 ## Verification
 
