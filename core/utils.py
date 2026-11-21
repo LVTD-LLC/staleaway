@@ -110,8 +110,7 @@ def extract_urls_from_sitemap(  # noqa: C901
                         logger.warning(
                             "Failed to fetch nested sitemap",
                             sitemap_id=sitemap_id,
-                            nested_url=nested_url,
-                            error=str(e),
+                            error_type=type(e).__name__,
                         )
             return found_urls
 
@@ -128,8 +127,7 @@ def extract_urls_from_sitemap(  # noqa: C901
         logger.error(
             "Failed to parse sitemap XML",
             sitemap_id=sitemap_id,
-            error=str(e),
-            exc_info=True,
+            error_type=type(e).__name__,
         )
 
     return found_urls

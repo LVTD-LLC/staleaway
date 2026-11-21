@@ -1,6 +1,6 @@
 # 2026-11-21 — Protect first-sitemap setup diagnostics
 
-- Keep the submitted sitemap URL, account email, nested sitemap addresses and raw fetch errors out of dashboard-save and initial-import diagnostics. The importer and reminder workflow are unchanged.
+- Keep the submitted sitemap URL, account email, nested sitemap addresses and raw fetch errors out of dashboard-save and initial and recurring import diagnostics. The importer and reminder workflow are unchanged.
 
 # 2026-11-20 — Minimize reminder worker diagnostics
 

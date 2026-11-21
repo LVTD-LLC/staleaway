@@ -135,3 +135,24 @@ def test_first_sitemap_save_and_import_diagnostics(auth_client, profile, monkeyp
     assert marker not in diagnostics
     assert profile.user.email not in diagnostics
     assert 'exc_info=True' not in diagnostics
+
+
+def test_recurring_import_does_not_log_fetched_addresses(profile, monkeypatch):
+    from unittest.mock import Mock
+
+    import requests
+
+    from core.tasks import reparse_sitemap
+
+    marker = 'private-reparse-marker'
+    url = f'https://example.invalid/{marker}/index.xml'
+    sitemap = Sitemap.objects.create(profile=profile, sitemap_url=url)
+    log = Mock()
+    monkeypatch.setattr('core.tasks.logger', log)
+    monkeypatch.setattr('core.utils.logger', log)
+    index = f'<sitemapindex><sitemap><loc>{url}/child</loc></sitemap></sitemapindex>'
+    fetch = Mock(side_effect=[Mock(content=index.encode()), requests.RequestException(url)])
+    monkeypatch.setattr('core.tasks.requests.get', fetch)
+    reparse_sitemap(sitemap.pk)
+    assert any(call.args[0] == 'Failed to fetch nested sitemap' for call in log.warning.call_args_list)
+    assert marker not in str(log.mock_calls)

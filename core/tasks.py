@@ -582,7 +582,6 @@ def reparse_sitemap(sitemap_id: int) -> str:
     logger.info(
         "Starting sitemap reparse",
         sitemap_id=sitemap_id,
-        sitemap_url=sitemap_url,
     )
 
     try:
@@ -592,8 +591,7 @@ def reparse_sitemap(sitemap_id: int) -> str:
         logger.warning(
             "Sitemap no longer accessible, marking as inactive",
             sitemap_id=sitemap_id,
-            sitemap_url=sitemap_url,
-            error=str(e),
+            error_type=type(e).__name__,
         )
         sitemap.is_active = False
         sitemap.save(update_fields=["is_active"])
@@ -610,11 +608,6 @@ def reparse_sitemap(sitemap_id: int) -> str:
             for url in new_urls:
                 Page.objects.create(profile=sitemap.profile, sitemap=sitemap, url=url)
                 new_pages_found += 1
-                logger.info(
-                    "New page found and added",
-                    sitemap_id=sitemap_id,
-                    url=url,
-                )
 
         removed_urls = existing_page_urls - found_urls
         if removed_urls:
@@ -623,7 +616,6 @@ def reparse_sitemap(sitemap_id: int) -> str:
             logger.info(
                 "Pages no longer in sitemap marked as inactive",
                 sitemap_id=sitemap_id,
-                sitemap_url=sitemap_url,
                 removed_count=len(removed_urls),
             )
 
@@ -638,14 +630,12 @@ def reparse_sitemap(sitemap_id: int) -> str:
                 logger.info(
                     "Pages reactivated (were previously marked inactive)",
                     sitemap_id=sitemap_id,
-                    sitemap_url=sitemap_url,
                     reactivated_count=reactivated_count,
                 )
 
         logger.info(
             "Sitemap reparsed successfully",
             sitemap_id=sitemap_id,
-            sitemap_url=sitemap_url,
             new_pages=new_pages_found,
             removed_pages=len(removed_urls),
         )
@@ -660,11 +650,9 @@ def reparse_sitemap(sitemap_id: int) -> str:
         logger.error(
             "Failed to reparse sitemap",
             sitemap_id=sitemap_id,
-            sitemap_url=sitemap_url,
-            error=str(e),
-            exc_info=True,
+            error_type=type(e).__name__,
         )
-        return f"Failed to reparse sitemap {sitemap_id}: {str(e)}"
+        return f"Failed to reparse sitemap {sitemap_id}: {type(e).__name__}"
 
 
 def schedule_sitemap_reparse() -> str:
