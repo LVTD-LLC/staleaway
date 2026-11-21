@@ -175,12 +175,7 @@ class HomeView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
             sitemap.profile = request.user.profile
             sitemap.save()
 
-            logger.info(
-                "Sitemap URL added",
-                profile_id=request.user.profile.id,
-                email=request.user.email,
-                sitemap_url=sitemap.sitemap_url,
-            )
+            logger.info("Sitemap saved", sitemap_id=sitemap.pk)
 
             messages.success(request, self.success_message)
             return redirect("home")

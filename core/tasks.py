@@ -188,7 +188,7 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
             logger.warning(
                 "Max recursion depth reached",
                 sitemap_id=sitemap_id,
-                sitemap_url=sitemap_url,
+
                 depth=depth,
             )
             return pages_created, pages_skipped, sitemaps_processed
@@ -205,7 +205,7 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
             logger.warning(
                 "Circular reference detected",
                 sitemap_id=sitemap_id,
-                sitemap_url=sitemap_url,
+
             )
             return pages_created, pages_skipped, sitemaps_processed
 
@@ -218,9 +218,8 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
             logger.error(
                 "Failed to fetch sitemap",
                 sitemap_id=sitemap_id,
-                sitemap_url=sitemap_url,
-                error=str(e),
-                exc_info=True,
+
+                error_type=type(e).__name__,
             )
             raise
 
@@ -236,7 +235,7 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
                 logger.info(
                     "Found nested sitemaps",
                     sitemap_id=sitemap_id,
-                    parent_sitemap_url=sitemap_url,
+
                     nested_count=len(nested_sitemaps),
                     depth=depth,
                 )
@@ -271,9 +270,8 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
             logger.error(
                 "Failed to parse sitemap XML",
                 sitemap_id=sitemap_id,
-                sitemap_url=sitemap_url,
-                error=str(e),
-                exc_info=True,
+
+                error_type=type(e).__name__,
             )
             raise
 
@@ -284,7 +282,7 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
         logger.info(
             "Sitemap processing complete",
             sitemap_id=sitemap_id,
-            sitemap_url=sitemap.sitemap_url,
+
             pages_created=pages_created,
             pages_skipped=pages_skipped,
             sitemaps_processed=sitemaps_processed,
@@ -296,11 +294,10 @@ def process_sitemap_pages(sitemap_id: int, max_sitemaps: int = 100) -> str:  # n
         logger.error(
             "Sitemap processing failed",
             sitemap_id=sitemap_id,
-            sitemap_url=sitemap.sitemap_url,
-            error=str(e),
-            exc_info=True,
+
+            error_type=type(e).__name__,
         )
-        return f"Failed to process sitemap: {str(e)}"
+        return f"Failed to process sitemap {sitemap_id}: {type(e).__name__}"
 
 
 def fetch_page_metadata(url: str) -> dict:

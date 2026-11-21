@@ -94,3 +94,44 @@ def test_post_import_handoff_reaches_owned_settings(auth_client, profile, django
     assert 'id="reminder-settings"' in settings_html
     assert f'id="sitemap-settings-{private.pk}"' not in settings_html
     assert auth_client.get(f'/sitemap/{private.pk}').status_code == 404
+
+
+def test_first_sitemap_save_and_import_diagnostics(auth_client, profile, monkeypatch):
+    from unittest.mock import Mock
+
+    import requests
+
+    from core.tasks import process_sitemap_pages
+
+    marker = 'private-setup-marker'
+    index_url = f'https://example.invalid/{marker}/index.xml'
+    child_url = f'https://example.invalid/{marker}/pages.xml'
+    page_url = f'https://example.invalid/{marker}/article'
+    dashboard_log = Mock()
+    worker_log = Mock()
+    dispatch = Mock()
+    monkeypatch.setattr('core.views.logger', dashboard_log)
+    monkeypatch.setattr('core.tasks.logger', worker_log)
+    monkeypatch.setattr('core.signals.async_task', dispatch)
+    response = auth_client.post('/home', {'sitemap_url': index_url}, follow=True)
+    assert response.status_code == 200
+    sitemap = Sitemap.objects.get(profile=profile)
+    dispatch.assert_called_once_with('core.tasks.process_sitemap_pages', sitemap_id=sitemap.pk,
+                                     group='Process Sitemap')
+
+    documents = {
+        index_url: f'<sitemapindex><sitemap><loc>{child_url}</loc></sitemap></sitemapindex>',
+        child_url: f'<urlset><url><loc>{page_url}</loc></url></urlset>',
+    }
+    fetch = Mock(side_effect=lambda url, timeout: Mock(content=documents[url].encode()))
+    monkeypatch.setattr('core.tasks.requests.get', fetch)
+    result = process_sitemap_pages(sitemap.pk)
+    assert 'created 1 pages' in result
+    assert page_url in auth_client.get(f'/sitemap/{sitemap.pk}').content.decode()
+    fetch.side_effect = requests.RequestException(f'unavailable: {index_url}')
+    failure = process_sitemap_pages(sitemap.pk)
+    assert 'RequestException' in failure
+    diagnostics = str([dashboard_log.mock_calls, worker_log.mock_calls, result, failure])
+    assert marker not in diagnostics
+    assert profile.user.email not in diagnostics
+    assert 'exc_info=True' not in diagnostics
