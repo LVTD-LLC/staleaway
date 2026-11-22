@@ -1,3 +1,7 @@
+# 2026-11-22 — Choose sitemap entries for translated pages
+
+- Explain how to check that both language versions are included in a sitemap review.
+
 # 2026-11-21 — Protect first-sitemap setup diagnostics
 
 - Keep the submitted sitemap URL, account email, nested sitemap addresses and raw fetch errors out of dashboard-save and initial and recurring import diagnostics. The importer and reminder workflow are unchanged.

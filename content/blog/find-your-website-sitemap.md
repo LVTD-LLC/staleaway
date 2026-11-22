@@ -92,6 +92,10 @@ Open a few representative entries. Do they reach the live pages you expected? If
 
 Shopify’s separate content sitemaps illustrate why this matters: a shop owner reviewing buying guides might start with the blog list rather than the full store index. A WordPress editor should likewise check the entries, rather than assume a file with “post” in its name contains every page they care about.
 
+**Need reminders for both language versions?** Suppose your team maintains an English help page at `/en/returns` and its French translation at `/fr/retours`. Open the XML and find the French address. If it appears only as the `href` of an alternate-language link inside the English entry, that entry gives Staleaway one page to import: the English version.
+
+Look for a separate `url` entry whose `loc` is the French address. If the two entries are in different child sitemaps, use their shared index when its other pages also belong in your review. Otherwise, add the two child sitemaps separately. Check the imported records for **both addresses** before relying on reminders for both languages.
+
 <h3 id="reconcile-review-inventory">Reconcile the sitemap with your review inventory</h3>
 
 A **content inventory** is your own record of content you intend to maintain. It can be broader than a public sitemap. [Tulane’s content-audit guidance](https://communications.tulane.edu/drupal-guide/web-content-management/content-audit) recommends checking CMS content and navigation alongside the sitemap. The [University of Oregon’s audit guide](https://digital.uoregon.edu/project-kickoff/content-audit) also separates collecting page addresses from evaluating their content. Sources checked October 22, 2026.
