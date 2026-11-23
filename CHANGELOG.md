@@ -1,3 +1,7 @@
+# 2026-11-23 — Avoid overlapping review lists
+
+- Explain when an existing sitemap index already covers a child sitemap, before a returning user adds another review list.
+
 # 2026-11-22 — Choose sitemap entries for translated pages
 
 - Explain how to check that both language versions are included in a sitemap review.
