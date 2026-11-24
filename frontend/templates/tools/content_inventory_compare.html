@@ -20,7 +20,7 @@
   <nav class="sa-tool-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'landing_page' %}">Home</a> / <a href="{% url 'tools' %}">Free tools</a> / <span aria-current="page">Content inventory comparison</span></nav>
   <header class="sa-tool-heading"><p class="sa-eyebrow">Three lists. One review scope.</p><h1>Content inventory comparison tool</h1>
     <p>Compare your intended content inventory, selected sitemap page URLs and actual imported records to see which exact URLs appear in each list. Paste three public URL lists, inspect their membership differences and download a CSV for manual follow-up. This browser-only tool does not fetch pages, check indexing or change your account.</p>
-    <p class="sa-tool-note">Updated <time datetime="2026-11-18">November 18, 2026</time> · All Staleaway features are free.</p>
+    <p class="sa-tool-note">Updated <time datetime="2026-11-24">November 24, 2026</time> · All Staleaway features are free.</p>
   </header>
   <section class="sa-planner" aria-labelledby="inventory-tool-heading" data-controller="content-inventory-compare">
     <h2 id="inventory-tool-heading">Compare your three URL lists</h2>
@@ -75,6 +75,6 @@
 </div>
 {% endblock %}
 {% block schema %}
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Inventory Comparison Tool","description":"Compare exact URL membership across intended inventory, selected sitemap page URLs and actual imported records.","url":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-11-18","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Content Inventory Comparison Tool","description":"Compare exact URL membership across intended inventory, selected sitemap page URLs and actual imported records.","url":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}","applicationCategory":"BusinessApplication","operatingSystem":"Any browser with JavaScript","isAccessibleForFree":true,"dateModified":"2026-11-24","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Staleaway","url":"{{ site_url|escapejs }}/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url|escapejs }}/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"{{ site_url|escapejs }}{% url 'tools' %}"},{"@type":"ListItem","position":3,"name":"Content inventory comparison","item":"{{ site_url|escapejs }}{% url 'content_inventory_compare' %}"}]}</script>
 {% endblock %}

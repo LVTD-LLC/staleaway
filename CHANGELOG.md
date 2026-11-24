@@ -1,3 +1,7 @@
+# 2026-11-24 — Retired pages in reminder lists
+
+- Show inventory comparison readers how to exclude a retired page from reminders without deleting its saved record.
+
 # 2026-11-23 — Avoid overlapping review lists
 
 - Explain when an existing sitemap index already covers a child sitemap, before a returning user adds another review list.
