@@ -43,7 +43,7 @@ def test_inventory_tool_is_public_indexable_and_server_rendered(client, settings
     assert data[0]["@type"] == "WebApplication"
     assert data[0]["url"] == settings.SITE_URL + path
     assert data[0]["offers"] == {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-    assert data[0]["dateModified"] == "2026-11-18"
+    assert data[0]["dateModified"] == "2026-11-24"
     assert data[0]["isAccessibleForFree"] is True
     assert data[1]["@type"] == "BreadcrumbList"
     assert data[1]["itemListElement"][-1]["item"] == settings.SITE_URL + path
@@ -64,7 +64,7 @@ def test_inventory_discovery_and_precise_sitemap_dates(client):
     }
     assert sum(url.endswith(path) for url in entries) == 1
     for suffix in [path, "/tools", "/"]:
-        expected = "2026-11-18" if suffix == path else "2026-11-08"
+        expected = "2026-11-24" if suffix == path else "2026-11-08"
         assert next(value for url, value in entries.items() if url.endswith(suffix)) == expected
     assert next(value for url, value in entries.items() if url.endswith("/tools/content-review-planner")) == "2026-11-05"
 
