@@ -1,3 +1,7 @@
+# 2026-11-25 — Compare review scope before importing
+
+- Add a two-list worksheet example to the sitemap guide. Readers can extract public page URLs before signup without treating an untested import as empty or complete.
+
 # 2026-11-24 — Retired pages in reminder lists
 
 - Show inventory comparison readers how to exclude a retired page from reminders without deleting its saved record.
