@@ -18,6 +18,8 @@ Start with the public domain visitors actually use. Add `/sitemap.xml` to it: fo
 
 If you get a missing-page message, open `/robots.txt` on the same domain. Look for a line beginning `Sitemap:` and open the address after it. There may be more than one. This declaration is part of the [Sitemaps protocol](https://www.sitemaps.org/protocol.html); its absence does not prove that the site has no sitemap.
 
+**Several sitemap addresses in robots.txt?** Start with a page you are responsible for. Say you review French product pages: a French blog sitemap and a French catalog sitemap may both look right by name. Open each candidate; if it lists XML files, follow a child until you see page addresses. Look for your known product URL in a `loc` entry, then check nearby entries for the same storefront and type of content. Use the narrowest list that covers your assignment. If neither list contains your page, ask the site maintainer for the published catalog sitemap rather than importing the blog by mistake.
+
 Still nothing? Use the CMS or SEO plugin’s own settings. They are a better source than trying a long list of guessed filenames.
 
 ### Common sitemap locations by platform
