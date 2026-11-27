@@ -1,3 +1,7 @@
+# 2026-11-27 — Choose between storefront sitemaps
+
+- Show editors how to tell a storefront catalog from a same-language blog before importing pages for review.
+
 # 2026-11-25 — Compare review scope before importing
 
 - Add a two-list worksheet example to the sitemap guide. Readers can extract public page URLs before signup without treating an untested import as empty or complete.
